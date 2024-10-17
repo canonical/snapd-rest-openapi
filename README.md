@@ -2,6 +2,8 @@
 
 A work-in-progress reimplementation of the [snapd REST API documentation](https://snapcraft.io/docs/snapd-api) using a subset of the [OpenAPI 3](https://swagger.io/specification/) specification.
 
+[GitHub Pages preview with Swagger](https://degville.github.io/snapd-rest-openapi/).
+
 This work is currently considered highly experimental and is still in the _proof of concept_ phase. The snapd team hopes to use these experiments to improve how the API is documented, and the processes behind API documentation. 
 
 ## The current process
