@@ -1,0 +1,32 @@
+# components/schemas/Prompt.yaml
+
+type: object
+properties:
+  id:
+    type: string
+    description: Unique prompt identifier.
+  timestamp:
+    type: string
+    format: date-time
+    description: Timestamp at which the prompt was created or last modified.
+  snap:
+    type: string
+    description: The name of the snap whose action triggered the prompt.
+  interface:
+    type: string
+    description: The interface associated with the prompt.
+  constraints:
+    type: object
+    description: Details about the request.
+    properties:
+      path:
+        type: string
+        description: The path for which access is requested.
+      requested-permissions:
+        type: array
+        items:
+          type: string
+      available-permissions:
+        type: array
+        items:
+          type: string

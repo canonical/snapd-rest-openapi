@@ -1,0 +1,8 @@
+# components/rules/RuleActionRemoveById.yaml
+
+type: object
+required: [action]
+properties:
+  action:
+    type: string
+    enum: [remove]

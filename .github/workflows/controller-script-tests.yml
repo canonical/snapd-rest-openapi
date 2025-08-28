@@ -1,0 +1,131 @@
+# .github/workflows/controller-script-tests.yml
+
+name: 'Controller Script CI: Comprehensive Tests'
+
+on:
+  pull_request:
+    branches: [ main ]
+    # Only run if the script itself or the workflow changes
+    paths:
+      - 'openapi-controller.sh'
+      - '.github/workflows/controller-script-tests.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'openapi-controller.sh'
+      - '.github/workflows/controller-script-tests.yml'
+
+jobs:
+  run-all-tests:
+    runs-on: ubuntu-latest
+    
+    # Define the matrix of test cases
+    strategy:
+      fail-fast: false # Allows all tests to run even if one fails
+      matrix:
+        test_name:
+          - "Help Command"
+          - "Invalid Command"
+          - "CSV Generation"
+          - "Graph (Light Mode)"
+          - "Graph (Dark Mode)"
+          - "SDK Generation"
+          - "Prompt Generation"
+          - "Swagger Docs"
+          - "Sphinx (Default Dir)"
+          - "Sphinx (Custom Dir)"
+          - "Validation (Success)"
+          - "Validation (Failure)"
+          - "Mock Server Smoke Test"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Create Dummy Test Files
+        run: |
+          # Create a minimal valid OpenAPI spec
+          echo 'openapi: 3.0.0
+          info:
+            title: Test API
+            version: 1.0.0
+          paths:
+            /test:
+              get:
+                summary: A test endpoint
+                responses:
+                  "200":
+                    description: OK' > openapi.yaml
+
+          # Create dummy python scripts that create expected output files
+          mkdir -p scripts visuals
+          echo "with open('report.csv', 'w') as f: f.write('path,method\n')" > scripts/report_generator.py
+          echo "import sys; import os; os.makedirs('visuals', exist_ok=True); theme = sys.argv[2] if len(sys.argv) > 2 else ''; dot_file = f'visuals/graph{theme.replace(\"--\", \"-\")}.dot'; with open(dot_file, 'w') as f: f.write('digraph G {}')" > scripts/graph_generator.py
+
+      - name: Install System Dependencies for Script
+        run: sudo apt-get update && sudo apt-get install -y tree graphviz
+
+      - name: Make script executable
+        run: chmod +x openapi-controller.sh
+
+      - name: Install All Script Dependencies
+        id: install
+        run: ./openapi-controller.sh --install
+
+      - name: Run Test Case - ${{ matrix.test_name }}
+        run: |
+          # This block uses a case statement to run the specific command and assertion for each test
+          case "${{ matrix.test_name }}" in
+            "Help Command")
+              ./openapi-controller.sh --help | grep "Usage:"
+              ;;
+            "Invalid Command")
+              if ./openapi-controller.sh --this-is-not-a-real-flag; then exit 1; else echo "Correctly failed as expected"; fi
+              ;;
+            "CSV Generation")
+              ./openapi-controller.sh --csv
+              test -f report.csv
+              ;;
+            "Graph (Light Mode)")
+              ./openapi-controller.sh --graph
+              test -f visuals/graph.svg
+              ;;
+            "Graph (Dark Mode)")
+              ./openapi-controller.sh --graph --dark
+              test -f visuals/graph-dark.svg
+              ;;
+            "SDK Generation")
+              ./openapi-controller.sh --generate markdown
+              test -d generated-sdks/markdown && test -f generated-sdks/markdown/README.md
+              ;;
+            "Prompt Generation")
+              ./openapi-controller.sh --prompt
+              test -d prompts && [ "$(ls -A prompts)" ]
+              ;;
+            "Swagger Docs")
+              ./openapi-controller.sh --swagger
+              test -f docs/swagger/index.html
+              ;;
+            "Sphinx (Default Dir)")
+              ./openapi-controller.sh --sphinx
+              test -f docs/_static/api/index.html
+              ;;
+            "Sphinx (Custom Dir)")
+              ./openapi-controller.sh --sphinx custom-docs-dir
+              test -f custom-docs-dir/index.html
+              ;;
+            "Validation (Success)")
+              ./openapi-controller.sh --validate
+              ;;
+            "Validation (Failure)")
+              # Create an invalid spec file for this test only
+              echo 'openapi: 3.0.0\ninfo: BAD YAML' > openapi.yaml
+              if ./openapi-controller.sh --validate; then exit 1; else echo "Correctly failed as expected"; fi
+              ;;
+            "Mock Server Smoke Test")
+              echo "Starting mock server for 10s..."
+              # The timeout command will kill the process after 10s.
+              # A successful exit code for timeout is 124, which means our test passes.
+              timeout 10s ./openapi-controller.sh --mock-server || [ $? -eq 124 ]
+              ;;
+          esac

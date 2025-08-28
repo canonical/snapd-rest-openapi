@@ -1,0 +1,100 @@
+# paths/interfaces.yaml
+
+get:
+  tags:
+    - Interfaces
+    - Macaroon
+    - Sync
+  summary: Get available interfaces
+  description: |-
+    Retrieves the available interfaces and their associated metadata.
+  operationId: getInterfaces
+  security:
+    - macaroonAuth: []
+  parameters:
+    - name: select
+      in: query
+      description: |-
+        Set to all to retrieve all interfaces, or connected to only return connected interfaces (if this parameter is omitted then the call returns the legacy format that should be no longer used).
+      schema:
+        type: string
+        enum: [all, connected]
+    - name: slots
+      in: query
+      description: If set to true, slot information will be returned.
+      schema:
+        type: boolean
+    - name: plugs
+      in: query
+      description: If set to true, plug information will be returned.
+      schema:
+        type: boolean
+    - name: doc
+      in: query
+      description: If set to true, interface documentation will be returned.
+      schema:
+        type: boolean
+    - name: names
+      in: query
+      description: If given, then only interfaces that match the comma separated names are returned.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: An array of interface information.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                summary:
+                  type: string
+                plugs:
+                  type: array
+                  items:
+                    $ref: '../components/schemas/ConnectionEndpoint.yaml'
+                slots:
+                  type: array
+                  items:
+                    $ref: '../components/schemas/ConnectionEndpoint.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+
+post:
+  tags:
+    - Async
+    - Interfaces
+    - Macaroon
+  summary: Issue an action to the interface system
+  description: |-
+    Retrieves the available interfaces and their associated metadata.
+  operationId: postInterfaces
+  security:
+    - macaroonAuth: []
+  parameters:
+    - name: action
+      in: query
+      description: Action to perform.
+      schema:
+        type: string
+        enum: [connect, disconnect]
+    - name: slots
+      in: query
+      description: Array of slots to connect to. Each slot is referred to by the snap it is part of and the name of the slot
+      schema:
+        type: string
+    - name: plugs
+      in: query
+      description: Array of plugs to connect. Each plug is referred to by the snap it is part of and the name of the plug
+      schema:
+        type: string
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+

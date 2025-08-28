@@ -1,0 +1,18 @@
+# components/schemas/AsyncOperation.yaml
+
+type: object
+description: The response for an accepted asynchronous operation.
+properties:
+  type:
+    type: string
+    example: 'async'
+  status-code:
+    type: integer
+    example: 202
+  status:
+    type: string
+    example: 'Accepted'
+  change:
+    type: string
+    description: The ID of the background change that was initiated.
+    example: '123'

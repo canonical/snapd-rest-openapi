@@ -1,0 +1,6 @@
+type: http
+scheme: bearer
+description: |
+  Authentication for root-level access.
+  The client must send a bearer token obtained through a privileged process.
+  This token grants administrative (root) permissions for the operation.

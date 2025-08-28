@@ -1,0 +1,25 @@
+# components/rules/RuleActionAdd.yaml
+
+type: object
+required: [action, rule]
+properties:
+  action:
+    type: string
+    enum: [add]
+  rule:
+    type: object
+    properties:
+      snap: { type: string }
+      interface: { type: string }
+      constraints:
+        type: object
+        properties:
+          path-pattern: { type: string }
+          permissions:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                outcome: { type: string, enum: [allow, deny] }
+                lifespan: { type: string, enum: [timespan, session, forever] }
+                duration: { type: string }

@@ -1,0 +1,9 @@
+type: apiKey
+in: header
+name: Authorization
+description: |
+  Authentication for the snapd API is handled via macaroons. 
+  The client must provide both a root macaroon and a discharge macaroon obtained from Ubuntu SSO.
+      
+  The value of the header must be formatted as follows:
+  `Macaroon root="<serialized-root-macaroon>", discharge="<serialized-discharge-macaroon>"`

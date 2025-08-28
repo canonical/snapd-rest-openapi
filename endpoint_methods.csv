@@ -1,0 +1,40 @@
+Endpoint,Methods
+/aliases,"GET, POST"
+/apps,"GET, POST"
+/assertions,"GET, POST"
+/assertions/{assertionType},GET
+/changes,GET
+/changes/{id},"GET, POST"
+/cohorts,POST
+/confdb/{account}/{confdb-schema}/{view},"GET, PUT"
+/connections,GET
+/find,GET
+/icons/{name}/icon,GET
+/interfaces,"GET, POST"
+/interfaces/requests/prompts,GET
+/interfaces/requests/prompts/{id},"GET, POST"
+/interfaces/requests/rules,"GET, POST"
+/interfaces/requests/rules/{id},"GET, POST"
+/login,POST
+/logout,POST
+/logs,GET
+/model,"GET, POST"
+/model/serial,"GET, POST"
+/notices,GET
+/quotas,"GET, POST"
+/quotas/{group-name},GET
+/sections,GET
+/snapctl,POST
+/snaps,"GET, POST"
+/snaps/{name},"GET, POST"
+/snaps/{name}/conf,"GET, PUT"
+/snapshots,"GET, POST"
+/snapshots/{set-id}/export,GET
+/system-info,GET
+/system-recovery-keys,"GET, POST"
+/systems,"GET, POST"
+/systems/{label},POST
+/users,"GET, POST"
+/validation-sets,GET
+/validation-sets/{account-id}/{name},"GET, POST"
+/warnings,"GET, POST"

@@ -1,0 +1,85 @@
+# paths/aliases.yaml
+
+get:
+  tags:
+    - Aliases
+    - Open
+    - Sync
+  summary: Get available app aliases
+  description: |-
+    Retrieves the available application aliases on the system.
+  operationId: getAliases
+  security: []
+  responses:
+    '200':
+      description: A dictionary containing the aliases for each snap.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: An object where keys are snap names.
+            additionalProperties:
+              type: object
+              description: An object where keys are the alias names.
+              additionalProperties:
+                type: object
+                properties:
+                  command:
+                    type: string
+                    description: The full command this alias runs.
+                    example: 'lxd.lxc'
+                  status:
+                    type: string
+                    description: The alias status.
+                    enum: [auto, manual, disabled]
+                  auto:
+                    type: string
+                    description: The app the alias is for as assigned by an assertion.
+                  manual:
+                    type: string
+                    description: The app the alias is for if status is manual.
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+
+post:
+  tags:
+    - Aliases
+    - Async
+    - Macaroon
+  summary: Modify aliases
+  description: |-
+    Modify aliases by performing an 'alias', 'unalias', or 'prefer' action.
+  operationId: modifyAliases
+  security:
+    - macaroonAuth: []
+  requestBody:
+    description: The action to perform on an alias.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - alias
+          properties:
+            action:
+              type: string
+              description: The action to perform on the alias.
+              enum: [alias, unalias, prefer]
+            snap:
+              type: string
+              description: The snap name to modify (optional for unalias).
+              example: 'moon-buggy'
+            app:
+              type: string
+              description: The app to modify (optional).
+            alias:
+              type: string
+              description: The alias to modify.
+              example: 'foo'
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

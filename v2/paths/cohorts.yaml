@@ -1,0 +1,41 @@
+# paths/cohorts.yaml
+
+post:
+  tags:
+    - Macaroon
+    - Snaps
+    - Sync
+  summary: Create cohort keys
+  description: |-
+    Creates a set of cohort keys for a given set of snaps.
+  operationId: createCohorts
+  security:
+    - macaroonAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - snaps
+          properties:
+            action:
+              type: string
+              enum: [create]
+            snaps:
+              type: array
+              description: An array of snap names to be included in the cohort.
+              items:
+                type: string
+  responses:
+    '200':
+      description: The cohort keys were created successfully.
+      content:
+        application/json:
+          schema:
+            type: object # The actual response is not documented, assuming a generic object
+            additionalProperties: true
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

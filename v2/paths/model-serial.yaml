@@ -1,0 +1,42 @@
+# paths/model-serial.yaml
+
+get:
+  tags:
+    - Open
+    - Sync
+    - System
+  summary: Get the current serial assertion
+  description: |-
+    Retrieves the current serial assertion for the system.
+  operationId: getSerialAssertion
+  security: []
+  responses:
+    '200':
+      description: The raw serial assertion text.
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: |
+              type: serial
+              authority-id: generic
+              ...
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
+
+post:
+  tags:
+    - Async
+    - Macaroon
+    - System
+  summary: Replace the serial assertion
+  description: |-
+    Replaces the active serial assertion for the system.
+  operationId: setSerialAssertion
+  security:
+    - macaroonAuth: []
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
