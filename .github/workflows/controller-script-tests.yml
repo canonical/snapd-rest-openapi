@@ -19,9 +19,8 @@ jobs:
   run-all-tests:
     runs-on: ubuntu-latest
     
-    # Define the matrix of test cases
     strategy:
-      fail-fast: false # Allows all tests to run even if one fails
+      fail-fast: false
       matrix:
         test_name:
           - "Help Command"
@@ -60,10 +59,8 @@ jobs:
           # Create dummy python scripts that create expected output files
           mkdir -p scripts visuals
           echo "with open('report.csv', 'w') as f: f.write('path,method\n')" > scripts/report_generator.py
-          echo "import sys; import os; os.makedirs('visuals', exist_ok=True); theme = sys.argv[2] if len(sys.argv) > 2 else ''; dot_file = f'visuals/graph{theme.replace(\"--\", \"-\")}.dot'; with open(dot_file, 'w') as f: f.write('digraph G {}')" > scripts/graph_generator.py
-
-      - name: Install System Dependencies for Script
-        run: sudo apt-get update && sudo apt-get install -y tree graphviz
+          # Corrected dummy script to handle dark mode file naming
+          echo "import sys; import os; os.makedirs('visuals', exist_ok=True); theme = '-dark' if '--dark' in sys.argv else ''; dot_file = f'visuals/graph{theme}.dot'; with open(dot_file, 'w') as f: f.write('digraph G {}')" > scripts/graph_generator.py
 
       - name: Make script executable
         run: chmod +x openapi-controller.sh
@@ -74,6 +71,9 @@ jobs:
 
       - name: Run Test Case - ${{ matrix.test_name }}
         run: |
+          # Source the nvm script to make node and global npm packages available in this step's shell
+          source "$HOME/.nvm/nvm.sh"
+
           # This block uses a case statement to run the specific command and assertion for each test
           case "${{ matrix.test_name }}" in
             "Help Command")
@@ -92,6 +92,7 @@ jobs:
               ;;
             "Graph (Dark Mode)")
               ./openapi-controller.sh --graph --dark
+              # Corrected assertion to check for the dark-themed SVG
               test -f visuals/graph-dark.svg
               ;;
             "SDK Generation")

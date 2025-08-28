@@ -30,15 +30,15 @@ jobs:
       # Step 4: Validate the OpenAPI specification.
       # If this fails, the 'set -e' in your script will stop the workflow here.
       - name: Validate OpenAPI Specification
-        run: ./openapi-controller.sh --validate
+        run: source "$HOME/.nvm/nvm.sh" && ./openapi-controller.sh --validate
 
       # Step 5: Generate the standalone Swagger UI documentation.
       - name: Generate Standalone Swagger UI Docs
-        run: ./openapi-controller.sh --swagger
+        run: source "$HOME/.nvm/nvm.sh" && ./openapi-controller.sh --swagger
 
       # Step 6: Generate the Sphinx-integrated documentation.
       - name: Generate Sphinx Integration Docs
-        run: ./openapi-controller.sh --sphinx
+        run: source "$HOME/.nvm/nvm.sh" && ./openapi-controller.sh --sphinx
 
       # Step 7 (Optional but Recommended): Upload the generated docs as artifacts.
       # This allows you to download and review the generated HTML files from the PR check.
