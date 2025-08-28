@@ -23,33 +23,40 @@ jobs:
         run: chmod +x openapi-controller.sh
 
       # Step 3: Install all dependencies (Python, Node, Redocly, etc.)
-      # This runs the --install command from your script to set up the environment.
       - name: Install Dependencies
         run: ./openapi-controller.sh --install
 
-      # Step 4: Validate the OpenAPI specification.
-      # If this fails, the 'set -e' in your script will stop the workflow here.
+      # Step 4: Export the Node.js binary path for subsequent steps
+      # This is the key fix that makes tools like 'redocly' available everywhere.
+      - name: Export Node.js paths
+        run: |
+          source "$HOME/.nvm/nvm.sh"
+          NODE_PREFIX=$(npm prefix -g)
+          echo "${NODE_PREFIX}/bin" >> $GITHUB_PATH
+
+      # Step 5: Validate the OpenAPI specification.
+      # The 'source' command is no longer needed here.
       - name: Validate OpenAPI Specification
-        run: source "$HOME/.nvm/nvm.sh" && ./openapi-controller.sh --validate
+        run: ./openapi-controller.sh --validate
 
-      # Step 5: Generate the standalone Swagger UI documentation.
+      # Step 6: Generate the standalone Swagger UI documentation.
       - name: Generate Standalone Swagger UI Docs
-        run: source "$HOME/.nvm/nvm.sh" && ./openapi-controller.sh --swagger
+        run: ./openapi-controller.sh --swagger
 
-      # Step 6: Generate the Sphinx-integrated documentation.
+      # Step 7: Generate the Sphinx-integrated documentation.
       - name: Generate Sphinx Integration Docs
-        run: source "$HOME/.nvm/nvm.sh" && ./openapi-controller.sh --sphinx
+        run: ./openapi-controller.sh --sphinx
 
-      # Step 7 (Optional but Recommended): Upload the generated docs as artifacts.
-      # This allows you to download and review the generated HTML files from the PR check.
+      # Step 8: Upload the generated docs as artifacts.
+      # I've also corrected the path for the swagger-ui-docs artifact.
       - name: Upload Swagger UI Artifact
         uses: actions/upload-artifact@v4
         with:
           name: swagger-ui-docs
-          path: index.html # Path to the standalone swagger file
+          path: docs/swagger/
 
       - name: Upload Sphinx Docs Artifact
         uses: actions/upload-artifact@v4
         with:
           name: sphinx-docs
-          path: docs/_static/api/ # Path to the sphinx docs folder
+          path: docs/_static/api/
