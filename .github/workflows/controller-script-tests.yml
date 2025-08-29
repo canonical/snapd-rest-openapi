@@ -74,15 +74,15 @@ jobs:
               ;;
             "CSV Generation")
               ./openapi-controller.sh --csv
-              test -f report.csv
+              test -f endpoint_methods.csv
               ;;
             "Graph (Light Mode)")
               ./openapi-controller.sh --graph
-              test -f visuals/*.svg
+              test -f visuals/Validation_Sets_dependencies.svg
               ;;
             "Graph (Dark Mode)")
               ./openapi-controller.sh --graph --dark
-              test -f visuals/*.svg
+              test -f visuals/Validation_Sets_dependencies.svg
               ;;
             "SDK Generation")
               ./openapi-controller.sh --generate markdown
