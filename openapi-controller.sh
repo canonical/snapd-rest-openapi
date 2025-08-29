@@ -65,7 +65,6 @@ show_help() {
 
 # --- Core Functions ---
 
-# Function to install dependencies
 install_dependencies() {
     log "INFO" "Starting dependency installation..."
 
@@ -87,25 +86,34 @@ install_dependencies() {
     fi
 
     # --- Node.js Installation (via nvm) ---
-    log "INFO" "Setting up Node.js environment using nvm..."
-    export NVM_DIR="$HOME/.nvm"
-    
-    if [ ! -s "$NVM_DIR/nvm.sh" ]; then
-        log "INFO" "nvm not found. Installing nvm..."
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    # This block now checks if it's in a CI environment.
+    # If the '$CI' variable is not set, it runs the nvm setup for local users.
+    if [ -z "$CI" ]; then
+        log "INFO" "Local environment detected. Setting up Node.js via nvm..."
+        export NVM_DIR="$HOME/.nvm"
+        
+        if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+            log "INFO" "nvm not found. Installing nvm..."
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+            # Source nvm immediately after install to make it available
+            . "$NVM_DIR/nvm.sh"
+        fi
+        
+        . "$NVM_DIR/nvm.sh"
+        
+        log "INFO" "Installing and using Node.js v$NODE_VERSION..."
+        nvm install "$NODE_VERSION"
+        nvm use "$NODE_VERSION"
+        
+        log "SUCCESS" "Node.js setup complete. Using Node version: $(node -v)"
+    else
+        log "SUCCESS" "CI environment detected. Skipping nvm setup and using Node.js from the environment."
     fi
-    
-    . "$NVM_DIR/nvm.sh"
-    
-    log "INFO" "Installing and using Node.js v$NODE_VERSION..."
-    nvm install "$NODE_VERSION" > /dev/null
-    nvm use "$NODE_VERSION" > /dev/null
-    
-    log "SUCCESS" "Node.js setup complete. Using Node version: $(node -v)"
 
     # --- Install Node.js-based CLI tools ---
+    # MODIFIED: Removed the "--silent" flag to make any errors visible.
     log "INFO" "Installing global CLI tools (Redocly, Swagger UI, OpenAPI Generator, Prism)..."
-    npm install -g --silent @redocly/cli swagger-ui-cli @openapitools/openapi-generator-cli @stoplight/prism-cli
+    npm install -g @redocly/cli swagger-ui-cli @openapitools/openapi-generator-cli @stoplight/prism-cli
 
     # --- Python Virtual Environment ---
     if [ ! -f "$VENV_DIR/bin/pip" ]; then
