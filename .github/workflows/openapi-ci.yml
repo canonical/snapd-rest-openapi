@@ -8,8 +8,6 @@ on:
     branches: [ main ] # Adjust if your main branch has a different name (e.g., 'master')
 
 jobs:
-  # A single job that runs all steps in sequence.
-  # If any step fails, the entire job fails.
   validate-and-build:
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
@@ -18,24 +16,28 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # Step 2: Make the controller script executable
+      # Step 2: Set up Node.js environment
+      # This is the key fix. This action reliably installs Node.js and adds it,
+      # along with the global npm bin directory, to the PATH for all subsequent steps.
+      # It also enables caching for faster installs on future runs.
+      - name: Set up Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      # Step 3: Make the controller script executable
       - name: Make script executable
         run: chmod +x openapi-controller.sh
 
-      # Step 3: Install all dependencies (Python, Node, Redocly, etc.)
+      # Step 4: Install all dependencies
+      # The script will now use the Node.js environment set up by the previous step.
       - name: Install Dependencies
         run: ./openapi-controller.sh --install
 
-      # Step 4: Export the Node.js binary path for subsequent steps
-      # This is the key fix that makes tools like 'redocly' available everywhere.
-      - name: Export Node.js paths
-        run: |
-          source "$HOME/.nvm/nvm.sh"
-          NODE_PREFIX=$(npm prefix -g)
-          echo "${NODE_PREFIX}/bin" >> $GITHUB_PATH
+      # The manual "Export Node.js paths" step is no longer needed.
 
       # Step 5: Validate the OpenAPI specification.
-      # The 'source' command is no longer needed here.
       - name: Validate OpenAPI Specification
         run: ./openapi-controller.sh --validate
 
@@ -48,7 +50,6 @@ jobs:
         run: ./openapi-controller.sh --sphinx
 
       # Step 8: Upload the generated docs as artifacts.
-      # I've also corrected the path for the swagger-ui-docs artifact.
       - name: Upload Swagger UI Artifact
         uses: actions/upload-artifact@v4
         with:
