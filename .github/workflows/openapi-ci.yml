@@ -2,14 +2,13 @@
 
 name: 'OpenAPI CI: Validate & Generate Docs'
 
-# This workflow runs on every pull request that targets the 'main' branch.
 on:
   pull_request:
-    branches: [ main ] # Adjust if your main branch has a different name (e.g., 'master')
+    branches: [ main ]
 
 jobs:
   validate-and-build:
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest
 
     steps:
       # Step 1: Check out the repository code
@@ -17,25 +16,19 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Set up Node.js environment
-      # This is the key fix. This action reliably installs Node.js and adds it,
-      # along with the global npm bin directory, to the PATH for all subsequent steps.
-      # It also enables caching for faster installs on future runs.
       - name: Set up Node.js v22
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
+          # REMOVED: The 'cache: npm' line was removed to fix the error.
 
       # Step 3: Make the controller script executable
       - name: Make script executable
         run: chmod +x openapi-controller.sh
 
       # Step 4: Install all dependencies
-      # The script will now use the Node.js environment set up by the previous step.
       - name: Install Dependencies
         run: ./openapi-controller.sh --install
-
-      # The manual "Export Node.js paths" step is no longer needed.
 
       # Step 5: Validate the OpenAPI specification.
       - name: Validate OpenAPI Specification
