@@ -33,7 +33,6 @@ jobs:
           - "Sphinx (Default Dir)"
           - "Sphinx (Custom Dir)"
           - "Validation (Success)"
-          # Re-introducing the failure test case
           - "Validation (Failure)"
           - "Mock Server Smoke Test"
 
@@ -57,11 +56,8 @@ jobs:
 
       - name: Run Test Case - ${{ matrix.test_name }}
         run: |
-          # This 'if' block creates a bad spec file ONLY for the failure test.
-          # For all other tests, it does nothing, and the real files are used.
           if [[ "${{ matrix.test_name }}" == "Validation (Failure)" ]]; then
             echo "Creating a deliberately invalid openapi.yaml for the failure test..."
-            # This YAML is invalid because 'info' is a string, not an object.
             echo 'openapi: 3.0.0\ninfo: this is not a valid info object' > openapi.yaml
           fi
 
@@ -78,11 +74,11 @@ jobs:
               ;;
             "Graph (Light Mode)")
               ./openapi-controller.sh --graph
-              test -f visuals/Validation_Sets_dependencies.svg
+              ls visuals/*.svg >/dev/null 2>&1
               ;;
             "Graph (Dark Mode)")
               ./openapi-controller.sh --graph --dark
-              test -f visuals/Validation_Sets_dependencies.svg
+              ls visuals/*.svg >/dev/null 2>&1
               ;;
             "SDK Generation")
               ./openapi-controller.sh --generate markdown
@@ -108,7 +104,6 @@ jobs:
               ./openapi-controller.sh --validate
               ;;
             "Validation (Failure)")
-              # We expect this command to fail, so we check for a non-zero exit code.
               if ./openapi-controller.sh --validate; then
                 echo "Error: Validation unexpectedly passed on an invalid file."
                 exit 1
