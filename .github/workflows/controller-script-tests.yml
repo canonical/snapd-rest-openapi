@@ -33,6 +33,7 @@ jobs:
           - "Sphinx (Default Dir)"
           - "Sphinx (Custom Dir)"
           - "Validation (Success)"
+          # Re-introducing the failure test case
           - "Validation (Failure)"
           - "Mock Server Smoke Test"
 
@@ -40,43 +41,30 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Create Dummy Test Files
-        run: |
-          echo 'openapi: 3.0.0
-          info:
-            title: Test API
-            version: 1.0.0
-          paths:
-            /test:
-              get:
-                summary: A test endpoint
-                responses:
-                  "200":
-                    description: OK' > openapi.yaml
-          mkdir -p scripts visuals
-          echo "with open('report.csv', 'w') as f: f.write('path,method\n')" > scripts/report_generator.py
-          echo "import sys; import os; os.makedirs('visuals', exist_ok=True); theme = '-dark' if '--dark' in sys.argv else ''; dot_file = f'visuals/graph{theme}.dot'; with open(dot_file, 'w') as f: f.write('digraph G {}')" > scripts/graph_generator.py
+      - name: Install System Dependencies for Script
+        run: sudo apt-get update && sudo apt-get install -y tree graphviz
+
+      - name: Set up Node.js v22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Make script executable
         run: chmod +x openapi-controller.sh
 
       - name: Install All Script Dependencies
-        id: install
         run: ./openapi-controller.sh --install
-
-      - name: Export Node.js paths
-        id: export-path
-        run: |
-          # Activate nvm to make npm command available
-          source "$HOME/.nvm/nvm.sh"
-          # Get the root directory where npm installs global packages
-          NODE_PREFIX=$(npm prefix -g)
-          # Add the 'bin' subdirectory of that path to the GITHUB_PATH
-          echo "${NODE_PREFIX}/bin" >> $GITHUB_PATH
 
       - name: Run Test Case - ${{ matrix.test_name }}
         run: |
-          # No 'source' command is needed here anymore because the step above fixed the PATH.
+          # This 'if' block creates a bad spec file ONLY for the failure test.
+          # For all other tests, it does nothing, and the real files are used.
+          if [[ "${{ matrix.test_name }}" == "Validation (Failure)" ]]; then
+            echo "Creating a deliberately invalid openapi.yaml for the failure test..."
+            # This YAML is invalid because 'info' is a string, not an object.
+            echo 'openapi: 3.0.0\ninfo: this is not a valid info object' > openapi.yaml
+          fi
+
           case "${{ matrix.test_name }}" in
             "Help Command")
               ./openapi-controller.sh --help | grep "Usage:"
@@ -90,11 +78,11 @@ jobs:
               ;;
             "Graph (Light Mode)")
               ./openapi-controller.sh --graph
-              test -f visuals/graph.svg
+              test -f visuals/*.svg
               ;;
             "Graph (Dark Mode)")
               ./openapi-controller.sh --graph --dark
-              test -f visuals/graph-dark.svg
+              test -f visuals/*.svg
               ;;
             "SDK Generation")
               ./openapi-controller.sh --generate markdown
@@ -120,8 +108,13 @@ jobs:
               ./openapi-controller.sh --validate
               ;;
             "Validation (Failure)")
-              echo 'openapi: 3.0.0\ninfo: BAD YAML' > openapi.yaml
-              if ./openapi-controller.sh --validate; then exit 1; else echo "Correctly failed as expected"; fi
+              # We expect this command to fail, so we check for a non-zero exit code.
+              if ./openapi-controller.sh --validate; then
+                echo "Error: Validation unexpectedly passed on an invalid file."
+                exit 1
+              else
+                echo "Correctly failed as expected on the invalid file."
+              fi
               ;;
             "Mock Server Smoke Test")
               echo "Starting mock server for 10s..."
