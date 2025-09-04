@@ -1,1 +1,67 @@
 # v2/paths/find.yaml
+
+get:
+  tags:
+    - Macaroon
+    - Open
+    - Store
+    - Sync
+  summary: Find snaps in the store
+  description: |-
+    Finds snaps or components in the store that match the search criteria and are compatible with the host system.
+  operationId: findSnaps
+  security:
+    - macaroonAuth: []
+  parameters:
+    - name: q
+      in: query
+      description: |-
+        A broad search query. Spaces are treated as AND operators.
+        This is a weighted broad search, meant as the main interface to searching for packages.
+      schema:
+        type: string
+    - name: name
+      in: query
+      description: |-
+        An exact name to search for. Supports '*' as a wildcard at the end.
+        Can’t be used together with q . This is meant for things like autocompletion. 
+      schema:
+        type: string
+    - name: scope
+      in: query
+      description: If set to 'wide', broadens the search to include non-stable packages.
+      schema:
+        type: string
+        enum: [wide]
+    - name: section
+      in: query
+      description: |-
+        The name of a store section to search within.
+        Use GET /v2/sections to get the names of the sections.
+      schema:
+        type: string
+    - name: select
+      in: query
+      description: |-
+        Alter the collection searched.
+        refresh - search refreshable snaps. Can’t be used with q, nor name
+        private - search private snaps (by default, find only searches public snaps). Can’t be used with name, only q (for now at least).
+      schema:
+        type: string
+        enum: [refresh, private]
+    - name: common-id
+      in: query
+      description: Search for packages using a common ID (e.g., org.videolan.vlc).
+      schema:
+        type: string
+  responses:
+    '200':
+      description: A list of snaps from the store that match the search criteria.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Snap.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

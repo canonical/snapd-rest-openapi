@@ -1,1 +1,37 @@
 # v2/paths/changes.yaml
+
+get:
+  tags:
+    - Changes
+    - Macaroon
+    - Sync
+  summary: Get all changes
+  description: |-
+    Retrieves a list of all changes in progress or completed on the system.
+  operationId: getChanges
+  security:
+    - macaroonAuth: []
+  parameters:
+    - name: select
+      in: query
+      description: Limit which changes are returned.
+      schema:
+        type: string
+        enum: [all, in-progress, ready]
+        default: in-progress
+    - name: for
+      in: query
+      description: Optional snap name to limit results to.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: An array containing all the changes that have occurred.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Change.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

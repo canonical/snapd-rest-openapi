@@ -1,1 +1,21 @@
 # v2/paths/logout.yaml
+
+post:
+  tags:
+    - Macaroon
+    - Sync
+  summary: Log user out of the store
+  description: |-
+    Logs the currently authenticated user out of the store.
+  operationId: logoutUser
+  security:
+    - macaroonAuth: []
+  responses:
+    '200':
+      description: Successfully logged out.
+    '401':
+      description: No user was authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/StandardError.yaml'

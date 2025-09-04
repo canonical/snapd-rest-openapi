@@ -1,1 +1,68 @@
 # v2/paths/notices.yaml
+
+get:
+  tags:
+    - Open
+    - Sync
+    - System
+  summary: Retrieve system notices
+  description: |-
+    Retrieves notices for the current user and any public notices, with optional filtering.
+  operationId: getNotices
+  security: []
+  parameters:
+    - name: types
+      in: query
+      description: |-
+        If types is specified, only return notices with types matching the given types.
+        The types parameter can include multiple types, notices matching any of the types are returned.
+      schema:
+        type: string
+        enum: [change-update, warning, refresh-inhibit]
+    - name: keys
+      in: query
+      description: If specified, only return notices with one of the given keys.
+      schema:
+        type: string
+    - name: after
+      in: query
+      description: If specified, only return notices with a LastRepeated field greater than the specified time, which should be in RFC3339 format.
+      schema:
+        type: string
+        format: RFC3339
+    - name: timeout
+      in: query
+      description: |-
+        If there are notices matching the filter which have already been recorded, these notices are returned immediately.
+        Otherwise, if timeout is specified, wait up to the given duration for any new notices matching the filter to be recorded.
+        This allows the user to use long-polling to be notified immediately when a new notice is recorded.
+      schema:
+        type: string
+    - name: user-id
+      in: query
+      description: |-
+        Admin only.
+        Instead of returning notices associated with the user who initiated the API request, return notices associated with the given UID.
+        Public notices are still returned, as before.
+      schema:
+        type: string
+    - name: users
+      in: query
+      description: |-
+        Admin only.
+        Value must be all. Return notices associated with all users, instead of just the user which initiated the API request.
+        Cannot be used with the user-id parameter.
+      schema:
+        type: string
+
+  responses:
+    '200':
+      description: A list of notices matching the filter criteria.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/Notice.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
