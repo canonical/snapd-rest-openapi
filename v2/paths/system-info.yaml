@@ -1,1 +1,21 @@
 # v2/paths/system-info.yaml
+
+get:
+  tags:
+    - Open
+    - Sync
+    - System
+  summary: Get system information
+  description: |-
+    Retrieves a dictionary of server configuration and environment information.
+  operationId: getSystemInfo
+  security: []
+  responses:
+    '200':
+      description: A dictionary with the operating system's key values.
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/SystemInfo.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

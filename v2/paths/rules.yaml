@@ -1,1 +1,72 @@
 # v2/paths/rules.yaml
+
+get:
+  tags:
+    - Interfaces
+    - Open
+    - Rules
+    - Sync
+  summary: Retrieve all rules
+  description: Retrieves a list of all interface access rules, with optional filtering.
+  operationId: getRules
+  security: []
+  parameters:
+    - name: snap
+      in: query
+      required: false
+      description: Only retrieve rules which apply to the given snap.
+      schema:
+        type: string
+    - name: interface
+      in: query
+      required: false
+      description: Only retrieve rules which apply to the given interface.
+      schema:
+        type: string
+    - $ref: '../components/parameters/UserId.yaml'
+  responses:
+    '200':
+      description: An array of rule objects.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/rules/Rule.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
+
+post:
+  tags:
+    - Interfaces
+    - Macaroon
+    - Rules
+    - Sync
+  summary: Create or remove rules
+  description: Create a new access rule or remove a set of existing rules based on a selector.
+  operationId: manageRules
+  security:
+    - macaroonAuth: []
+  parameters:
+    - $ref: '../components/parameters/UserId.yaml'
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          oneOf:
+            - $ref: '../components/rules/RuleActionAdd.yaml'
+            - $ref: '../components/rules/RuleActionRemove.yaml'
+  responses:
+    '200':
+      description: The created rule (for 'add' action) or an array of removed rules (for 'remove' action).
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: '../components/rules/Rule.yaml'
+              - type: array
+                items:
+                  $ref: '../components/rules/Rule.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
