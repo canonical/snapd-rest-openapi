@@ -1,0 +1,40 @@
+# paths/connections.yaml
+
+get:
+  tags:
+    - Interfaces
+    - Open
+    - Sync
+  summary: Get all interface connections
+  description: |-
+    Retrieves the connection status of all plugs and slots on the system.
+  operationId: getConnections
+  security: []
+  parameters:
+    - name: snap
+      in: query
+      description: Limit results to a given snap name.
+      schema:
+        type: string
+    - name: select
+      in: query
+      description: |-
+        When set to 'all', unconnected slots and plugs are included. When unset or empty, the 
+        results include only those plugs and slots that are connected.
+      schema:
+        type: string
+        enum: [all]
+    - name: interface
+      in: query
+      description: Limit results to a specific interface name.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: The connection status of plugs and slots.
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/ConnectionStatus.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

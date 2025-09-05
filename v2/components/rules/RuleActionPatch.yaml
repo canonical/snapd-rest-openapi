@@ -1,0 +1,24 @@
+# components/rules/RuleActionPatch.yaml
+
+type: object
+required: [action, rule]
+properties:
+  action:
+    type: string
+    enum: [patch]
+  rule:
+    type: object
+    properties:
+      constraints:
+        type: object
+        properties:
+          path-pattern: { type: string }
+          permissions:
+            type: object
+            additionalProperties:
+              nullable: true
+              type: object
+              properties:
+                outcome: { type: string, enum: [allow, deny] }
+                lifespan: { type: string, enum: [timespan, session, forever] }
+                duration: { type: string }

@@ -1,0 +1,41 @@
+# components/schemas/PromptReply.yaml
+
+type: object
+required: [action, lifespan]
+properties:
+  action:
+    type: string
+    enum: [allow, deny]
+  lifespan:
+    type: string
+    description: |-
+      The duration for which the decision applies.
+      single: the decision only applies to the prompt with the given ID
+      timespan: the decision creates a rule which applies for the duration specified by the duration field or until it is deleted
+      session: the decision creates a rule which applies until the user logs out (specifically, until the systemd user session ends)
+      forever: the decision creates a rule which applies until it is deleted
+    enum: [single, timespan, session, forever]
+  duration:
+    type: string
+    description: |-
+      The duration for which the decision applies.
+      Required if lifespan is timespan, otherwise must be omitted.
+    format: Go duration
+  constraints:
+    type: object
+    description: |-
+      Details about the applicability of the decision to current and future requests (interface-specific).
+    properties:
+      path-pattern:
+        type: string
+        description: |-
+          Path glob matching filepaths for which the reply applies, which must match (in the globstar sense)
+          the originally-requested path, must begin with /, and may include bash-like constructions such as *, /**/, 
+          and {a,b}, but must not include character classes of the form [abc] or [^abc].
+      permissions:
+        type: array
+        description: |-
+          Array of permissions for which the decision applies, which must include all originally-requested permissions, 
+          and must be a subset of the available permissions from the prompt.
+        items:
+          type: string

@@ -1,0 +1,17 @@
+# components/schemas/ConnectionEndpoint.yaml
+
+type: object
+description: Represents either a plug or a slot in a connection.
+properties:
+  snap:
+    type: string
+    description: The name of the snap providing the plug or slot (optional).
+    example: 'core'
+  plug:
+    type: string
+    description: The name of the plug.
+    example: 'network-control'
+  slot:
+    type: string
+    description: The name of the slot.
+    example: 'network-control'

@@ -1,0 +1,92 @@
+# paths/apps.yaml
+
+get:
+  tags:
+    - Apps
+    - Open
+    - Sync
+  summary: List available apps
+  description: |-
+    Lists applications available from installed snaps. Can be filtered by services or snap names.
+  operationId: listApps
+  security: []
+  parameters:
+    - name: select
+      in: query
+      description: Limit which apps are returned.
+      schema:
+        type: string
+        enum: [service]
+        example: service
+    - name: names
+      in: query
+      description: Comma-separated list of snap names to get apps for.
+      schema:
+        type: string
+        example: "spotify,lxd"
+  responses:
+    '200':
+      description: A list of applications available on the system.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/App.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+
+post:
+  tags:
+    - Apps
+    - Async
+    - Macaroon
+  summary: Modify attributes of applications
+  description: |-
+    Perform actions like start, stop, or restart on snap applications, typically services.
+  operationId: modifyApps
+  security:
+    - macaroonAuth: []
+  requestBody:
+    description: The action to perform on one or more applications.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - names
+          properties:
+            action:
+              type: string
+              description: |-
+                The action to perform. 
+                As these actions only work for services, the names provided must resolve to at least one service.
+              enum: [stop, start, restart]
+            names:
+              type: array
+              description: A list of names of snaps (e.g. "lxd") or specific apps (e.g. "lxd.daemon") to operate on.
+              items:
+                type: string
+              example: ['lxd', 'spotify']
+            enable:
+              type: boolean
+              description: When action is 'start', arranges to have the service start at system boot.
+              default: false
+            disable:
+              type: boolean
+              description: When action is 'stop', arranges to no longer start the service at system boot.
+              default: false
+            reload:
+              type: boolean
+              description: When action is 'restart', tries to reload the service if it supports it; otherwise, it performs a full restart.
+              default: false
+        example:
+          action: "stop"
+          names: ["lxd"]
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
