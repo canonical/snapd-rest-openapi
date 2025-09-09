@@ -57,7 +57,7 @@ These are typically smaller changes that are a great way to get familiar with th
 ## Making Changes: The Workflow
 
 Contributions are submitted through a **pull request** (PR) created from a fork of this repository.
-Before making a PR, ensure that the specification is valid using the controller script.
+Before making a PR, ensure that the specification is valid using the Makefile.
 
 ### **1. Setup Your Environment**
 
