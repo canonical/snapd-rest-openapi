@@ -1,0 +1,24 @@
+name: Redocly
+on:
+    push:
+    pull_request:
+jobs:
+    redocly:
+        runs-on: ubuntu-latest
+        name: Lint and build
+        container:
+            image: redocly/cli
+            volumes:
+                - .:/spec
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Check API specification
+              run: redocly lint ./yaml/toy.yaml
+            - name: Build generated documentation
+              run: redocly build-docs ./yaml/toy.yaml
+            - name: Store generated artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: api-docs
+                  path: redoc-static.html
