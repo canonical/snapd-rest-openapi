@@ -1,0 +1,25 @@
+# components/schemas/ConnectionStatus.yaml
+
+type: object
+description: The overall connection status of plugs and slots on the system.
+properties:
+  established:
+    type: array
+    description: A list of connections that are currently established.
+    items:
+      $ref: './Connection.yaml'
+  undesired:
+    type: array
+    description: A list of connections that have been manually disconnected.
+    items:
+      $ref: './Connection.yaml'
+  plugs:
+    type: array
+    description: A list of connected plugs and their details.
+    items:
+      $ref: './ConnectionEndpoint.yaml'
+  slots:
+    type: array
+    description: A list of connected slots and their details.
+    items:
+      $ref: './ConnectionEndpoint.yaml'

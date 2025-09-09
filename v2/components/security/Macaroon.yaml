@@ -1,0 +1,11 @@
+type: apiKey
+in: header
+name: Authorization
+description: |
+  Authentication with the Snap Store is handled via macaroons, a flexible type of bearer token. The macaroon should be provided in the `Authorization` header.
+
+  The header format is typically `Macaroon root=<root-macaroon-data>, discharge=<discharge-macaroon-data>`.
+
+  Macaroons are requested from and managed via the Snapcraft Macaroon API.
+  For complete details on how to request macaroons with specific permissions (`package_push`, `package_release`, etc.), manage their lifecycle, and handle validation,
+  please refer to the official [Snapcraft Macaroon API documentation](https://dashboard.snapcraft.io/docs/reference/v1/macaroon.html).

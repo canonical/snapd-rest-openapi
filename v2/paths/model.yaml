@@ -1,0 +1,67 @@
+# paths/model.yaml
+
+get:
+  tags:
+    - Open
+    - Sync
+    - System
+  summary: Get the active model assertion
+  description: |-
+    Retrieves the active model assertion for the system.
+    - **Access**: open
+    - **Operation**: sync
+  operationId: getModelAssertion
+  security: []
+  responses:
+    '200':
+      description: The raw model assertion text.
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: |
+              type: model
+              authority-id: generic
+              series:16
+              brand-id: generic
+              model: generic-classic
+              classic: true
+              timestamp: 2017-07-27T00:00:00.0Z
+              sign-key-sha3-384: d-JcZF9nD9eBw7bwMnH61x-bklnQOhQud1Is6o_cn2wTj8EYDi9musrIT9z2MdAa
+              AcLBXAQAAQ[...]
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
+
+post:
+  tags:
+    - Async
+    - Macaroon
+    - System
+  summary: Replace the model assertion
+  description: |-
+    Replaces the current model assertion, potentially triggering a remodel of the system.
+    - **Access**: authenticated
+    - **Operation**: async
+  operationId: setModelAssertion
+  security:
+    - macaroonAuth: []
+  requestBody:
+    description: The new model assertion, provided as either JSON or multipart/form-data for [Offline Remodelling](https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline).
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object # The structure is not fully defined, assuming a generic object
+          additionalProperties: true
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            # Define multipart fields here if needed
+            assertion:
+              type: string
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

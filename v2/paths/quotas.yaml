@@ -1,0 +1,55 @@
+# paths/quotas.yaml
+
+get:
+  tags:
+    - Open
+    - Quotas
+    - Sync
+  summary: Get all quota groups
+  description: |-
+    Retrieves a list of all resource quota groups and their constraints.
+  operationId: getQuotaGroups
+  security: []
+  responses:
+    '200':
+      description: A list of quota groups.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../components/schemas/QuotaGroup.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+
+post:
+  tags:
+    - Async
+    - Macaroon
+    - Quotas
+  summary: Manage quota groups
+  description: |-
+    Create, modify, or remove a resource quota group.
+  operationId: manageQuotaGroups
+  security:
+    - macaroonAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - quota-group
+          properties:
+            action:
+              type: string
+              enum: [ensure, remove]
+            quota-group:
+              $ref: "../components/schemas/QuotaGroup.yaml"
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

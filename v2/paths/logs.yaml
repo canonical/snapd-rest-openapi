@@ -1,0 +1,34 @@
+# paths/logs.yaml
+
+get:
+  tags:
+    - Open
+    - Sync
+    - System
+  summary: Get log contents
+  description: |-
+    Retrieves log contents from the snapd daemon.
+  operationId: getLogs
+  security: []
+  parameters:
+    - name: n
+      in: query
+      description: Number of log entries to return, or 'all'.
+      schema:
+        type: string
+        default: "10"
+    - name: follow
+      in: query
+      description: If set, returns log entries as they occur.
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: A sequence of log messages.
+      content:
+        application/json-seq:
+          schema:
+            type: string
+            description: A stream of newline-delimited JSON objects, each representing a log entry.
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

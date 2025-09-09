@@ -1,0 +1,18 @@
+# components/schemas/Publisher.yaml
+
+type: object
+description: Information about the publisher of a snap.
+properties:
+  id:
+    type: string
+    example: 'canonical'
+  username:
+    type: string
+    example: 'canonical'
+  display-name:
+    type: string
+    example: 'Canonical'
+  validation:
+    type: string
+    description: The validation status of the publisher.
+    example: 'verified'

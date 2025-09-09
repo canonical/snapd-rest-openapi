@@ -1,0 +1,59 @@
+# components/schemas/SystemInfo.yaml
+
+type: object
+description: Detailed information about the snapd server's configuration and environment.
+properties:
+  architecture:
+    type: string
+    example: "amd64"
+  version:
+    type: string
+    description: The version of snapd.
+    example: "2.62"
+  confinement:
+    type: string
+    description: The level of confinement the system supports.
+    enum: [strict, partial]
+  on-classic:
+    type: boolean
+    description: True if not running on a fully snap managed system.
+  os-release:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "ubuntu"
+      version-id:
+        type: string
+        example: "23.10"
+  refresh:
+    type: object
+    properties:
+      timer:
+        type: string
+        example: "00:00~24:00/4"
+      last:
+        type: string
+        format: RFC3339
+      next:
+        type: string
+        format: RFC3339
+  features:
+    type: object
+    description: A map of snapd feature names to their support and enabled status.
+    additionalProperties:
+      type: object
+      properties:
+        supported:
+          type: boolean
+        enabled:
+          type: boolean
+        unsupported-reason:
+          type: string
+  sandbox-features:
+    type: object
+    description: Information about features supported by various components of the sandbox.
+    additionalProperties:
+      type: array
+      items:
+        type: string

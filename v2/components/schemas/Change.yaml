@@ -1,0 +1,43 @@
+# components/schemas/Change.yaml
+
+type: object
+description: Represents the state and progress of a background operation.
+properties:
+  id:
+    type: string
+    description: A unique ID for this change.
+  kind:
+    type: string
+    description: A code describing what type of change this is.
+    example: 'auto-refresh'
+  summary:
+    type: string
+    description: Human-readable description of the change.
+    example: 'Auto-refresh snap "gnome-42-2204"'
+  status:
+    type: string
+    description: Summary status of the current combined task statuses.
+    enum: [Abort, Do, Doing, Done, Error, Hold, Undo, Undoing, Wait]
+  tasks:
+    type: array
+    description: Array of objects describing tasks in this change.
+    items:
+      $ref: './Task.yaml'
+  ready:
+    type: boolean
+    description: True if this change has completed.
+  spawn-time:
+    type: string
+    format: RFC3339
+    description: The time this change started.
+  ready-time:
+    type: string
+    format: RFC3339
+    description: The time this change completed in µs (omitted if not completed).
+  err:
+    type: string
+    description: Human-readable error description if transaction fails in µs (ommitted until completed).
+  data:
+    type: object
+    description: Result of the change, structure depends on the 'kind'.
+    additionalProperties: true

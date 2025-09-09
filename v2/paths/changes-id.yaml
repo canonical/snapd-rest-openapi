@@ -1,0 +1,65 @@
+# paths/changes-id.yaml
+
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the change to retrieve.
+    schema:
+      type: string
+
+get:
+  tags:
+    - Changes
+    - Macaroon
+    - Sync
+  summary: Get the status of a change
+  description: |-
+    Retrieves the current status of a specific background change by its ID.
+  operationId: getChangeById
+  security:
+    - macaroonAuth: []
+  responses:
+    '200':
+      description: The current status of the change.
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Change.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'
+
+post:
+  tags:
+    - Changes
+    - Macaroon
+    - Sync
+  summary: Abort a change
+  description: |-
+    Aborts a change that is currently in progress.
+  operationId: abortChangeById
+  security:
+    - macaroonAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+          properties:
+            action:
+              type: string
+              enum: [abort]
+  responses:
+    '200':
+      description: The change was successfully aborted. The response body contains the final state of the change.
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/Change.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '404':
+      $ref: '../components/responses/NotFound.yaml'

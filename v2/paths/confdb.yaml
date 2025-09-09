@@ -1,0 +1,69 @@
+# paths/confdb.yaml
+
+parameters:
+  - name: account
+    in: path
+    required: true
+    schema:
+      type: string
+  - name: confdb-schema
+    in: path
+    required: true
+    schema:
+      type: string
+  - name: view
+    in: path
+    required: true
+    schema:
+      type: string
+
+get:
+  tags:
+    - Async
+    - Macaroon
+    - Snap Configuration
+  summary: Get configurations from confdb
+  description: |-
+    Retrieves configuration values from the configuration database (confdb).
+  operationId: getConfdb
+  security:
+    - macaroonAuth: []
+  parameters:
+    - name: fields
+      in: query
+      description: A comma-separated list of dotted configuration paths to read.
+      schema:
+        type: string
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+
+put:
+  tags:
+    - Async
+    - Macaroon
+    - Snap Configuration
+  summary: Set configurations in confdb
+  description: |-
+    Sets configuration values in the configuration database (confdb).
+  operationId: setConfdb
+  security:
+    - macaroonAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          description: A map of dotted configuration paths to their values. Use null to unset a value.
+          additionalProperties: true
+          example:
+            office.ssid: "foo"
+            password: null
+  responses:
+    '202':
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

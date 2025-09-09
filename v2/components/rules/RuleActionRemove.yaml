@@ -1,0 +1,13 @@
+# components/rules/RuleActionRemove.yaml
+
+type: object
+required: [action, selector]
+properties:
+  action:
+    type: string
+    enum: [remove]
+  selector:
+    type: object
+    properties:
+      snap: { type: string }
+      interface: { type: string }

@@ -1,0 +1,50 @@
+# paths/snapctl.yaml
+
+post:
+  tags:
+    - Macaroon
+    - Snaps
+    - Sync
+  summary: Run snapctl command
+  description: |-
+    Executes a `snapctl` command within a given context.
+  operationId: runSnapctl
+  security:
+    - macaroonAuth: []
+  requestBody:
+    description: The context and arguments for the snapctl command.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - context-id
+            - args
+          properties:
+            context-id:
+              type: string
+              description: The context ID for this call.
+              example: 'ABCDEF'
+            args:
+              type: array
+              description: A list of arguments to pass to snapctl.
+              items:
+                type: string
+              example: ['get', 'username']
+  responses:
+    '200':
+      description: The output from the snapctl command.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              stdout:
+                type: string
+                description: Data written to stdout by the command.
+              stderr:
+                type: string
+                description: Data written to stderr by the command.
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'

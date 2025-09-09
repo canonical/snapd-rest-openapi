@@ -1,0 +1,79 @@
+# paths/warnings.yaml
+
+get:
+  tags:
+    - Open
+    - Sync
+    - System
+  summary: Get system warnings
+  description: |-
+    Retrieves the current warnings in snapd.
+  operationId: getWarnings
+  security: []
+  responses:
+    '200':
+      description: A list containing the warning messages.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The warnings message content.
+                first-seen:
+                  type: string
+                  format: RFC3339
+                  description: The first time a message of this type was created (RFC3339 UTC format).
+                last-seen:
+                  type: string
+                  format: RFC3339
+                  description: The last time a message of this type was created (RFC3339 UTC format).
+                last-shown:
+                  type: string
+                  format: RFC3339
+                  description: The last time a message of this type was displayed to the user (RFC3339 UTC format).
+                delete-after:
+                  type: string
+                  description: A duration string like '1h30m'.
+                repeat-after:
+                  type: string
+                  description: Duration after which tyhe warning is repeated.
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+
+post:
+  tags:
+    - Macaroon
+    - Sync
+    - System
+  summary: Respond to warnings
+  description: |-
+    Respond to warnings, typically to clear them.
+  operationId: respondToWarnings
+  security:
+    - macaroonAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - timestamp
+          properties:
+            action:
+              type: string
+              enum: [okay]
+            timestamp:
+              type: string
+              format: RFC3339
+              description: Time to clear warnings before (RFC3339 UTC format).
+  responses:
+    '200':
+      description: OK
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
