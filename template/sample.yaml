@@ -1,0 +1,34 @@
+openapi: 3.0.4
+
+info:
+  title: SnapD REST API
+  license:
+    name: "GNU GPL-v3"
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  version: v2
+  description: |-
+    The official OpenAPI 3.x specification for the SnapD REST API.
+    This specification provides a modern, maintainable, and machine-readable definition of the API,
+    serving as a single source of truth for documentation, client generation, and testing.
+
+# This section is optional, but if included, it cannot be empty.
+# Adding your server information back in fixes the 'no-empty-servers' error.
+servers:
+  - url: http+unix://run/snapd.socket/v2
+    description: Local snapd socket access
+
+paths:
+  /ping:
+    get:
+      # Added to fix the 'operation-operationId' warning.
+      # This provides a unique ID for code generators.
+      operationId: getPingStatus
+      summary: A minimal example endpoint
+      # Added to fix the 'security-defined' error.
+      # An empty security array explicitly marks this endpoint as public (no auth needed).
+      security: []
+      responses:
+        '200':
+          description: Service is available
+        '404':
+          description: Not found

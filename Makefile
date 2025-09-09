@@ -1,36 +1,49 @@
 # --- Variables ---
-IMAGE_NAME = swagger-builder-env
-TARGET_DIR = output/
-TARGET = $(TARGET_DIR)index.html
+# Use the same public Docker image as the CI pipeline (no Dockerfile needed)
+IMAGE_NAME = redocly/cli
+
+# Source and target directories/files
 SRC_DIR = template/
 SRC = $(SRC_DIR)sample.yaml
+BUILD_DIR = dist/
+TARGET = $(BUILD_DIR)api-docs.html
 
 # --- Main Targets ---
-.PHONY: all build build-image build-local
-all: build
+.PHONY: all lint build lint-local build-local
 
-## build: Builds the static HTML using our custom Docker environment.
-build: build-image
+## all: Lints the specification and builds the documentation (default).
+all: lint build
+
+## lint: Lints the API specification using Redocly in Docker.
+lint:
+	@echo "--- Linting API specification ---"
 	docker run --rm \
-		--user "$(id -u):$(id -g)" \
-		-v "$(CURDIR)":/docs:z \
-		-w "/docs" \
-		$(IMAGE_NAME) \
-		swagger-ui-cli build $(SRC) -o $(TARGET_DIR)
+		-v "$(CURDIR)":/spec:z \
+		-w /spec \
+		$(IMAGE_NAME) lint $(SRC)
 
-## build-image: Builds the Docker image that contains our build tools.
-build-image:
-	docker build -t $(IMAGE_NAME) .
+## build: Builds static HTML documentation using Redocly in Docker.
+build:
+	@echo "--- Building documentation ---"
+	@mkdir -p $(BUILD_DIR)
+	docker run --rm \
+		-v "$(CURDIR)":/spec:z \
+		-w /spec \
+		$(IMAGE_NAME) build-docs $(SRC) -o $(TARGET)
 
-## build-local: Builds using a swagger-ui-cli installed on your machine.
+## lint-local: Lints using a Redocly CLI installed on your machine.
+lint-local:
+	redocly lint $(SRC)
+
+## build-local: Builds using a Redocly CLI installed on your machine.
 build-local:
-	swagger-ui-cli build $(SRC) -o $(TARGET_DIR)
+	@mkdir -p $(BUILD_DIR)
+	redocly build-docs $(SRC) -o $(TARGET)
 
 # --- Helper Targets ---
 .PHONY: clean
 
-## clean: Removes the build output directory and any created cache.
+## clean: Removes the build output directory.
 clean:
-	@echo "--- Removing build artifacts and cache ---"
-	rm -rf $(TARGET_DIR) .npm
-
+	@echo "--- Removing build artifacts ---"
+	rm -rf $(BUILD_DIR)
