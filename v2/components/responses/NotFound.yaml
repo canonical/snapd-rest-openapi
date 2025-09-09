@@ -1,7 +1,0 @@
-# components/responses/NotFound.yaml
-
-description: The requested resource could not be found.
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/StandardError.yaml'
