@@ -1,7 +1,0 @@
-# components/responses/BadRequest.yaml
-
-description: The request was malformed or contained invalid data.
-content:
-  application/json:
-    schema:
-      $ref: '../schemas/StandardError.yaml'
