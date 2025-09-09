@@ -1,0 +1,2221 @@
+openapi: 3.0.3
+info:
+  title: Snapd REST API
+  description: |
+    The REST API provides access to snapd's state and many of its key functions,
+    as listed below.
+
+
+    For general information on how to use the API, including how to access it,
+    its requests and responses, results fields and error types, see [Using the
+    REST API](https://snapcraft.io/docs/using-the-api).
+  version: "0.1"
+externalDocs:
+  url: https://snapcraft.io/docs
+  description: Snap and Snapcraft documentation
+paths:
+  /v2/aliases:
+    get:
+      summary: Get the available app aliases
+      responses:
+        "200":
+          description: A dictionary containing the aliases for each snap.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  command:
+                    type: string
+                    description: The full command this alias runs
+                  status:
+                    type: string
+                    description: Alias status, one of auto, manual, or disabled
+                    enum:
+                      - auto
+                      - manual
+                      - disabled
+                  auto:
+                    type: string
+                    description: |
+                      The app the alias is for as assigned by an assertion
+                      (optional)
+                  manual:
+                    type: string
+                    description: |
+                      The app the alias is for if status is manual (optional).
+                      Overrides auto
+              examples:
+                example1:
+                  value:
+                    snap:
+                      alias1:
+                        command: snap.app
+                        status: auto
+                        auto: app
+                      alias2:
+                        command: foo
+                        status: manual
+                        manual: app2
+                example2:
+                  value:
+                    lxd:
+                      lxc:
+                        command: lxd.lxc
+                        status: auto
+                        auto: lxc
+    post:
+      summary: Modify aliases
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                action:
+                  type: string
+                  enum:
+                    - alias
+                    - unalias
+                    - prefer
+                snap:
+                  type: string
+                  description: snap name to modify (optional for unalias)
+                app:
+                  type: string
+                  description: app to modify (optional)
+                alias:
+                  type: string
+                  description: alias to modify
+            example:
+              action: alias
+              snap: moon-buggy
+              alias: foo
+      responses:
+        "200":
+          description: Background operation
+        "400":
+          description: Standard error
+  /v2/apps:
+    get:
+      summary: List available apps
+      tags:
+        - apps
+      responses:
+        "200":
+          description: List of apps available
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    snap:
+                      type: string
+                      description: the snap providing the app (optional)
+                    name:
+                      type: string
+                      description: the name of the app
+                    desktop-file:
+                      type: string
+                      description: the desktop file for the app (optional)
+                    daemon:
+                      type: string
+                      description: the daemon type, if a service (optional)
+                    enabled:
+                      type: boolean
+                      description: true if an enabled service (optional)
+                    active:
+                      type: boolean
+                      description: true if an active service (optional)
+                    common-id:
+                      type: string
+                      description: common ID associated with this app (optional)
+      parameters:
+        - name: select
+          in: query
+          description: Limit which apps are returned. One of available values.
+          required: false
+          schema:
+            type: string
+            enum:
+              - service
+        - name: names
+          in: query
+          description: Comma separated list of snaps to get apps for
+          required: false
+          schema:
+            type: string
+    post:
+      summary: Modify attributes of applications
+      operationId: modifyApps
+      tags:
+        - apps
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                names:
+                  type: array
+                  description: |
+                    A list of names of snaps (e.g. `multipass`) or apps (e.g.
+                    `multipass.multipassd`) to operate on.
+                  items:
+                    type: string
+                  minItems: 1
+                  example:
+                    - multipass
+                    - multipass.multipassd
+                action:
+                  type: string
+                  description: |
+                    The action to perform (must be one of `start`, `stop`, or
+                    `restart`).
+                  enum:
+                    - start
+                    - stop
+                    - restart
+                  example: start
+                enable:
+                  type: boolean
+                  description: |
+                    If `action` is `start`, arrange to have the service start at
+                    system start.
+                  default: false
+                  example: true
+                disable:
+                  type: boolean
+                  description: |
+                    If `action` is `stop`, arrange to no longer start the
+                    service at system start.
+                  default: false
+                  example: false
+                reload:
+                  type: boolean
+                  description: |
+                    If `action` is `restart`, try to reload the service instead
+                    of restarting if supported.
+                  default: false
+                  example: true
+              required:
+                - names
+                - action
+            example:
+              action: stop
+              names:
+                - lxd
+      responses:
+        "202":
+          description: Background operation started
+        "400":
+          description: Standard error
+  /v2/assertions:
+    get:
+      summary: Get the list of assertion types
+      responses:
+        "200":
+          description: List of assertion types
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  types:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - account
+                        - account-key
+                        - account-key-request
+                        - base-declaration
+                        - device-session-request
+                        - model
+                        - repair
+                        - serial
+                        - serial-request
+                        - snap-build
+                        - snap-declaration
+                        - snap-developer
+                        - snap-revision
+                        - store
+                        - system-user
+                        - validation
+                        - validation-set
+              example:
+                types:
+                  - account
+                  - account-key
+                  - account-key-request
+                  - base-declaration
+                  - device-session-request
+                  - model
+                  - repair
+                  - serial
+                  - serial-request
+                  - snap-build
+                  - snap-declaration
+                  - snap-developer
+                  - snap-revision
+                  - store
+                  - system-user
+                  - validation
+                  - validation-set
+    post:
+      summary: Add an assertion to the system assertion database
+      description: |
+        This endpoint allows you to add an assertion to the system assertion
+        database.
+
+        The body of the request provides the assertion to add. The assertion may
+        also be a newer revision of a pre-existing assertion that it will
+        replace.
+
+        To succeed the assertion must be valid, its signature verified with a
+        known public key and the assertion consistent with and its prerequisite
+        in the database.
+
+        The request body must follow the `application/x.ubuntu.assertion`
+        format.
+      requestBody:
+        required: true
+        content:
+          application/x.ubuntu.assertion:
+            schema:
+              type: string
+              description: The assertion to add, including headers, type, and signature.
+            example: |
+              type: account
+              authority-id: canonical
+              account-id: canonical
+              display-name: Canonical
+              timestamp: 2024-01-01T00:00:00.0Z
+              username: canonical
+              validation: certified
+              sign-key-sha3-384: <key>
+
+              <signature>
+      responses:
+        "200":
+          description: Assertion successfully added to the system.
+        "400":
+          description: Invalid assertion format or failed validation.
+        "401":
+          description: Signature verification failed.
+        "409":
+          description: Assertion is inconsistent with database prerequisites.
+        "500":
+          description: Internal server error.
+  /v2/assertions/{assertionType}:
+    get:
+      summary: Retrieve all assertions of a given type
+      description: |
+        Retrieves all assertions from the system assertion database for the
+        specified assertion type.
+
+        The response is a stream of assertions separated by double newlines. The
+        X-Ubuntu-Assertions-Count header is set to the number of returned
+        assertions, 0 or more.
+
+        Assertions can be filtered on header values using parameters, e.g. `GET
+        /v2/assertions/account?username=canonical` will return all account
+        assertions where `type=account` and `username=canonical`.
+
+        Note, to determine the boundary between assertions, the headers need to
+        be decoded to check if each assertion contains a body.
+      parameters:
+        - name: assertionType
+          in: path
+          required: true
+          description: |
+            The type of assertion to retrieve (e.g., `account`,
+            `snap-declaration`).
+          schema:
+            type: string
+            enum:
+              - account
+              - account-key
+              - account-key-request
+              - base-declaration
+              - device-session-request
+              - model
+              - repair
+              - serial
+              - serial-request
+              - snap-build
+              - snap-declaration
+              - snap-developer
+              - snap-revision
+              - store
+              - system-user
+              - validation
+              - validation-set
+        - name: username
+          in: query
+          required: false
+          description: Filter assertions by username (for `account` type).
+          schema:
+            type: string
+        - name: snap-id
+          in: query
+          required: false
+          description: Filter assertions by snap-id (for `snap-declaration` type).
+          schema:
+            type: string
+        - name: series
+          in: query
+          required: false
+          description: Filter by series (for `snap-declaration` type).
+          schema:
+            type: string
+        - name: remote
+          in: query
+          required: false
+          description: |
+            Retrieve a remote assertion (for `snap-declaration` type). Defaults
+            to `false`.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: A stream of assertions matching the given type and filters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: The type of the assertion.
+                    authority-id:
+                      type: string
+                      description: The ID of the assertion authority.
+                    account-id:
+                      type: string
+                      description: The ID of the account.
+                    display-name:
+                      type: string
+                    username:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: The timestamp of the assertion.
+                    signature:
+                      type: string
+                      description: The signature of the assertion.
+        "400":
+          description: Bad request due to invalid parameters or filters.
+        "404":
+          description: No assertions found for the given type or filters.
+        "500":
+          description: Internal server error.
+  /v2/changes:
+    get:
+      summary: Get all the changes in progress
+      description: |
+        Returns an array containing all the changes that have occurred.
+
+        Changes are returned in the same form as `GET /v2/changes/[id]`..
+      responses:
+        "200":
+          description: Current changes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: A unique ID for this change
+                  kind:
+                    type: string
+                    description: A code describing what type of change this is
+                  summary:
+                    type: string
+                    description: Human-readable description of the change
+                  status:
+                    type: string
+                    description: Summary status of the current combined task statuses
+                  tasks:
+                    type: array
+                    description: |
+                      Array of objects describing tasks in this change
+                      (optional)
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: A unique ID for this task
+                        kind:
+                          type: string
+                          description: A code describing what type of task this is
+                        summary:
+                          type: string
+                          description: Human-readable description of the task
+                        status:
+                          type: string
+                          description: One of the following status codes
+                          enum:
+                            - Abort
+                            - Do
+                            - Doing
+                            - Done
+                            - Error
+                            - Hold
+                            - Undo
+                            - Undoing
+                            - Wait
+                        progress:
+                          type: object
+                          description: Contains the current progress of this task
+                          properties:
+                            label:
+                              type: string
+                              description: Human-readable description of the progress
+                            done:
+                              type: integer
+                              description: Progress done
+                            total:
+                              type: integer
+                              description: Total progress required
+                        spawn-time:
+                          type: string
+                          format: date-time
+                          description: |
+                            Time this task was created in RFC3339 UTC format
+                            with µs precision
+                        ready-time:
+                          type: string
+                          format: date-time
+                          description: |
+                            Time this task was completed in RFC3339 UTC format
+                            with µs precision (omitted if not completed)
+                        data:
+                          type: object
+                          description: Result of the task (optional)
+                          properties:
+                            affected-snaps:
+                              type: array
+                              description: |
+                                Array of strings describing snaps affected by
+                                the task
+                              items:
+                                type: string
+                  ready:
+                    type: boolean
+                    description: True if this change has completed
+                  spawn-time:
+                    type: string
+                    format: date-time
+                    description: |
+                      The time this change started in RFC3339 UTC format with µs
+                      precision
+                  ready-time:
+                    type: string
+                    format: date-time
+                    description: |
+                      The time this change completed in RFC3339 UTC format with
+                      µs precision (omitted if not completed)
+                  err:
+                    type: string
+                    description: |
+                      Human-readable error description if the transaction has
+                      failed (optional, omitted until completed)
+                  data:
+                    type: object
+                    description: Result of the change
+                    properties:
+                      snap-names:
+                        type: array
+                        description: List of affected snaps
+                        items:
+                          type: string
+                      refresh-forced:
+                        type: array
+                        description: |
+                          A list of snaps whose refresh was previously inhibited
+                          and were force-continued in this auto-refresh change
+                          due to a maximum inhibition timeout (optional)
+                        items:
+                          type: string
+      parameters:
+        - name: select
+          in: query
+          description: |
+            Limit which changes are returned. One of:
+            * `all`: all changes returned
+            * `in-progress`: only changes that are in progress are returned
+            (default)
+            * `ready`: only changes that are ready
+          schema:
+            type: string
+            enum:
+              - all
+              - in-progress
+              - ready
+        - name: for
+          in: query
+          description: Optional snap name to limit results to.
+          required: false
+          schema:
+            type: string
+  /v2/changes/[{id}]:
+    get:
+      summary: Get the current status of a change
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the task
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Current status of change
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: A unique ID for this change
+                  kind:
+                    type: string
+                    description: A code describing what type of change this is
+                  summary:
+                    type: string
+                    description: Human-readable description of the change
+                  status:
+                    type: string
+                    description: Summary status of the current combined task statuses
+                  tasks:
+                    type: array
+                    description: |
+                      Array of objects describing tasks in this change
+                      (optional)
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: A unique ID for this task
+                        kind:
+                          type: string
+                          description: A code describing what type of task this is
+                        summary:
+                          type: string
+                          description: Human-readable description of the task
+                        status:
+                          type: string
+                          description: One of the following status codes
+                          enum:
+                            - Abort
+                            - Do
+                            - Doing
+                            - Done
+                            - Error
+                            - Hold
+                            - Undo
+                            - Undoing
+                            - Wait
+                        progress:
+                          type: object
+                          description: Contains the current progress of this task
+                          properties:
+                            label:
+                              type: string
+                              description: Human-readable description of the progress
+                            done:
+                              type: integer
+                              description: Progress done
+                            total:
+                              type: integer
+                              description: Total progress required
+                        spawn-time:
+                          type: string
+                          format: date-time
+                          description: |
+                            Time this task was created in RFC3339 UTC format
+                            with µs precision
+                        ready-time:
+                          type: string
+                          format: date-time
+                          description: |
+                            Time this task was completed in RFC3339 UTC format
+                            with µs precision (omitted if not completed)
+                        data:
+                          type: object
+                          description: Result of the task (optional)
+                          properties:
+                            affected-snaps:
+                              type: array
+                              description: |
+                                Array of strings describing snaps affected by
+                                the task
+                              items:
+                                type: string
+                  ready:
+                    type: boolean
+                    description: True if this change has completed
+                  spawn-time:
+                    type: string
+                    format: date-time
+                    description: |
+                      The time this change started in RFC3339 UTC format with µs
+                      precision
+                  ready-time:
+                    type: string
+                    format: date-time
+                    description: |
+                      The time this change completed in RFC3339 UTC format with
+                      µs precision (omitted if not completed)
+                  err:
+                    type: string
+                    description: |
+                      Human-readable error description if the transaction has
+                      failed (optional, omitted until completed)
+                  data:
+                    type: object
+                    description: Result of the change
+                    properties:
+                      snap-names:
+                        type: array
+                        description: List of affected snaps
+                        items:
+                          type: string
+                      refresh-forced:
+                        type: array
+                        description: |
+                          A list of snaps whose refresh was previously inhibited
+                          and were force-continued in this auto-refresh change
+                          due to a maximum inhibition timeout (optional)
+                        items:
+                          type: string
+        "400":
+          description: Standard error
+  /v2/changes/[id]:
+    post:
+      summary: Abort a change in progress
+      responses:
+        "200":
+          description: Current status of change or standard error. See return from GET.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Summary status of the current combined task statuses
+              example:
+                action: abort
+        "400":
+          description: Standard error
+  /v2/cohorts:
+    post:
+      summary: Create a set of cohort keys for a given set of snaps
+      responses:
+        "200":
+          description: cohorts key or standard error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  action:
+                    type: string
+                  snaps:
+                    type: array
+                    description: array of snap names to be included in the cohort
+                    items:
+                      type: string
+  /v2/connections:
+    get:
+      summary: Get all the interface connections
+      responses:
+        "200":
+          description: Connection status of plugs and slots
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  established:
+                    type: array
+                    description: Array of connections made with slots and plugs
+                    items:
+                      type: object
+                      properties:
+                        slot:
+                          type: object
+                          properties:
+                            snap:
+                              type: string
+                              description: The snap this slot is part of
+                            slot:
+                              type: string
+                              description: The name of the slot
+                          required:
+                            - snap
+                            - slot
+                        plug:
+                          type: object
+                          properties:
+                            snap:
+                              type: string
+                              description: The snap this plug is part of
+                            plug:
+                              type: string
+                              description: The name of the plug
+                          required:
+                            - snap
+                            - plug
+                        interface:
+                          type: string
+                          description: The interface in use
+                        manual:
+                          type: boolean
+                          description: |
+                            Set to `true` if this interface was manually
+                            connected by a user
+                        gadget:
+                          type: boolean
+                          description: |
+                            Set to `true` if this interface was connected by the
+                            gadget snap
+                        slot-attrs:
+                          type: object
+                          description: |
+                            Object containing slot attributes for this
+                            connection
+                        plug-attrs:
+                          type: object
+                          description: |
+                            Object containing plug attributes for this
+                            connection
+                  undesired:
+                    type: array
+                    description: |
+                      Array of connections that have been manually disconnected,
+                      but would otherwise be automatically made
+                    items:
+                      type: object
+                      properties:
+                        slot:
+                          type: object
+                          properties:
+                            snap:
+                              type: string
+                              description: The snap this slot is part of
+                            slot:
+                              type: string
+                              description: The name of the slot
+                          required:
+                            - snap
+                            - slot
+                        plug:
+                          type: object
+                          properties:
+                            snap:
+                              type: string
+                              description: The snap this plug is part of
+                            plug:
+                              type: string
+                              description: The name of the plug
+                          required:
+                            - snap
+                            - plug
+                        interface:
+                          type: string
+                          description: The interface in use
+                        manual:
+                          type: boolean
+                          description: |
+                            Set to `true` if this interface was manually
+                            disconnected by a user
+                  plugs:
+                    type: array
+                    description: Array of connected plugs
+                    items:
+                      type: object
+                      properties:
+                        snap:
+                          type: string
+                          description: The snap this plug is part of
+                        plug:
+                          type: string
+                          description: The name of the plug
+                        interface:
+                          type: string
+                          description: The interface this plug uses
+                        attrs:
+                          type: object
+                          description: |
+                            Object containing attributes for the interface in
+                            use. Attribute values can be of any type.
+                        label:
+                          type: string
+                          description: Human-readable description of the plug
+                        connections:
+                          type: array
+                          description: List of current slots connected to this plug
+                          items:
+                            type: object
+                            properties:
+                              snap:
+                                type: string
+                                description: Name of the snap of the connected slot
+                              slot:
+                                type: string
+                                description: Name of the connected slot
+                  slots:
+                    type: array
+                    description: Array of connected slots
+                    items:
+                      type: object
+                      properties:
+                        snap:
+                          type: string
+                          description: The snap this slot is part of
+                        slot:
+                          type: string
+                          description: The name of the slot
+                        interface:
+                          type: string
+                          description: The interface this slot uses
+                        attrs:
+                          type: object
+                          description: |
+                            Object containing attributes for the interface in
+                            use. Attribute values can be of any type.
+                        label:
+                          type: string
+                          description: Human-readable description of the slot
+                        connections:
+                          type: array
+                          description: List of current plugs connected to this slot
+                          items:
+                            type: object
+                            properties:
+                              snap:
+                                type: string
+                                description: Name of the snap of the connected plug
+                              plug:
+                                type: string
+                                description: Name of the connected plug
+              examples:
+                example1:
+                  value: |
+                    {
+                        "established": [
+                            {
+                                "slot": { "snap": "core", "slot": "home" },
+                                "plug": { "snap": "foo", "plug": "home" },
+                                "interface": "home"
+                            },
+                            {
+                                "slot": { "snap": "core", "slot": "network-control" },
+                                "plug": { "snap": "foo", "plug": "network-control" },
+                                "interface": "network-control",
+                                "manual": true
+                            }
+                        ],
+                        "undesired": [
+                            {
+                                "slot": { "snap": "core", "slot": "foo-data" },
+                                "plug": { "snap": "foo", "plug": "foo-data" },
+                                "interface": "content",
+                                "manual": true
+                            }
+                        ],
+                        "plugs": [
+                            {
+                                "snap": "foo",
+                                "plug": "home",
+                                "interface": "home",
+                                "connections": [
+                                    { "snap": "core", "slot": "home" }
+                                ]
+                            },
+                            {
+                                "snap": "foo",
+                                "plug": "network-control",
+                                "interface": "network-control",
+                                "connections": [
+                                    { "snap": "core", "slot": "network-control" }
+                                ]
+                            }
+                        ],
+                        "slots": [
+                            {
+                                "snap": "core",
+                                "slot": "home",
+                                "interface": "home",
+                                "connections": [
+                                    { "snap": "foo", "plug": "home" }
+                                ]
+                            },
+                            {
+                                "snap": "core",
+                                "slot": "network-control",
+                                "interface": "network-control",
+                                "connections": [
+                                    { "snap": "foo", "plug": "network-control" }
+                                ]
+                            }
+                        ]
+                    }
+      parameters:
+        - name: snap
+          in: query
+          description: Limit results to a given snap name.
+          schema:
+            type: string
+        - name: select
+          in: query
+          description: |
+            When set to `all`, unconnected slots and plugs are included in the
+            results. When unset or empty, the results include only those plugs
+            and slots that are connected.
+          schema:
+            type: string
+            enum:
+              - all
+        - name: interface
+          in: query
+          description: |
+            Takes an interface name. When set, the results are limited to the
+            selected interface.
+          schema:
+            type: string
+  /v2/find:
+    get:
+      summary: Find snaps in the store
+      description: |
+        Request example:
+        ```bash
+        http://localhost/v2/find\?q\=libreoffice | jq
+        ```
+      responses:
+        "200":
+          description: >
+            List of snaps in the store that match the search term and that the
+            host system can handle.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique ID for this snap
+                    name:
+                      type: string
+                      description: The snap name
+                    description:
+                      type: string
+                      description: Full description of the snap
+                    download-size:
+                      type: integer
+                      description: Size of the download in bytes
+                    icon:
+                      type: string
+                      description: URL to the snap icon
+                    base:
+                      type: string
+                      description: The base snap this snap relies on (optional)
+                    channel:
+                      type: string
+                      description: The channel this snap is from
+                    channels:
+                      type: array
+                      description: >-
+                        Available channels to download (only returned for
+                        searches with the name parameter)
+                      items:
+                        type: object
+                        properties:
+                          channel:
+                            type: string
+                            description: The channel this snap is from
+                          confinement:
+                            type: string
+                            enum:
+                              - strict
+                              - classic
+                              - devmode
+                            description: The confinement requested by the snap
+                          epoch:
+                            type: integer
+                            description: Epoch of the application release
+                          released-at:
+                            type: string
+                            format: date-time
+                            description: >-
+                              Date when this revision was released into the
+                              channel (RFC3339 UTC format)
+                          revision:
+                            type: string
+                            description: Revision number as a base 10 string
+                          size:
+                            type: integer
+                            description: Size of the download in bytes
+                          version:
+                            type: string
+                            description: Version of the snap in this channel
+                    common-ids:
+                      type: array
+                      description: Common IDs used by the apps in this snap
+                      items:
+                        type: string
+                    confinement:
+                      type: string
+                      enum:
+                        - strict
+                        - classic
+                        - devmode
+                      description: The confinement requested by the snap
+                    contact:
+                      type: string
+                      description: Method of contacting the developer
+                    developer:
+                      type: string
+                      description: >-
+                        Developer who created the snap (deprecated, use
+                        `username` from `publisher` instead)
+                    epoch:
+                      type: integer
+                      description: Epoch of the application release
+                    license:
+                      type: string
+                      description: SPDX license expression
+                    publisher:
+                      type: object
+                      description: Publisher information
+                      properties:
+                        id:
+                          type: string
+                          description: Unique publisher ID
+                        username:
+                          type: string
+                          description: Publisher's username
+                        display-name:
+                          type: string
+                          description: Publisher's display name
+                        validation:
+                          type: string
+                          description: Validation status of the publisher (e.g., verified)
+                    released-at:
+                      type: string
+                      format: date-time
+                      description: Date when the app was released
+                    resource:
+                      type: string
+                      description: HTTP resource for this snap
+                    revision:
+                      type: string
+                      description: Revision number of the snap as a base 10 string
+                    media:
+                      type: array
+                      description: >-
+                        Media associated with the snap (icons, banners,
+                        screenshots, etc.)
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: Type of media (e.g., icon, banner, screenshot)
+                          url:
+                            type: string
+                            description: URL to the media
+                          width:
+                            type: integer
+                            description: Width of the media (if applicable)
+                          height:
+                            type: integer
+                            description: Height of the media (if applicable)
+                      example: |
+                        {
+                          "type": "icon",
+                          "url": "https://dashboard.snapcraft.io/site_media/appmedia/2016/06/LibreOffice-Initial-Artwork-Logo.png"
+                        },
+                        {
+                          "type": "banner",
+                          "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/12/LibreOffice-Banner_1IRAqHI.png",
+                          "width": 2100,
+                          "height": 700
+                        }
+                    private:
+                      type: boolean
+                      description: True if this snap is only available to its author
+              examples:
+                example1:
+                  value: |-
+                    [
+                        {
+                          "id": "CpUkI0qPIIBVRsjy49adNq4D6Ra72y4v",
+                          "title": "LibreOffice",
+                          "summary": "LibreOffice is a powerful office suite including word processing and creation of spreadsheets, slideshows and databases",
+                          "description": "LibreOffice is a powerful and free office suite, used by millions of people around the world. Its clean interface and feature-rich tools help you unleash your creativity and enhance your productivity. LibreOffice includes several applications that make it the most versatile Free and Open Source office suite on the market: writer (word processing), Calc (spreadsheets), Impress (presentations), Draw (vector graphics and flowcharts), Base (databases), and Math (formula editing).",
+                          "download-size": 436375552,
+                          "icon": "https://dashboard.snapcraft.io/site_media/appmedia/2016/06/LibreOffice-Initial-Artwork-Logo.png",
+                          "name": "libreoffice",
+                          "publisher": {
+                            "id": "canonical",
+                            "username": "canonical",
+                            "display-name": "Canonical",
+                            "validation": "verified"
+                          },
+                          "store-url": "https://snapcraft.io/libreoffice",
+                          "developer": "canonical",
+                          "status": "available",
+                          "type": "app",
+                          "base": "core18",
+                          "version": "6.4.4.2",
+                          "channel": "stable",
+                          "ignore-validation": false,
+                          "revision": "180",
+                          "confinement": "strict",
+                          "private": false,
+                          "devmode": false,
+                          "jailmode": false,
+                          "contact": "https://bugs.launchpad.net/ubuntu/+source/libreoffice/+bugs?field.tag=snap",
+                          "license": "MPL-2.0",
+                          "common-ids": [
+                            "libreoffice-draw.desktop",
+                            "libreoffice-impress.desktop",
+                            "libreoffice-writer.desktop",
+                            "libreoffice-math.desktop",
+                            "libreoffice-calc.desktop",
+                            "libreoffice-base.desktop"
+                          ],
+                          "website": "https://code.launchpad.net/~libreoffice/+git/libreoffice-snap",
+                          "media": [
+                            {
+                              "type": "icon",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2016/06/LibreOffice-Initial-Artwork-Logo.png"
+                            },
+                            {
+                              "type": "banner",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/12/LibreOffice-Banner_1IRAqHI.png",
+                              "width": 2100,
+                              "height": 700
+                            },
+                            {
+                              "type": "screenshot",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/09/Screenshot-01-New-EN.png",
+                              "width": 1082,
+                              "height": 651
+                            },
+                            {
+                              "type": "screenshot",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/09/Screenshot-04-New-EN.png",
+                              "width": 1080,
+                              "height": 648
+                            },
+                            {
+                              "type": "screenshot",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/09/Screenshot-05-New-EN.png",
+                              "width": 1080,
+                              "height": 647
+                            },
+                            {
+                              "type": "screenshot",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/09/Screenshot-06-New-EN.png",
+                              "width": 1080,
+                              "height": 647
+                            },
+                            {
+                              "type": "screenshot",
+                              "url": "https://dashboard.snapcraft.io/site_media/appmedia/2019/09/Screenshot-07-New-EN.png",
+                              "width": 1081,
+                              "height": 647
+                            }
+                          ],
+                          "install-date": "2020-06-02T17:25:50.864197657+01:00"
+                        }
+                    ]
+      parameters:
+        - name: name
+          in: query
+          description: |
+            Search for snaps whose name matches the given string.
+            Can't be used together with  `q` . This is meant for things like
+            autocompletion.
+            The match is exact (i.e. find would return 0 or 1 results) unless
+            the string ends in  `*` .
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: |
+            Search for snaps that match the given string.
+            Spaces between words are treated as logical AND operators.
+            This is a weighted broad search, meant as the main interface to
+            searching for snaps.
+          schema:
+            type: string
+        - name: scope
+          in: query
+          description: |
+            If set to `wide`, the search results are broadened to include
+            non-stable packages.
+          schema:
+            type: string
+        - name: section
+          in: query
+          description: |
+            Section in the store to search. Use `GET /v2/sections` to get the
+            names of the sections.
+          schema:
+            type: string
+        - name: select
+          in: query
+          description: |
+            Alter the collection searched:
+            * `refresh`: search refreshable snaps. Can't be used with `q`, nor
+            `name`
+            * `private`: search private snaps (by default, find only searches
+              public snaps). Can't be used with `name`, only `q` (for now at
+              least).
+          schema:
+            type: string
+        - name: common-id
+          in: query
+          description: |
+            Search for snaps using the common-id snap app attribute.
+
+            This is often the application name used by other packaging formats,
+            such as `org.videolan.vlc` for the VLC media player.
+          schema:
+            type: string
+  /v2/icons/{name}/icon:
+    get:
+      summary: Get an icon from a snap installed on the system.
+      description: |
+        This is *not* a standard return type. The response will be the raw
+        contents of the icon file; the content-type will be set accordingly and
+        the Content-Disposition header will specify the filename.
+
+        This fetches the icon from the snap itself.
+
+        <!-- XXX explain difference between "/v2/interfaces" and
+        "/v2/connections" --|
+      responses:
+        "200":
+          description: raw contents of the icon file
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+  /v2/interfaces:
+    get:
+      summary: Get the available interfaces and associated metadata.
+      responses:
+        "200":
+          description: An array of interface information.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the interface
+                    summary:
+                      type: string
+                      description: Human-readable summary of the interface
+                    doc-url:
+                      type: string
+                      description: URL to further documentation
+                    plugs:
+                      type: array
+                      description: Plugs using this interface (only if using `plugs=true`)
+                      items:
+                        type: string
+                    slots:
+                      type: array
+                      description: Slots using this interface (only if using `slots=true`)
+                      items:
+                        type: string
+              example: |
+                [
+                    {
+                        "name": "content",
+                        "summary": "allows sharing code and data with other snaps"
+                        "plugs": [
+                            { "snap": "foo", "plug": "foo-data" }
+                        ]
+                    },
+                    {
+                        "name": "home",
+                        "summary": "allows access to non-hidden files in the home directory",
+                        "plugs": [
+                            { "snap": "foo", "plug": "home" }
+                        ]
+                    },
+                    {
+                        "name": "network-control",
+                        "summary": "allows configuring networking and network namespaces"
+                        "plugs": [
+                            { "snap": "foo", "plug": "network-control" }
+                        ]
+                    }
+                ]
+      parameters:
+        - name: select
+          in: query
+          description: |
+            Set to `all` to retrieve all interfaces, or `connected` to only
+            return connected interfaces. If this parameter is omitted, the call
+            returns the legacy format that should no longer be used.
+          schema:
+            type: string
+            enum:
+              - all
+              - connected
+        - name: slots
+          in: query
+          description: If `true`, then slot information is returned.
+          schema:
+            type: boolean
+        - name: plugs
+          in: query
+          description: If `true`, then plug information is returned.
+          schema:
+            type: boolean
+        - name: doc
+          in: query
+          description: If `true`, then interface documentation is returned.
+          schema:
+            type: boolean
+        - name: names
+          in: query
+          description: |
+            If given, only interfaces that match the comma-separated names are
+            returned.
+          schema:
+            type: string
+    post:
+      summary: Issue an action to the interface system
+      responses:
+        "200":
+          description: background operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  action:
+                    type: string
+                    description: |
+                      Action to perform. One of:
+                      * `connect`
+                      * `disconnect`
+                    enum:
+                      - connect
+                      - disconnect
+                  plugs:
+                    type: array
+                    description: >-
+                      Array of plugs to connect. Each plug is referred to by the
+                      `snap` it is part of and the name of the `plug`
+                    items:
+                      type: string
+                  slots:
+                    type: array
+                    description: >-
+                      Array of slots to connect to. Each slot is referred to by
+                      the `snap` it is part of and the name of the `slot`
+                    items:
+                      type: string
+              examples:
+                example1:
+                  value: |-
+                    {
+                        "action": "connect",
+                        "slots": [{"snap": "canonical-pi2",   "slot": "pin-13"}],
+                        "plugs": [{"snap": "keyboard-lights", "plug": "capslock-led"}]
+                    }
+  /v2/login:
+    post:
+      summary: Log user in the store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: >
+                    The email address being logged in with.
+
+                    This must be a valid email address (also supported with
+                    legacy `username` field)
+                  example: foo@bar.com
+                password:
+                  type: string
+                  description: password for this account
+                  example: swordfish
+                otp:
+                  type: string
+                  description: >
+                    One time password for this account (optional). 
+
+                    This field being wrong will generate the
+                    `two-factor-required` or `two-factor-failed` errors
+                  example: "123456"
+      responses:
+        "200":
+          description: dict with the authenticated user information or error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: unique ID for this user account
+                  email:
+                    type: string
+                    description: email address associated with this account
+                  username:
+                    type: string
+                    description: local username associated with this account (optional)
+                  macaroon:
+                    type: string
+                    description: >-
+                      serialized macaroon to be passed back in the HTTP
+                      `Authorization` header
+                  discharges:
+                    type: array
+                    description: >-
+                      array of serialized discharges to be passed back in the
+                      HTTP `Authorization` header
+                    items:
+                      type: string
+              examples:
+                example1:
+                  value: |
+                    {
+                        "id": 1,
+                        "username": "user1",
+                        "email": "user1@example.com",
+                        "macaroon": "serialized-store-macaroon",
+                        "discharges": ["discharge-for-macaroon-authentication"]
+                    }
+  /v2/logout:
+    post:
+      summary: Log user out of the store
+      responses:
+        "200":
+          description: 200 OK or an error
+  /v2/logs:
+    get:
+      summary: Get log contents
+      responses:
+        "200":
+          description: A sequence of log messages
+      parameters:
+        - name: "n"
+          in: query
+          description: |
+            Number of entries to return or `all` for all entries. Defaults to 10
+            entries.
+          schema:
+            type: string
+        - name: follow
+          in: query
+          description: If set then returns log entries as they occur.
+          schema:
+            type: string
+  /v2/model:
+    get:
+      summary: Retrieve the active model assertion for the device or system
+      description: |
+        Retrieve the active [model
+        assertion](https://ubuntu.com/core/docs/reference/assertions/model) for
+        the system
+      responses:
+        "200":
+          description: The model assertion for the device or system
+    post:
+      summary: Replace the current model assertion
+      description: |
+        Can be either:
+        * JSON content-type, containing only the model assertion and requiring
+        online store access to retrieve other components
+        * multipart/form-data content-type, to side-load whatever new components
+        may be required. See [offline
+        remodelling](https://ubuntu.com/core/docs/remodelling#heading--offline).
+      responses:
+        "202":
+          description: OK
+        "400":
+          description: Standard error
+  /v2/model/serial:
+    get:
+      summary: Retrieve the current serial assertion for the device or system
+      description: >
+        Retrieve the current [serial
+        assertion](https://ubuntu.com/core/docs/reference/assertions/serial) for
+        the system
+      responses:
+        "200":
+          description: the serial assertion for the device or system
+    post:
+      summary: replace the active serial assertion
+      responses:
+        "202":
+          description: OK
+        "400":
+          description: Standard error
+  /v2/notices:
+    get:
+      summary: Retrieve notices for the current user and any public notices
+      responses:
+        "200":
+          description: The details of any recorded notice which matches the given filters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The unique ID of the given notice.
+                  user-id:
+                    type: string
+                    description: >
+                      The UID of the user who may view the notice (often its
+                      creator),
+
+                      or `null` if the notice is public (viewable by all users).
+                  type:
+                    type: string
+                    description: >
+                      The type of the notice, which may be one of the following:
+
+                      - `change-update`: recorded when a _change_ is spawned or
+                      whenever its status is updated
+
+                      - `warning`: a warning created by snapd
+
+                      - `refresh-inhibit`: recorded when an auto-refresh is
+                      inhibited for one or more snaps.
+                    enum:
+                      - change-update
+                      - warning
+                      - refresh-inhibit
+                  key:
+                    type: string
+                    description: >
+                      An identifier which is type-specific and unique among
+                      notices for a particular user and type:
+
+                      - For `change-update` notices, the key is the change ID
+
+                      - For `warning` notices, the key is a human-readable
+                      warning message
+
+                      - For `refresh-inhibit` notices, the key is always `-`.
+                  first-occurred:
+                    type: string
+                    format: date-time
+                    description: >
+                      The timestamp of the first time one of these notices (user
+                      ID, type, and key combination) occurred, in RFC3339
+                      format.
+                  last-occurred:
+                    type: string
+                    format: date-time
+                    description: >
+                      The timestamp of the last time one of these notices
+                      occurred, in RFC3339 format, which is updated every time
+                      one of these notices occurs.
+                  last-repeated:
+                    type: string
+                    format: date-time
+                    description: >
+                      The timestamp of the last time one of these notices
+                      repeated, in RFC3339 format, which is set when one of
+                      these notices first occurs and updated when it reoccurs at
+                      least `repeat-after` after the previous `last-repeated`
+                      time.
+                  occurrences:
+                    type: integer
+                    description: >
+                      The number of times one of these notices has been
+                      recorded.
+                  last-data:
+                    type: object
+                    additionalProperties: true
+                    description: >
+                      Additional data captured from the last occurrence of one
+                      of these notices.
+                  repeat-after:
+                    type: string
+                    description: >
+                      The duration after one of these notices was last repeated
+                      before it is allowed to repeat again.
+                  expire-after:
+                    type: string
+                    description: >
+                      The duration after one of these notices was last recorded
+                      before it should be dropped.
+              examples:
+                example1:
+                  value:
+                    type: sync
+                    status-code: 200
+                    status: OK
+                    result:
+                      - id: "1"
+                        user-id: null
+                        type: change-update
+                        key: "5"
+                        first-occurred: "2024-03-28T19:24:31.224894652Z"
+                        last-occurred: "2024-03-28T19:24:31.97763631Z"
+                        last-repeated: "2024-03-28T19:24:31.97763631Z"
+                        occurrences: 2
+                        last-data:
+                          kind: refresh-snap
+                        expire-after: 168h0m0s
+      parameters:
+        - name: types
+          in: query
+          description: |
+            If `types` is specified, only return notices with types matching the
+            given types. Types may be any of:
+            * `change-update`: recorded when a change is spawned or whenever its
+            status is updated. The `key` is the change ID.
+            * `warning`: a warning created by snapd. The `key` is a
+            human-readable warning message.
+            * `refresh-inhibit`: recorded when an auto-refresh is inhibited for
+            one or more snaps. The `key` is always `-`.
+
+            The `types` parameter can be included multiple types, and notices
+            matching any of the types are returned.
+          schema:
+            type: string
+        - name: keys
+          in: query
+          description: |
+            If `keys` is specified, only return notices with one of the given
+            keys.
+          schema:
+            type: string
+        - name: after
+          in: query
+          description: |
+            If `after` is specified, only return notices with a `LastRepeated`
+            field greater than the specified time, which should be in RFC3339
+            format.
+          schema:
+            type: string
+        - name: timeout
+          in: query
+          description: >
+            If there are notices matching the filter which have already been
+
+            recorded, these notices are returned immediately. Otherwise, if
+
+            `timeout` is specified, wait up to the given duration for any new
+
+            notices matching the filter to be recorded. 
+
+            This allows the user to use long-polling to be notified immediately
+            when a new notice is recorded.
+          schema:
+            type: string
+        - name: user-id
+          in: query
+          description: |
+            Admin only.
+            Instead of returning notices associated with the user who initiated
+            the API request, return notices associated with the given UID.
+            Public notices are still returned, as before.
+
+            Cannot be used with the `users` parameter.
+          schema:
+            type: string
+        - name: users
+          in: query
+          description: |
+            Admin only.
+            Value must be `all`. Return notices associated with all users,
+            instead of just the user which initiated the API request.
+
+            Cannot be used with the `user-id` parameter.
+          schema:
+            type: string
+  /v2/quotas:
+    get:
+      summary: Get all quota groups
+      description: Get all [Quota groups](/t/quota-groups/25553)
+      responses:
+        "200":
+          description: a list of quota groups and the constraints they contain
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group-name:
+                    type: string
+                    description: |
+                      Name of the quota group.
+                  subgroups:
+                    type: array
+                    description: |
+                      Lists any subgroups this quota group contains.
+                    items:
+                      type: string
+                  parent:
+                    type: string
+                    nullable: true
+                    description: >
+                      Contains the parent quota group name, if this group is a
+                      subgroup.
+                  snaps:
+                    type: array
+                    description: |
+                      Lists any snaps that belong to this quota group.
+                    items:
+                      type: string
+                  services:
+                    type: array
+                    description: >
+                      Only for a subgroup, lists specific services belonging to
+                      a snap in the parent group.
+                    items:
+                      type: string
+                  constraints:
+                    type: object
+                    description: >
+                      Types and values of limits defined for this quota group:
+
+                      - `memory`: memory usage limit.
+
+                      - `cpu`: includes `percentage` as a limit.
+
+                      - `cpu-set`: per-cpu limits, with `cpus` listing included
+                      cores.
+
+                      - `threads`: maximum number of threads for this quota
+                      group.
+
+                      - `journal`: includes `size` and both `rate-count` and
+                      `rate-period` for rate limits.
+                    properties:
+                      memory:
+                        type: integer
+                        description: |
+                          Memory usage limit.
+                      cpu:
+                        type: object
+                        description: |
+                          CPU usage limit, including percentage.
+                        properties:
+                          percentage:
+                            type: number
+                            format: float
+                            description: |
+                              CPU percentage limit.
+                      cpu-set:
+                        type: object
+                        description: |
+                          Per-cpu limits, with `cpus` listing included cores.
+                        properties:
+                          cpus:
+                            type: array
+                            description: |
+                              List of CPU cores included.
+                            items:
+                              type: string
+                      threads:
+                        type: integer
+                        description: |
+                          Maximum number of threads for this quota group.
+                      journal:
+                        type: object
+                        description: |
+                          Journal limit including size and rate limits.
+                        properties:
+                          size:
+                            type: integer
+                            description: |
+                              Maximum size of journal logs.
+                          rate-count:
+                            type: integer
+                            description: |
+                              Maximum number of messages logged per time period.
+                          rate-period:
+                            type: string
+                            description: |
+                              Time period for rate limits.
+                  current:
+                    type: object
+                    description: >
+                      Contains the current usage of memory and task quotas, such
+                      as `"memory": 450` to show 450 bytes are currently being
+                      used in a group with a memory limit.
+                    properties:
+                      memory:
+                        type: integer
+                        description: |
+                          Current memory usage in bytes.
+                      tasks:
+                        type: integer
+                        description: |
+                          Current number of tasks.
+              examples:
+                example1:
+                  value:
+                    - group-name: highmem
+                      subgroups:
+                        - lowmem
+                      snaps:
+                        - test-server
+                      constraints:
+                        memory: 2000000000
+                      current: {}
+                    - group-name: loggroup
+                      snaps:
+                        - nextcloud
+                      constraints:
+                        journal:
+                          size: 64000000
+                      current: {}
+                    - group-name: logmem
+                      constraints:
+                        memory: 64000000
+                        journal:
+                          size: 64000000
+                      current: {}
+                    - group-name: lowmem
+                      parent: highmem
+                      constraints:
+                        memory: 1000000000
+                      current: {}
+    post:
+      description: create, modify or remove a quota group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                    - ensure
+                    - remove
+                  description: >
+                    Action to perform. Must be either `ensure` or `remove`:
+
+                    - `ensure`: creates or modifies a pre-existing group with
+                    the fields supported by quotas.
+
+                    - `remove`: removes a quota group. Only `group-name` is
+                    required.
+            example:
+              action: ensure
+              group-name: quotagroup
+              parent: quotaparent
+              snaps:
+                - snap1
+                - snap2
+              services:
+                - snap1.svc1
+                - snap2.svc
+              constraints:
+                - journal:
+                    size: 64000000
+      responses:
+        "202":
+          description: OK
+  /v2/quotas[/{group-name}]:
+    get:
+      parameters:
+        - name: group-name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: either a single quota group, or an error
+  /v2/sections:
+    get:
+      description: get the store sections
+      responses:
+        "200":
+          description: an array containing the store section names
+  /v2/snapctl:
+    post:
+      description: run snapctl command
+      responses:
+        "200":
+          description: command output or standard error
+  /v2/snaps:
+    get:
+      description: list installed snaps
+      parameters:
+        - name: select
+          in: query
+          description: |
+            Filter snaps to return information about:
+            * `all`: show all snap revisions installed
+            * `enabled`: show only revisions of snaps that are active (default)
+            * `refresh-inhibited`: shows snaps that are inhibited for refresh.
+          schema:
+            type: string
+        - name: snaps
+          in: query
+          description: |
+            Return only information for the given snaps. Snap names are
+            separated by commas.
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: list of snaps installed on the system, as for `/v2/find`
+    post:
+      description: |
+        install, refresh, revert, remove, hold, unhold, enable, disable, switch
+        or snapshot snaps
+      responses:
+        "200":
+          description: background operation or standard error
+  /v2/snaps/{name}:
+    get:
+      summary: details for an installed snap
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the snap
+          schema:
+            type: string
+      responses:
+        "200":
+          description: snap details (as in `/v2/snaps`)
+    post:
+      description: install, refresh, remove, revert, enable or disable
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the snap
+          schema:
+            type: string
+      responses:
+        "200":
+          description: background operation
+  /v2/snaps/{name}/conf:
+    get:
+      summary: configuration details for an installed snap
+      description: |
+        \`name` can be the reserved name `system` to get system options.
+
+
+        Keys can be dotted, the `null` value can be used to unset configuration
+        options.
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the snap
+          schema:
+            type: string
+      responses:
+        "200":
+          description: jSON map of configuration keys and values
+    put:
+      summary: set the configuration details for an installed snap
+      description: \`name` can be the reserved name `system` to get system options.
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the snap
+          schema:
+            type: string
+      responses:
+        "200":
+          description: background operation or standard error
+  /v2/snapshots:
+    get:
+      summary: get a list of snapshots
+      description: |
+        Returns an array containing all the snapshot metadata stored on the
+        system.
+      responses:
+        "200":
+          description: list containing metadata for stored [snapshots](/t/snapshots/9468)
+    post:
+      summary: manipulate or import a snapshot
+      description: |
+        Snapshots based on current installed snap data are created via [`POST
+        /v2/snaps`](#heading--snapshot-create).
+      responses:
+        "200":
+          description: see each operation category
+  /v2/snapshots[/{set-id}]/export:
+    get:
+      summary: exports the snapshot with given set-id
+      parameters:
+        - name: set-id
+          in: path
+          required: true
+          description: >
+            Snapshot identifier retrieved either from the 'snap saved' command
+            or `GET /v2/snapshots`
+          schema:
+            type: string
+      description: |
+        The set-id is the snapshot identifier retrieved either from the 'snap
+        saved' command or [GET /v2/snapshots](#heading--snapshots).
+
+        The response has `Content-Type: application/x.snapd.snapshot` and
+        Content-Length headers, plus the data stream which contains an
+        uncompressed tar archive containing multiple zip files inside (one zip
+        file for every snap included in the snapshot).
+
+        The details of stream format might change, it is mainly intended for
+        importing via `POST /v2/snapshots`.
+      responses:
+        "200":
+          description: stream of snapshot data
+  /v2/system-info:
+    get:
+      description: server configuration and environment information
+      responses:
+        "200":
+          description: dict with the operating system's key values
+  /v2/systems:
+    get:
+      summary: get the list of recovery systems
+      responses:
+        "200":
+          description: list of recovery systems
+    post:
+      description: attempt to perform an action with the current active recovery system
+      responses:
+        "200":
+          description: OK
+  /v2/system-recovery-keys:
+    get:
+      description: |
+        retrieve LUKS encryption keys when using full disk encryption on Ubuntu
+        Core
+      responses:
+        "200":
+          description: recovery key
+    post:
+      description: |
+        removes and resets LUKS encryption keys when using full disk encryption
+        on Ubuntu Core
+      responses:
+        "200":
+          description: success or error code
+  /v2/systems[/{label}]:
+    post:
+      summary: Perform an action with the specified recovery system via label
+      description: >
+        Attempt to perform an action with the specified recovery system,
+        identified by its label
+
+
+        Same fields and usage as [POST to /v2/systems/](#heading--systems-post)
+      parameters:
+        - name: label
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /v2/users:
+    get:
+      description: get information on user accounts
+      responses:
+        "200":
+          description: array of user account information
+    post:
+      description: create or remove local users
+      responses:
+        "200":
+          description: list of objects with the created user details
+  /v2/validation-sets:
+    get:
+      description: get all enabled [validation sets](/t/validation-sets/23801)
+      responses:
+        "200":
+          description: list of validation sets
+  /v2/validation-sets[/{account-id}/{name}]:
+    get:
+      parameters:
+        - name: account-id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: single validation-set dict
+  /v2/validation-sets/[account-id]/[name]:
+    post:
+      responses:
+        "200":
+          description: OK
+  /v2/warnings:
+    get:
+      description: get the warnings in snapd
+      responses:
+        "200":
+          description: list containing the warning messages
+          content:
+            application/json:
+              examples:
+                example1:
+                  value: |-
+                    {
+                        "action": "okay",
+                        "timestamp": "2017-01-23T12:00:44.806931498+13:00"
+                    }
+    post:
+      description: respond to warnings
+      responses:
+        "200":
+          description: 200 OK or an error
