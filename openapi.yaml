@@ -1,0 +1,39 @@
+openapi: 3.0.3
+info:
+  title: Snapd REST API
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.txt
+  version: "0.1"
+  description: |
+        The REST API provides access to snapd's state and many of its key functions,
+        as listed below.
+
+        For general information on how to use the API, including how to access it,
+        its requests and responses, results fields and error types, see [Using the
+        REST API](https://snapcraft.io/docs/using-the-api).
+servers:
+  - url: unix:///run/snapd.socket
+    description: Local snapd socket access
+externalDocs:
+  url: https://snapcraft.io/docs
+  description: Snap and Snapcraft documentation
+
+tags:
+  - name: Aliases
+    description: Manage application command aliases.
+  - name: Asynchronous
+    description: Return without ensuring that the operation is finished.
+  - name: Authorization
+    description: Return without ensuring that the operation is finished.
+  - name: Synchronous
+    description: Return the result after the operation has been completed.
+
+components:
+  securitySchemes:
+    macaroonAuth:
+      $ref: './v2/components/security/PeerAuth.yaml'
+  
+paths:
+  /v2/aliases:
+    $ref: './v2/paths/aliases.yaml'

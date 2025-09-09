@@ -1,0 +1,15 @@
+description: Bad Request. The store cannot or will not process the request due to a client error (e.g., malformed request syntax).
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message.
+          example: "bad query"
+        kind:
+          type: string
+          description: A machine-readable string identifying the error type.
+        value:
+          description: Additional structured data about the error.

@@ -1,0 +1,14 @@
+description: Conflict. The request conflicts with the current state of the server.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message.
+        kind:
+          type: string # Can probably be enum later
+          description: A machine-readable string identifying the error type.
+        value:
+          description: Additional structured data about the error.
