@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: GPL-3.0
+
+description: |-
+  An internal error occurred on the server. This is a generic response for server-side issues.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status-code:
+          type: integer
+          example: 500
+        status:
+          type: string
+          example: "Internal Server Error"
+        type:
+          type: string
+          example: "error"
+        result:
+          # This response now relies on a schema that describes the specifics of the server error.
+          $ref: '../errors/InternalServerError.yaml'

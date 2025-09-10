@@ -1,0 +1,13 @@
+#SPDX-License-Identifier: GPL-3.0
+
+type: object
+properties:
+  kind:
+    type: string
+    example: 'snap-not-installed'
+  message:
+    type: string
+    example: 'snap \"moon-buggy\" is not installed'
+  value:
+    type: string
+    example: '"moon-buggy'

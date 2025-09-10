@@ -1,3 +1,5 @@
+#SPDX-License-Identifier: GPL-3.0
+
 get:
   operationId: getAliases
   summary: Get the available app aliases
@@ -7,7 +9,7 @@ get:
     - Synchronous
   security: []
   responses:
-    "200":
+    '200':
       description: A dictionary containing the aliases for each snap.
       content:
         application/json:
@@ -20,12 +22,11 @@ get:
                   The status-code property contains the HTTP response value.
                 enum:
                   - 200
-                  - 400
               status:
                 type: string
                 description: |
-                  The status property contains the textual representation of the "status-code" property.
-                  For the "status-code" equal to 200, the "status" is always "OK"
+                  The status property contains the textual representation of the 'status-code' property.
+                  For the 'status-code' equal to 200, the 'status' is always 'OK'
                 enum:
                   - OK
               type:
@@ -33,7 +34,7 @@ get:
                 description: |
                   The type property indicates that this is a synchronous API response and the whole content
                   is now available. The result of the API call is in the result object. The value is always
-                  "sync".
+                  'sync'.
                 enum:
                   - sync
               result:
@@ -64,10 +65,10 @@ get:
                         status:
                           type: string
                           description: |
-                            Status describes the status of the alias. The value "maniual" indicates that the
-                            status was created manually by the user. The status "disabled" indicates the user
+                            Status describes the status of the alias. The value 'maniual' indicates that the
+                            status was created manually by the user. The status 'disabled' indicates the user
                             manually removed the alias (it will not be re-created automatically by snapd).
-                            The status "auto" indictates that the alias was created automatically by snapd.
+                            The status 'auto' indictates that the alias was created automatically by snapd.
                           enum:
                             - auto
                             - manual
@@ -81,8 +82,8 @@ get:
                           description: |
                             The app the alias is for if status is manual.
                             Overrides auto
-    "400":
-      $ref: '../components/responses/BadRequest.yaml'
+    '4XX':
+      $ref: '../components/responses/InternalError.yaml'
 
 post:
   tags:
@@ -94,7 +95,7 @@ post:
     Modify aliases by performing an 'alias', 'unalias', or 'prefer' action.
   operationId: modifyAliases
   security:
-    - peerAuth: []
+    - PeerAuth: []
   requestBody:
     description: The action to perform on an alias.
     required: true
@@ -109,7 +110,10 @@ post:
             action:
               type: string
               description: The action to perform on the alias.
-              enum: [alias, unalias, prefer]
+              enum:
+                - alias
+                - unalias
+                - prefer
             snap:
               type: string
               description: The snap name to modify (optional for unalias).
@@ -124,5 +128,9 @@ post:
   responses:
     '202':
       $ref: '../components/responses/Accepted.yaml'
-    "409":
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '401':
+      $ref: '../components/responses/AccessDenied.yaml'
+    '409':
       $ref: '../components/responses/Conflict.yaml'

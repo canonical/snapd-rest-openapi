@@ -1,15 +1,23 @@
-description: Bad Request. The store cannot or will not process the request due to a client error (e.g., malformed request syntax).
+# SPDX-License-Identifier: GPL-3.0
+
+description: |-
+  Bad Request. The request could not be processed due to a client-side error.
+  This can be due to malformed syntax or providing an entity that does not exist.
 content:
   application/json:
     schema:
       type: object
       properties:
-        message:
+        status-code:
+          type: integer
+          example: 400
+        status:
           type: string
-          description: A human-readable error message.
-          example: "bad query"
-        kind:
+          example: 'Bad Request'
+        type:
           type: string
-          description: A machine-readable string identifying the error type.
-        value:
-          description: Additional structured data about the error.
+          example: 'error'
+        result:
+          oneOf:
+            - $ref: '../errors/SnapNotInstalledError.yaml'
+            - $ref: '../errors/MalformedRequestError.yaml'

@@ -1,14 +1,43 @@
+# SPDX-License-Identifier: GPL-3.0
+
 description: Conflict. The request conflicts with the current state of the server.
 content:
   application/json:
     schema:
       type: object
       properties:
-        message:
+        status-code:
+          type: integer
+          description: The HTTP status code.
+          example: 409
+        status:
           type: string
-          description: A human-readable error message.
-        kind:
-          type: string # Can probably be enum later
-          description: A machine-readable string identifying the error type.
-        value:
-          description: Additional structured data about the error.
+          description: The textual representation of the status code.
+          example: 'Conflict'
+        type:
+          type: string
+          description: The type of response.
+          example: 'error'
+        result:
+          type: object
+          properties:
+            message:
+              type: string
+              description: A human-readable error message explaining the conflict.
+              example: 'snap "alias-snap" has "manip" change in progress'
+            kind:
+              type: string
+              description: A machine-readable string identifying the error type.
+              example: 'snap-change-conflict'
+            value:
+              type: object
+              description: Additional structured data about the conflict.
+              properties:
+                change-kind:
+                  type: string
+                  description: The kind of change that is in progress.
+                  example: 'manip'
+                snap-name:
+                  type: string
+                  description: The name of the snap that has a conflicting change.
+                  example: 'alias-snap'
