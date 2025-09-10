@@ -12,7 +12,7 @@ jobs:
                 - .:/spec
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: Check API specification
               run: redocly lint ./yaml/toy.yaml
             - name: Build generated documentation
