@@ -24,14 +24,16 @@ tags:
     description: Manage application command aliases.
   - name: Asynchronous
     description: Return without ensuring that the operation is finished.
-  - name: Authorization
-    description: Return without ensuring that the operation is finished.
+  - name: AuthenticationRequired
+    description: Require the user to provide authentication credentials.
+  - name: OpenAccess
+    description: Do not require the user to authenticate.
   - name: Synchronous
     description: Return the result after the operation has been completed.
 
 components:
   securitySchemes:
-    macaroonAuth:
+    peerAuth:
       $ref: './v2/components/security/PeerAuth.yaml'
   
 paths:
