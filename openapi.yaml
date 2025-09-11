@@ -51,6 +51,8 @@ components:
       $ref: './v2/components/responses/InternalError.yaml'
 
   schemas:
+    ConflictError:
+      $ref: './v2/components/errors/ConflictError.yaml'
     InternalServerError:
       $ref: './v2/components/errors/InternalServerError.yaml'
     MalformedRequestError:
