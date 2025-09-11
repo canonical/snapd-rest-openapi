@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: GPL-3.0
+
+get:
+  tags:
+    - AuthenticationRequired
+    - Synchronous
+  summary: Get log contents
+  description: |-
+    Retrieves log contents from the snapd daemon. The response is a stream of newline-delimited JSON objects.
+  operationId: getLogs
+  security:
+    - PeerAuth: []
+  parameters:
+    - name: n
+      in: query
+      description: Number of log entries to return, or 'all'.
+      schema:
+        type: string
+        default: "10"
+    - name: follow
+      in: query
+      description: If set, returns log entries as they occur, streaming the response.
+      schema:
+        type: boolean
+        default: false
+  responses:
+    '200':
+      description: A stream of log messages. Each line is a self-contained JSON object.
+      content:
+        # application/x-ndjson is the standard MIME type for newline-delimited JSON streams.
+        application/x-ndjson:
+          schema:
+            $ref: '../components/schemas/Log.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '403':
+      $ref: '../components/responses/Forbidden.yaml'
