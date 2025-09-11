@@ -1,0 +1,40 @@
+# SPDX-License-Identifier: GPL-3.0
+
+type: object
+required:
+  - connections
+  - interface
+  - slot
+  - snap
+description: Describes a slot and all the plugs connected to it.
+properties:
+  interface:
+    type: string
+    description: The name of the interface.
+    example: "content"
+  slot:
+    type: string
+    description: The name of the slot.
+    example: "gnome-42-2204"
+  snap:
+    type: string
+    description: The name of the snap providing the slot.
+    example: "gnome-42-2204"
+  attrs:
+    type: object
+    description: Optional attributes of the connection, which can vary by interface.
+    additionalProperties: true
+    example:
+      content: "gnome-42-2204"
+      read: ["/"]
+  apps:
+    type: array
+    description: Optional list of apps associated with the slot.
+    items:
+      type: string
+    example: ["daemon"]
+  connections:
+    type: array
+    description: A list of plugs connected to this slot.
+    items:
+      $ref: './ConnectionPeer.yaml'
