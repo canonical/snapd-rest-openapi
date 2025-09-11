@@ -109,6 +109,8 @@ components:
       $ref: './v2/components/schemas/Log.yaml'
     Media:
       $ref: './v2/components/schemas/Media.yaml'
+    Notice:
+      $ref: './v2/components/schemas/Notice.yaml'
     Plug:
       $ref: './v2/components/schemas/Plug.yaml'
     PlugRef:
@@ -167,6 +169,8 @@ paths:
     $ref: './v2/paths/model.yaml'
   /v2/model/serial:
     $ref: './v2/paths/serial.yaml'
+  /v2/notices:
+    $ref: './v2/paths/notices.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
   /v2/snapshots:
