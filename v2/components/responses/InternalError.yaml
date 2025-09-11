@@ -17,5 +17,4 @@ content:
           type: string
           example: "error"
         result:
-          # This response now relies on a schema that describes the specifics of the server error.
           $ref: '../errors/InternalServerError.yaml'

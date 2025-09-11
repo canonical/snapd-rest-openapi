@@ -1,4 +1,4 @@
-#SPDX-License-Identifier: GPL-3.0
+# SPDX-License-Identifier: GPL-3.0
 
 openapi: 3.0.3
 info:
@@ -25,13 +25,13 @@ tags:
   - name: Aliases
     description: Manage application command aliases.
   - name: Asynchronous
-    description: Return without ensuring that the operation is finished.
+    description: Return the reference to a change that will occur in the background.
   - name: AuthenticationRequired
-    description: Require the user to provide authentication credentials.
+    description: Access is restricted to the root user.
   - name: OpenAccess
     description: Do not require the user to authenticate.
   - name: Synchronous
-    description: Return the result after the operation has been completed.
+    description: Return the complete response synchronously.
 
 components:
   securitySchemes:

@@ -11,15 +11,18 @@ content:
         status-code:
           type: integer
           description: The HTTP status code.
-          example: 401
+          enum:
+            - 401
         status:
           type: string
           description: The textual representation of the status code.
-          example: 'Unauthorized'
+          enum:
+            - 'Unauthorized'
         type:
           type: string
           description: The type of response.
-          example: 'error'
+          enum:
+            - 'error'
         result:
           type: object
           properties:

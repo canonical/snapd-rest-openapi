@@ -1,11 +1,8 @@
-#SPDX-License-Identifier: GPL-3.0
+# SPDX-License-Identifier: GPL-3.0
 
 type: object
-description: The specific details of an internal server error.
 properties:
-  kind:
-    type: string
-    example: "internal-error"
   message:
     type: string
-    example: "An unexpected error occurred while processing the request."
+    description: A human-readable error message.
+    example: "internal server error"

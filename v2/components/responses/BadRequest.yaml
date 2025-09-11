@@ -10,13 +10,16 @@ content:
       properties:
         status-code:
           type: integer
-          example: 400
+          enum: 
+            - 400
         status:
           type: string
-          example: 'Bad Request'
+          enum:
+            - 'Bad Request'
         type:
           type: string
-          example: 'error'
+          enum:
+            - 'error'
         result:
           oneOf:
             - $ref: '../errors/SnapNotInstalledError.yaml'

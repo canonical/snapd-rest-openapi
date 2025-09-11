@@ -1,9 +1,9 @@
 # Makefile to replicate the Redocly GitHub CI workflow locally using Docker.
 #
-# This requires Docker to be installed and running.
+# This requires Docker to be installed and the daemon running.
 
 # Define the Redocly CLI Docker image and the command prefix.
-# We mount the current directory to /spec inside the container, just like the CI.
+# Mount the current directory to /spec inside the container, just like the CI.
 REDOCLY_CMD = docker run --rm -v "$(CURDIR):/spec" redocly/cli
 
 # Default target: runs both linting and building, mimicking the full CI job.

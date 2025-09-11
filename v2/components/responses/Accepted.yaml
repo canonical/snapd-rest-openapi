@@ -9,17 +9,20 @@ content:
       properties:
         type:
           type: string
-          example: 'async'
+          enum:
+            - 'async'
         status-code:
           type: integer
-          example: 202
+          enum:
+            - 202
         status:
           type: string
-          example: 'Accepted'
+          enum: 
+            - 'Accepted'
         change:
           type: string
-          description: The ID of the background change that was initiated.
-          example: '61'
+          description: The ID of the background change that was initiated. This is a string because JSON only uses floats.
+          example: '\"61\"'
         result:
           type: object
           nullable: true

@@ -9,7 +9,8 @@ content:
         status-code:
           type: integer
           description: The HTTP status code.
-          example: 409
+          enum:
+            - 409
         status:
           type: string
           description: The textual representation of the status code.
@@ -17,27 +18,7 @@ content:
         type:
           type: string
           description: The type of response.
-          example: 'error'
+          enum:
+            - 'error'
         result:
-          type: object
-          properties:
-            message:
-              type: string
-              description: A human-readable error message explaining the conflict.
-              example: 'snap "alias-snap" has "manip" change in progress'
-            kind:
-              type: string
-              description: A machine-readable string identifying the error type.
-              example: 'snap-change-conflict'
-            value:
-              type: object
-              description: Additional structured data about the conflict.
-              properties:
-                change-kind:
-                  type: string
-                  description: The kind of change that is in progress.
-                  example: 'manip'
-                snap-name:
-                  type: string
-                  description: The name of the snap that has a conflicting change.
-                  example: 'alias-snap'
+          $ref: '../errors/ConflictError.yaml'
