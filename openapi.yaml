@@ -33,6 +33,8 @@ tags:
     description: Do not require the user to authenticate.
   - name: Synchronous
     description: Return the complete response synchronously.
+  - name: Notices
+    description: Retrieve recorded notices. Warnings are a subset of notices.
 
 components:
   securitySchemes:
@@ -61,6 +63,11 @@ components:
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
+    Warning:
+      $ref: './v2/components/schemas/Warning.yaml'
+
 paths:
   /v2/aliases:
     $ref: './v2/paths/aliases.yaml'
+  /v2/warnings:
+    $ref: './v2/paths/warnings.yaml'

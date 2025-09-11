@@ -1,0 +1,95 @@
+# SPDX-License-Identifier: GPL-3.0
+
+get:
+  tags:
+    - Notices
+    - OpenAccess
+    - Synchronous
+  summary: Get system warnings
+  description: |-
+    Retrieves the current warnings in snapd.
+  operationId: getWarnings
+  security: []
+  responses:
+    '200':
+      description: A synchronous response containing a list of warnings.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status-code:
+                type: integer
+                enum:
+                  - 200
+              status:
+                type: string
+                enum:
+                  - "OK"
+              type:
+                type: string
+                enum:
+                  - "sync"
+              result:
+                type: array
+                items:
+                  $ref: '../components/schemas/Warning.yaml'
+
+    '4XX':
+      $ref: '../components/responses/InternalError.yaml'
+
+post:
+  tags:
+    - AuthenticationRequired
+    - Notices
+    - Synchronous
+  summary: Respond to warnings
+  description: |-
+    Respond to warnings, typically to clear them.
+  operationId: respondToWarnings
+  security:
+    - PeerAuth: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - timestamp
+          properties:
+            action:
+              type: string
+              enum: 
+                - "okay"
+            timestamp:
+              type: string
+              format: date-time
+              description: Time to clear warnings before (RFC3339 UTC format).
+  responses:
+    '200':
+      description: A synchronous response indicating success.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status-code:
+                type: integer
+                enum: 
+                  - 200
+              status:
+                type: string
+                enum:
+                  - "OK"
+              type:
+                type: string
+                enum:
+                  - "sync"
+              result:
+                type: integer
+                description: The number of warnings cleared.
+                example: 0
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
