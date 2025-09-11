@@ -56,6 +56,8 @@ components:
       $ref: './v2/components/responses/Conflict.yaml'
     InternalError:
       $ref: './v2/components/responses/InternalError.yaml'
+    NotFound:
+      $ref: './v2/components/responses/NotFound.yaml'
 
   schemas:
     ConflictError:
@@ -79,7 +81,10 @@ components:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:
       $ref: './v2/components/schemas/SlotRef.yaml'
-
+    Snapshot:
+      $ref: './v2/components/schemas/Snapshot.yaml'
+    SnapshotSet:
+      $ref: './v2/components/schemas/Snapshot.yaml'
     Warning:
       $ref: './v2/components/schemas/Warning.yaml'
 
@@ -88,7 +93,10 @@ paths:
     $ref: './v2/paths/aliases.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'
-  /v2/warnings:
-    $ref: './v2/paths/warnings.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
+  /v2/snapshots:
+    $ref: './v2/paths/snapshots.yaml'
+  /v2/warnings:
+    $ref: './v2/paths/warnings.yaml'
+  
