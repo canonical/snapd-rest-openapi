@@ -1,0 +1,90 @@
+# SPDX-License-Identifier: GPL-3.0
+
+type: object
+description: Detailed information about the snapd server's configuration and environment.
+properties:
+  architecture:
+    type: string
+    example: "amd64"
+  build-id:
+    type: string
+    description: A unique identifier for the specific build of snapd.
+    example: "3672763544646f6c..."
+  confinement:
+    type: string
+    description: The level of confinement the system supports.
+    example: "strict"
+  features:
+    type: object
+    description: A map of snapd feature names to their support and enabled status.
+    additionalProperties:
+      type: object
+      properties:
+        supported:
+          type: boolean
+        enabled:
+          type: boolean
+  kernel-version:
+    type: string
+    description: The version string of the running Linux kernel.
+    example: "6.14.0-29-generic"
+  locations:
+    type: object
+    properties:
+      snap-bin-dir:
+        type: string
+        example: "/snap/bin"
+      snap-mount-dir:
+        type: string
+        example: "/snap"
+  managed:
+    type: boolean
+    description: True if the system is managed by an external authority.
+  on-classic:
+    type: boolean
+    description: True if not running on a fully snap managed system (e.g., Ubuntu Core).
+  os-release:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "ubuntu"
+      version-id:
+        type: string
+        example: "24.04"
+  refresh:
+    type: object
+    properties:
+      timer:
+        type: string
+        description: The schedule for automatic refreshes.
+        example: "00:00~24:00/4"
+      last:
+        type: string
+        format: date-time
+        description: The timestamp of the last refresh (RFC3339 format).
+        example: "2025-09-11T13:18:00-02:30"
+      next:
+        type: string
+        format: date-time
+        description: The timestamp of the next scheduled refresh (RFC3339 format).
+        example: "2025-09-11T22:37:00-02:30"
+  sandbox-features:
+    type: object
+    description: Information about features supported by various components of the sandbox.
+    additionalProperties:
+      type: array
+      items:
+        type: string
+  series:
+    type: string
+    description: The OS series the system is based on.
+    example: "16"
+  system-mode:
+    type: string
+    description: The current operational mode of the system.
+    example: "run"
+  version:
+    type: string
+    description: The detailed version of snapd.
+    example: "1337.2.71+g54.6256d34-dirty-dirty"
