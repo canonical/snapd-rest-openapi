@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: GPL-3.0
+
+# This schema describes a single warning object.
+type: object
+properties:
+  message:
+    type: string
+    description: The warnings message content.
+  first-seen:
+    type: string
+    format: date-time
+    description: The first time a message of this type was created (RFC3339 UTC format).
+  last-seen:
+    type: string
+    format: date-time
+    description: The last time a message of this type was created (RFC3339 UTC format).
+  last-shown:
+    type: string
+    format: date-time
+    description: The last time a message of this type was displayed to the user (RFC3339 UTC format).
+  delete-after:
+    type: string
+    description: A duration string like '1h30m'.
+  repeat-after:
+    type: string
+    description: Duration after which the warning is repeated.
