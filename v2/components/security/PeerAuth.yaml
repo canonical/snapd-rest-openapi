@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 type: apiKey
 in: header
@@ -16,8 +17,3 @@ description: |-
   3.  The kernel securely provides the client's User ID (UID), Group ID (GID), and Process ID (PID).
 
   Authorization decisions are then based on this trusted, kernel-provided UID. For example, access may be restricted to only the `root` user (UID 0).
-
-  **Key Points:**
-  - No authentication data is ever sent within the HTTP request itself.
-  - This mechanism is highly secure for local inter-process communication as credentials cannot be forged by the client.
-  - It requires both the client and the server to be running on the same machine.

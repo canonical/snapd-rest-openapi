@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 description: |-
   Access Denied. The daemon/store cannot or will not process the request because 

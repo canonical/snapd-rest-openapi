@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
 # Makefile to replicate the Redocly GitHub CI workflow locally using Docker.
 #
 # This requires Docker to be installed and the daemon running.
