@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: A collection of relevant links for the snap.
+properties:
+  contact:
+    type: array
+    items:
+      type: string
+      format: uri
+  website:
+    type: array
+    items:
+      type: string
+      format: uri
