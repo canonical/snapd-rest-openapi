@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0
+
+description: Not Found. The requested resource could not be found on the server.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status-code:
+          type: integer
+          example: 404
+        status:
+          type: string
+          example: "Not Found"
+        type:
+          type: string
+          example: "error"
+        result:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "no snapshot set with the given ID"
