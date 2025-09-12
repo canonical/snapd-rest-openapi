@@ -1,0 +1,66 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+openapi: 3.0.3
+info:
+  title: Snapd REST API
+  license:
+    name: GPL-3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.txt
+  version: '0.1'
+  description: |
+        The REST API provides access to snapd's state and many of its key functions,
+        as listed below.
+
+        For general information on how to use the API, including how to access it,
+        its requests and responses, results fields and error types, see [Using the
+        REST API](https://snapcraft.io/docs/using-the-api).
+servers:
+  - url: unix:///run/snapd.socket
+    description: Local snapd socket access
+externalDocs:
+  url: https://snapcraft.io/docs
+  description: Snap and Snapcraft documentation
+
+tags:
+  - name: Aliases
+    description: Manage application command aliases.
+  - name: Asynchronous
+    description: Return the reference to a change that will occur in the background.
+  - name: AuthenticationRequired
+    description: Access is restricted to the root user.
+  - name: OpenAccess
+    description: Do not require the user to authenticate.
+  - name: Synchronous
+    description: Return the complete response synchronously.
+
+components:
+  securitySchemes:
+    PeerAuth:
+      $ref: './v2/components/security/PeerAuth.yaml'
+
+  responses:
+    Accepted:
+      $ref: './v2/components/responses/Accepted.yaml'
+    AccessDenied:
+      $ref: './v2/components/responses/AccessDenied.yaml'
+    BadRequest:
+      $ref: './v2/components/responses/BadRequest.yaml'
+    Conflict:
+      $ref: './v2/components/responses/Conflict.yaml'
+    InternalError:
+      $ref: './v2/components/responses/InternalError.yaml'
+
+  schemas:
+    ConflictError:
+      $ref: './v2/components/errors/ConflictError.yaml'
+    InternalServerError:
+      $ref: './v2/components/errors/InternalServerError.yaml'
+    MalformedRequestError:
+      $ref: './v2/components/errors/MalformedRequestError.yaml'
+    SnapNotInstalledError:
+      $ref: './v2/components/errors/SnapNotInstalledError.yaml'
+
+paths:
+  /v2/aliases:
+    $ref: './v2/paths/aliases.yaml'

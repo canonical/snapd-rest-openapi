@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+properties:
+  kind:
+    type: string
+    enum:
+      - 'snap-not-installed'  # TODO Need follow up PR focusing only on errors
+  message:
+    type: string
+    example: 'snap \"moon-buggy\" is not installed'
+  value:
+    type: string
+    example: 'moon-buggy'

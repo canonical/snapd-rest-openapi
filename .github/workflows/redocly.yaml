@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
 name: Redocly
 on:
     push:
@@ -14,9 +17,9 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v5
             - name: Check API specification
-              run: redocly lint ./yaml/toy.yaml
+              run: redocly lint ./openapi.yaml
             - name: Build generated documentation
-              run: redocly build-docs ./yaml/toy.yaml
+              run: redocly build-docs ./openapi.yaml
             - name: Store generated artifact
               uses: actions/upload-artifact@v4
               with:
