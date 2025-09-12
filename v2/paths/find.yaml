@@ -1,0 +1,68 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+get:
+  tags:
+    - OpenAccess
+    - Store
+    - Synchronous
+  summary: Find snaps in the store
+  description: |-
+    Finds snaps or components in the store that match the search criteria and are compatible with the host system.
+  operationId: findSnaps
+  security: []
+  parameters:
+    - name: snap
+      in: query
+      description: A broad search query for a snap.
+      required: true
+      schema:
+        type: string
+        example: 'potato'
+    - name: arch
+      in: query
+      description: The architecture to filter snaps by.
+      schema:
+        type: string
+        example: 'amd64'
+    - name: channel
+      in: query
+      description: The channel to filter snaps by.
+      schema:
+        type: string
+        example: 'stable'
+    - name: confinement
+      in: query
+      description: The confinement type to filter snaps by.
+      schema:
+        type: string
+        enum:
+          - 'strict'
+          - 'classic'
+          - 'devmode'
+    - name: fields
+      in: query
+      description: A comma-separated list of fields to include in the response.
+      schema:
+        type: string
+    - name: section
+      in: query
+      description: The name of a store section to search within (e.g., 'featured').
+      schema:
+        type: string
+    - name: private
+      in: query
+      description: Set to 'true' to include private snaps in the search.
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: A list of snaps from the store that match the search criteria.
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/FindResult.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '500':
+      $ref: '../components/responses/InternalError.yaml'
