@@ -2,7 +2,7 @@
 
 get:
   tags:
-    - Notices
+    - Warnings
     - OpenAccess
     - Synchronous
   summary: Get system warnings
@@ -45,7 +45,8 @@ post:
     - Synchronous
   summary: Respond to warnings
   description: |-
-    Respond to warnings, typically to clear them.
+    Warnings can only be acknowleged to clear them, but they may reoccur
+    Acknowledging warnings does not fix the underlying cause.
   operationId: respondToWarnings
   security:
     - PeerAuth: []
