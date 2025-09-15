@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 get:
   tags:
@@ -51,9 +52,6 @@ get:
                 enum:
                   - "sync"
               result:
-                type: array
-                description: A list of established connections, grouped by slot.
-                items:
-                  $ref: '../components/schemas/ConnectionDetail.yaml'
+                $ref: '../components/schemas/ConnectionStatus.yaml'
     '400':
       $ref: '../components/responses/BadRequest.yaml'
