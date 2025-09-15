@@ -19,10 +19,12 @@ properties:
       - change-update
       - warning
       - refresh-inhibit
-    example: "change-update"
+      - snap-run-inhibit
   key:
     type: string
-    description: A type-specific identifier for the notice, often corresponding to a change ID.
+    description: |-
+      A type-specific identifier for the notice, often corresponding to a change ID,
+      can also be the name of the snap associated with the notice.
     example: "63"
   first-occurred:
     type: string

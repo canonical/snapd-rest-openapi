@@ -84,3 +84,70 @@ get:
                   $ref: '../components/schemas/Notice.yaml'
     '4XX':
       $ref: '../components/responses/InternalError.yaml'
+
+post:
+  tags:
+    - Notices
+    - OpenAccess
+    - Synchronous
+  summary: Create a notice
+  description: |-
+    Create a notice.
+  operationId: postNotices
+  security: []
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - action
+            - key
+            - type
+          properties:
+            action:
+              type: string
+              description: The action to perform.
+              enum: 
+                - "add"
+            key:
+              type: string
+              description: The name of the snap to inhibit.
+            type:
+              type: string
+              description: The type of the notice to add.
+              enum:
+                - "snap-run-inhibit"
+  responses:
+    '200':
+      description: A synchronous response indicating success.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status-code:
+                type: integer
+                enum: 
+                  - 200
+              status:
+                type: string
+                enum:
+                  - "OK"
+              type:
+                type: string
+                enum:
+                  - "sync"
+              result:
+                type: object
+                description: |
+                  The result object contains information about the response to the request.
+                additionalProperties:
+                  type: string
+                  description: |
+                    The ID of the operation.
+                  example: "74"
+
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
