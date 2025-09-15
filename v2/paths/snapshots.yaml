@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 get:
   tags:
@@ -73,35 +74,15 @@ post:
                 type: string
             users:
               type: array
-              description: An array of user names to restrict the action to (for restore only).
+              description: An array of user names to restrict the action to (disallowed for 'forget').
               items:
                 type: string
       application/x.snapd.snapshot:
         schema:
           type: string
           format: binary
-          description: A tar archive of an exported snapshot, used for the import action.
+          description: A tar archive of an exported snapshot, used only to import a snapshot with the 'import' action.
   responses:
-    '200':
-      description: The response for a successful synchronous import.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              type:
-                type: string
-                example: sync
-              result:
-                type: object
-                properties:
-                  set:
-                    type: integer
-                    description: The new set ID of the imported snapshot.
-                  snaps:
-                    type: array
-                    items:
-                      type: string
     '202':
       $ref: '../components/responses/Accepted.yaml'
     '400':

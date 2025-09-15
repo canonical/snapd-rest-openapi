@@ -84,7 +84,7 @@ components:
     Snapshot:
       $ref: './v2/components/schemas/Snapshot.yaml'
     SnapshotSet:
-      $ref: './v2/components/schemas/Snapshot.yaml'
+      $ref: './v2/components/schemas/SnapshotSet.yaml'
     Warning:
       $ref: './v2/components/schemas/Warning.yaml'
 
@@ -97,6 +97,8 @@ paths:
     $ref: './v2/paths/sections.yaml'
   /v2/snapshots:
     $ref: './v2/paths/snapshots.yaml'
+  /v2/snapshots/{set-id}/export:
+    $ref: './v2/paths/snapshots-export.yaml'
   /v2/warnings:
     $ref: './v2/paths/warnings.yaml'
   

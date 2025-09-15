@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
 description: Represents a set of snapshots, typically created at the same time.
