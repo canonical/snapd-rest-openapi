@@ -11,23 +11,28 @@ get:
   security:
     - PeerAuth: []
   parameters:
-    - name: n
-      in: query
-      description: Number of log entries to return, or 'all'.
-      schema:
-        type: string
-        default: "10"
     - name: follow
       in: query
       description: If set, returns log entries as they occur, streaming the response.
       schema:
         type: boolean
         default: false
+    - name: n
+      in: query
+      description: Number of log entries to return. Only integers should be used in 'n'.
+      schema:
+        type: string
+        default: "10"
+    - name: names
+      in: query
+      description: Comma-seperated list of snap names to filter by.
+      schema:
+        type: string
+        example: "multipass,lxd"
   responses:
     '200':
       description: A stream of log messages. Each line is a self-contained JSON object.
       content:
-        # application/x-ndjson is the standard MIME type for newline-delimited JSON streams.
         application/x-ndjson:
           schema:
             $ref: '../components/schemas/Log.yaml'

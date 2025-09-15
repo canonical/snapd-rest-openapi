@@ -107,4 +107,3 @@ paths:
     $ref: './v2/paths/snapshots-export.yaml'
   /v2/warnings:
     $ref: './v2/paths/warnings.yaml'
-  
