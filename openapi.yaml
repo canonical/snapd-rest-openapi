@@ -171,7 +171,7 @@ paths:
     $ref: './v2/paths/serial.yaml'
   /v2/notices:
     $ref: './v2/paths/notices.yaml'
-  /v2/notices{id}:
+  /v2/notices/{id}:
     $ref: './v2/paths/notices-id.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
