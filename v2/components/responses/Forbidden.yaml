@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+description: Forbidden. The server understood the request but refuses to authorize it because the authenticated user lacks the necessary permissions for the target resource.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status-code:
+          type: integer
+          example: 403
+        status:
+          type: string
+          example: "Forbidden"
+        type:
+          type: string
+          example: "error"
+        result:
+          type: object
+          properties:
+            kind:
+              type: string
+              example: "auth-cancelled"
+            message:
+              type: string
+              example: "cancelled"
