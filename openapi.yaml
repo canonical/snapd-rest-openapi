@@ -29,6 +29,8 @@ tags:
     description: Return the reference to a change that will occur in the background.
   - name: AuthenticationRequired
     description: Access is restricted to the root user.
+  - name: Interfaces
+    description: Display and manage interactions between snaps.
   - name: OpenAccess
     description: Do not require the user to authenticate.
   - name: Store
@@ -65,12 +67,27 @@ components:
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
+    Connection:
+      $ref: './v2/components/schemas/Connection.yaml'
+    ConnectionStatus:
+      $ref: './v2/components/schemas/ConnectionStatus.yaml'
+    Plug:
+      $ref: './v2/components/schemas/Plug.yaml'
+    PlugRef:
+      $ref: './v2/components/schemas/PlugRef.yaml'
+    Slot:
+      $ref: './v2/components/schemas/Slot.yaml'
+    SlotRef:
+      $ref: './v2/components/schemas/SlotRef.yaml'
+
     Warning:
       $ref: './v2/components/schemas/Warning.yaml'
 
 paths:
   /v2/aliases:
     $ref: './v2/paths/aliases.yaml'
+  /v2/connections:
+    $ref: './v2/paths/connections.yaml'
   /v2/warnings:
     $ref: './v2/paths/warnings.yaml'
   /v2/sections:
