@@ -3,9 +3,9 @@
 
 get:
   tags:
-    - Warnings
     - OpenAccess
     - Synchronous
+    - Warnings
   summary: Get system warnings
   description: |-
     Retrieves the current warnings in snapd.
@@ -42,8 +42,8 @@ get:
 post:
   tags:
     - AuthenticationRequired
-    - Notices
     - Synchronous
+    - Warnings
   summary: Respond to warnings
   description: |-
     Warnings can only be acknowleged to clear them, but they may reoccur
