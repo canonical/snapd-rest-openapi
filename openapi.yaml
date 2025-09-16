@@ -1,12 +1,12 @@
-# SPDX-License-Identifier: GPL-3.0
-# SPDX-FileCopyrightText: Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: © 2025 Canonical Ltd (https://https://github.com/canonical/snapd)
 
 openapi: 3.0.3
 info:
   title: Snapd REST API
   license:
-    name: GPL-3.0
-    url: https://www.gnu.org/licenses/gpl-3.0.txt
+    name: GPL-3.0-only
+    url: https://www.gnu.org/licenses/GPL-3.0-only.txt
   version: '0.1'
   description: |
         The REST API provides access to snapd's state and many of its key functions,
