@@ -7,15 +7,6 @@ path = "*/**"
 SPDX-License-Identifier = "GPL-3.0-only"
 SPDX-FileCopyrightText = "© 2025 Canonical Ltd (https://github.com/canonical/snapd)"
 
-# This block OVERRIDES the default for the generated HTML file.
-# Since the goal is to "skip" it, we assign it a public domain license.
-# The 'override' precedence ensures no other rules apply to it.
-[[annotations]]
-path = "redoc-static.html"
-precedence = "override"
-SPDX-License-Identifier = "MIT"
-SPDX-FileCopyrightText = "2025 Redocly Inc. (https://redocly.com/redocly-cli)"
-
 # This block OVERRIDES the default for the third-party renovate.json file
 # and correctly attributes it.
 [[annotations]]
