@@ -16,5 +16,7 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v5
+            - name: Create placeholder redoc_static.html
+              run: touch redoc-static.html
             - name: Check Licensing/Copyright Compliance
               run: reuse lint
