@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
 description: Forbidden. The server understood the request but refuses to authorize it because the authenticated user lacks the necessary permissions for the target resource.
 content:
   application/json:

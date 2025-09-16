@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 get:
   tags:
@@ -19,10 +20,10 @@ get:
         default: false
     - name: n
       in: query
-      description: Number of log entries to return. Only integers should be used in 'n'.
+      description: Number of log entries to return.
       schema:
-        type: string
-        default: "10"
+        type: integer
+        default: 10
     - name: names
       in: query
       description: Comma-seperated list of snap names to filter by.

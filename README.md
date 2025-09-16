@@ -1,3 +1,8 @@
+<!--
+    SPDX-FileCopyrightText: © 2025 Canonical Ltd
+    SPDX-License-Identifier: GPL-3.0
+-->
+
 # snapd-rest-openapi
 
 A work-in-progress reimplementation of the [snapd REST API documentation](https://snapcraft.io/docs/snapd-api) using a subset of the [OpenAPI 3](https://swagger.io/specification/) specification.

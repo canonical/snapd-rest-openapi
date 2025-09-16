@@ -1,3 +1,8 @@
+<!--
+    SPDX-FileCopyrightText: © 2025 Canonical Ltd
+    SPDX-License-Identifier: GPL-3.0
+-->
+
 # Contributing to the Snapd REST OpenAPI Documentation
 
 First off, thank you for considering contributing to this project!
