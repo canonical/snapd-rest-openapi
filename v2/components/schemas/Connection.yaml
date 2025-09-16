@@ -20,8 +20,12 @@ properties:
   slot-attrs:
     type: object
     additionalProperties: true
-    description: A map of the slot's attributes.
+    description: |-
+      A map of the slot's attributes.
+      These are negotiated by and belong to the connection.
   plug-attrs:
     type: object
     additionalProperties: true
-    description: A map of the plug's attributes.
+    description: |-
+      A map of the plug's attributes.
+      These are negotiated by and belong to the connection.

@@ -16,7 +16,9 @@ properties:
   attrs:
     type: object
     additionalProperties: true
-    description: A map of the plug's attributes.
+    description: |-
+      A static map of the plug's attributes.
+      These are attributes that belong to the plug
   apps:
     type: array
     items:

@@ -16,7 +16,9 @@ properties:
   attrs:
     type: object
     additionalProperties: true
-    description: A map of the slot's attributes.
+    description: |-
+      A static map of the slot's attributes.
+      These are attributes that belong to the slot
   apps:
     type: array
     items:
