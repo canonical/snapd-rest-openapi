@@ -13,7 +13,7 @@ properties:
   base:
     type: string
     description: The base snap this snap is built on.
-    example: 'core20'
+    example: core20
   channel:
     type: string
     description: The default channel for this snap.
@@ -21,7 +21,7 @@ properties:
     type: array
     items:
       type: string
-    example: ['code.desktop']
+    example: code.desktop
   confinement:
     type: string
     enum: 
@@ -57,7 +57,7 @@ properties:
     description: The latest revision number of the snap in this channel.
   status:
     type: string
-    example: 'available'
+    example: available
   store-url:
     type: string
     format: uri
