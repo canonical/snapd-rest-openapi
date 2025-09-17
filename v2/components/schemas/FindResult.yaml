@@ -7,7 +7,7 @@ properties:
   type:
     type: string
     enum:
-      - 'sync'
+      - sync
   status-code:
     type: integer
     enum:
@@ -15,7 +15,7 @@ properties:
   status:
     type: string
     enum:
-      - 'OK'
+      - OK
   result:
     type: array
     description: An array of snap details matching the query.
@@ -26,8 +26,8 @@ properties:
     description: Indicates the source of the find results.
     items:
       type: string
-    example: ['store']
+    example: store
   suggested-currency:
     type: string
     description: The suggested currency for any pricing information.
-    example: 'USD'
+    example: USD
