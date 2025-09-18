@@ -10,7 +10,7 @@ get:
     - Synchronous
   security: []
   responses:
-    '200':
+    200:
       description: A dictionary containing the aliases for each snap.
       content:
         application/json:
@@ -83,7 +83,7 @@ get:
                           description: |
                             The app the alias is for if status is manual.
                             Overrides auto
-    '4XX':
+    4XX:
       $ref: '../components/responses/InternalError.yaml'
 
 post:
@@ -118,20 +118,20 @@ post:
             snap:
               type: string
               description: The snap name to modify (optional for unalias).
-              example: 'moon-buggy'
+              example: moon-buggy
             app:
               type: string
               description: The app to modify (optional).
             alias:
               type: string
               description: The alias to modify.
-              example: 'foo'
+              example: foo
   responses:
-    '202':
+    202:
       $ref: '../components/responses/Accepted.yaml'
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'
-    '401':
+    401:
       $ref: '../components/responses/AccessDenied.yaml'
-    '409':
+    409:
       $ref: '../components/responses/Conflict.yaml'

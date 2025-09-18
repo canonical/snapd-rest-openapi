@@ -32,7 +32,7 @@ get:
       schema:
         type: string
   responses:
-    '200':
+    200:
       description: A synchronous response containing the connection status of plugs and slots.
       content:
         application/json:
@@ -46,12 +46,12 @@ get:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum:
-                  - "sync"
+                  - sync
               result:
                 $ref: '../components/schemas/ConnectionStatus.yaml'
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'

@@ -23,17 +23,24 @@ get:
           - change-update
           - warning
           - refresh-inhibit
+          - snap-run-inhibit
+          - interfaces-requests-prompt
+          - interfaces-requests-rule-update
     - name: keys
       in: query
       description: If specified, only return notices with one of the given keys.
       schema:
-        type: string
+        type: array
+        items:
+          type: integer
+          example: 74
     - name: after
       in: query
-      description: If specified, only return notices with a LastRepeated field greater than the specified time, which should be in RFC3339 format.
+      description: If specified, only return notices with a last-repeated field greater than the specified time, which should be in RFC3339 UTC format.
       schema:
         type: string
         format: date-time
+        example: 2025-09-08T17:29:40.829324752Z
     - name: timeout
       in: query
       description: |-
@@ -42,25 +49,30 @@ get:
         This allows the user to use long-polling to be notified immediately when a new notice is recorded.
       schema:
         type: string
+        example: 7m30s
     - name: user-id
       in: query
       description: |-
         Admin only.
         Instead of returning notices associated with the user who initiated the API request, return notices associated with the given UID.
-        Public notices are still returned, as before.
+        Public notices are still returned, as before. Cannot be used with the 'users' parameter.
       schema:
-        type: string
+        type: integer
+        example: 1000
     - name: users
       in: query
       description: |-
         Admin only.
-        Value must be all. Return notices associated with all users, instead of just the user which initiated the API request.
-        Cannot be used with the user-id parameter.
+        Value must be 'all'. Return notices associated with all users, instead of just the user which initiated the API request.
+        Cannot be used with the 'user-id' parameter.
       schema:
         type: string
-
+        nullable: true
+        example:
+          - null
+          - all
   responses:
-    '200':
+    200:
       description: A synchronous response containing a list of notices matching the filter criteria.
       content:
         application/json:
@@ -74,16 +86,16 @@ get:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum:
-                  - "sync"
+                  - sync
               result:
                 type: array
                 items:
                   $ref: '../components/schemas/Notice.yaml'
-    '4XX':
+    4XX:
       $ref: '../components/responses/InternalError.yaml'
 
 post:
@@ -111,7 +123,7 @@ post:
               type: string
               description: The action to perform.
               enum: 
-                - "add"
+                - add
             key:
               type: string
               description: The name of the snap to inhibit.
@@ -119,9 +131,9 @@ post:
               type: string
               description: The type of the notice to add.
               enum:
-                - "snap-run-inhibit"
+                - snap-run-inhibit
   responses:
-    '200':
+    200:
       description: A synchronous response indicating success.
       content:
         application/json:
@@ -135,11 +147,11 @@ post:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum:
-                  - "sync"
+                  - sync
               result:
                 type: object
                 description: |
@@ -148,7 +160,7 @@ post:
                   type: string
                   description: |
                     The ID of the operation.
-                  example: "74"
+                  example: 74
 
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'

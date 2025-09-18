@@ -7,12 +7,16 @@ properties:
   id:
     type: string
     description: The unique ID of the notice.
-    example: "67"
+    example: 67
   user-id:
-    type: string
+    type: integer
     nullable: true
-    description: The UID of the user who may view the notice, or null if public.
-    example: null
+    description: |-
+      The UID of the user who may view the notice, or null if public.
+      Represented by Snapd internally as a *uint32.
+    example: 
+      - null
+      - 0xFFEE1122
   type:
     type: string
     description: The type of the notice.
@@ -24,24 +28,24 @@ properties:
   key:
     type: string
     description: |-
-      A type-specific identifier for the notice, often corresponding to a change ID,
-      can also be the name of the snap associated with the notice.
-    example: "63"
+      An identifier which differentiates notices of this type.
+      Notices recorded with the type and key of an existing notice count as an occurrence of that notice.
+    example: 63
   first-occurred:
     type: string
     format: date-time
-    description: The timestamp of the first time this notice occurred (RFC3339 format).
-    example: "2025-09-08T17:29:40.829324752Z"
+    description: The timestamp of the first time this notice occurred (RFC3339 UTC format).
+    example: 2025-09-08T17:29:40.829324752Z
   last-occurred:
     type: string
     format: date-time
-    description: The timestamp of the last time this notice occurred (RFC3339 format).
-    example: "2025-09-10T14:30:23.055109521Z"
+    description: The timestamp of the last time this notice occurred (RFC3339 UTC format).
+    example: 2025-09-10T14:30:23.055109521Z
   last-repeated:
     type: string
     format: date-time
-    description: The timestamp of the last time this notice was repeated (RFC3339 format).
-    example: "2025-09-10T14:30:23.055109521Z"
+    description: The timestamp of the last time this notice was repeated (RFC3339 UTC format).
+    example: 2025-09-10T14:30:23.055109521Z
   occurrences:
     type: integer
     description: The number of times this notice has occurred.
@@ -51,12 +55,12 @@ properties:
     description: Additional data captured from the last occurrence.
     additionalProperties: true
     example:
-      kind: "alias"
+      kind: alias
   repeat-after:
     type: string
     description: A duration string after which the notice may be repeated (optional).
-    example: "1h30m"
+    example: 1h30m
   expire-after:
     type: string
     description: A duration string after which the notice may be deleted.
-    example: "168h0m0s"
+    example: 168h0m0s

@@ -21,16 +21,16 @@ get:
         type: integer
         example: 2
   responses:
-    '200':
+    200:
       description: A gzipped tar archive (.tgz) of the exported snapshot set.
       content:
         application/gzip:
           schema:
             type: string
             format: binary
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'
-    '401':
+    401:
       $ref: '../components/responses/AccessDenied.yaml'
-    '404':
+    404:
       $ref: '../components/responses/NotFound.yaml'
