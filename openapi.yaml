@@ -35,6 +35,8 @@ tags:
     description: Interact with changes.
   - name: Interfaces
     description: Display and manage interactions between snaps.
+  - name: Notices
+    description: Interact with notices.
   - name: OpenAccess
     description: Do not require the user to authenticate.
   - name: Snaps
