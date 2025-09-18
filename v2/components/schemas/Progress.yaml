@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
 
 type: object
 description: Represents the progress of a task.
@@ -10,8 +12,8 @@ properties:
   label:
     type: string
     description: A descriptive label for the progress bar.
-    example: "core22 (delta)"
+    example: core22 (delta)
   total:
     type: integer
     description: The total number of units for the task.
-    example: 1
+    example: 3

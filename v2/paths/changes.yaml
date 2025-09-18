@@ -1,10 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
 
 get:
   tags:
     - AuthenticationRequired
     - Changes
-    - Sync
+    - Synchronous
   summary: Get all changes
   description: |-
     Retrieves a list of all changes in progress or completed on the system.
@@ -28,7 +30,7 @@ get:
       schema:
         type: string
   responses:
-    '200':
+    200:
       description: A synchronous response containing all the changes that have occurred.
       content:
         application/json:
@@ -51,5 +53,5 @@ get:
                 type: array
                 items:
                   $ref: '../components/schemas/Change.yaml'
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'
