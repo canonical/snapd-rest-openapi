@@ -31,6 +31,8 @@ tags:
     description: Access is restricted to the root user.
   - name: Interfaces
     description: Display and manage interactions between snaps.
+  - name: Notices
+    description: Interact with notices.
   - name: OpenAccess
     description: Do not require the user to authenticate.
   - name: Store

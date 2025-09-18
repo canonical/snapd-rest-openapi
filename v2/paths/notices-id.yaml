@@ -18,9 +18,9 @@ get:
       description: The unique ID of the notice to retrieve.
       schema:
         type: string
-        example: "74"
+        example: 74
   responses:
-    '200':
+    200:
       description: A synchronous response containing the details of the requested notice.
       content:
         application/json:
@@ -29,14 +29,17 @@ get:
             properties:
               status-code:
                 type: integer
-                example: 200
+                enum:
+                  - 200
               status:
                 type: string
-                example: "OK"
+                example:
+                  - OK
               type:
                 type: string
-                example: "sync"
+                example:
+                   - sync
               result:
                 $ref: '../components/schemas/Notice.yaml'
-    '404':
+    404:
       $ref: '../components/responses/NotFound.yaml'

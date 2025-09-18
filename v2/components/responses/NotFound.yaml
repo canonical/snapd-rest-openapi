@@ -12,13 +12,13 @@ content:
           example: 404
         status:
           type: string
-          example: "Not Found"
+          example: Not Found
         type:
           type: string
-          example: "error"
+          example: error
         result:
           type: object
           properties:
             message:
               type: string
-              example: "no snapshot set with the given ID"
+              example: no snapshot set with the given ID

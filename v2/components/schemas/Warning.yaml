@@ -10,17 +10,22 @@ properties:
     type: string
     format: date-time
     description: The first time a message of this type was created (RFC3339 UTC format).
+    example: 2025-09-08T17:29:40.829324752Z
   last-seen:
     type: string
     format: date-time
     description: The last time a message of this type was created (RFC3339 UTC format).
+    example: 2025-09-08T17:34:40.829324752Z
   last-shown:
     type: string
     format: date-time
     description: The last time a message of this type was displayed to the user (RFC3339 UTC format).
+    example: 2025-09-08T17:34:40.829324752Z
   delete-after:
     type: string
-    description: A duration string like '1h30m'.
+    description: A duration string indicating how much time since this warning was last added that it should be deleted.
+    example: 1h30m
   repeat-after:
     type: string
     description: Duration after which the warning is repeated.
+    example: 30m

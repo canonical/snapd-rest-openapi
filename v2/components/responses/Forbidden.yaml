@@ -12,16 +12,16 @@ content:
           example: 403
         status:
           type: string
-          example: "Forbidden"
+          example: Forbidden
         type:
           type: string
-          example: "error"
+          example: error
         result:
           type: object
           properties:
             kind:
               type: string
-              example: "auth-cancelled"
+              example: auth-cancelled
             message:
               type: string
-              example: "cancelled"
+              example: cancelled
