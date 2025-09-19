@@ -12,7 +12,7 @@ properties:
   kind:
     type: string
     description: A code describing what type of task this is.
-    enum:
+    example:
       - check-rerefresh
       - cleanup
       - clear-snap
