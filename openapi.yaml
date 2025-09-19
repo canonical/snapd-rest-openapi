@@ -25,6 +25,8 @@ externalDocs:
 tags:
   - name: Aliases
     description: Manage application command aliases.
+  - name: Assertions
+    description: List and add assertion types.
   - name: Asynchronous
     description: Return the reference to a change that will occur in the background.
   - name: AuthenticationRequired
@@ -133,6 +135,10 @@ paths:
     $ref: './v2/paths/aliases.yaml'
   /v2/apps:
     $ref: './v2/paths/apps.yaml'
+  /v2/assertions:
+    $ref: './v2/paths/assertions.yaml'
+  /v2/assertions/{type}:
+    $ref: './v2/paths/assertions-type.yaml'
   /v2/changes:
     $ref: './v2/paths/changes.yaml'
   /v2/changes/{id}:

@@ -1,0 +1,52 @@
+# paths/assertions-type.yaml
+
+parameters:
+  - name: assertionType
+    in: path
+    required: true
+    description: The type of assertion to retrieve.
+    schema:
+      type: string
+      example: 'account'
+
+get:
+  tags:
+    - Assertions
+    - OpenAccess
+    - Synchronous
+  summary: Get assertions of a given type
+  description: |-
+    Get all the assertions in the system assertion database of the given type.
+    Assertions can be filtered by providing assertion header keys as query parameters (e.g., `?username=canonical`).
+    The response is a stream of assertions separated by double newlines.
+    An assertion type of snap-declaration can also be used to retrieve a
+    remote snap-declaration assertion for a given snap-id. This can also
+    be accomplished from within the snap environment.
+  operationId: getAssertionsByType
+  security: []
+  responses:
+    200:
+      description: A stream of assertions, separated by double newlines.
+      headers:
+        X-Ubuntu-Assertions-Count:
+          description: The total number of assertions returned in the stream.
+          schema:
+            type: integer
+      content:
+        application/x-ubuntu-assertion-stream:
+          schema:
+            type: string
+            description: A string containing one or more assertions separated by double newlines.
+            example: |
+              type: account
+              authority-id: canonical
+              account-id: canonical
+              display-name: canonical
+              timestamp: 2016-04-01T00:00:00.0Z
+              username: canonical
+              validation: certified
+              sign-key-sha3-384: <key>
+
+              <signature>
+    400:
+      $ref: '../components/responses/BadRequest.yaml'

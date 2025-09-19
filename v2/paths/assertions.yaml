@@ -1,0 +1,88 @@
+# paths/assertions.yaml
+
+get:
+  tags:
+    - Assertions
+    - OpenAccess
+    - Synchronous
+  summary: Get the list of assertion types
+  description: |-
+    Retrieves a list of all known assertion types in the system.
+  operationId: listAssertionTypes
+  security: []
+  responses:
+    200:
+      description: A list of available assertion types.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status-code:
+                type: integer
+                enum:
+                  - 200
+              status:
+                type: string
+                enum:
+                  - OK
+              type:
+                type: string
+                enum:
+                  - sync
+              result:
+                type: object
+                properties:
+                  types:
+                    type: array
+                    items:
+                      type: string
+                    enum:
+                      - [account, account-key, account-key-request,
+                        base-declaration, confdb-control, confdb-schema,
+                        device-session-request, model, pressed, repair,
+                        serial, serial-request, snap-build, snap-declaration
+                        snap-developer, snap-resource-pair, snap-resource-revision
+                        snap-revision, store, system-user, validation, validation-set]
+    4XX:
+      $ref: '../components/responses/InternalError.yaml'
+
+post:
+  tags:
+    - Assertions
+    - AuthenticationRequired
+    - Synchronous
+  summary: Attempt to add an assertion to the database
+  description: |-
+    Tries to add an assertion to the system assertion database. The assertion must be valid and its signature verifiable.
+    The body of the request provides the assertion to add. The assertion may also
+    be a newer revision of a pre-existing assertion that it will replace.
+    To succeed the assertion must be valid, its signature verified with a
+    known public key and the assertion consistent with and its prerequisite
+    in the database.
+  operationId: addAssertion
+  security:
+    - PeerAuth: []
+  requestBody:
+    description: The raw assertion text to add to the database.
+    required: true
+    content:
+      application/x.ubuntu.assertion:
+        schema:
+          type: string
+          format: binary
+          description: A raw assertion string.
+          example: |
+            type: system-user
+            authority-id: canonical
+            series: 16
+            brand-id: canonical
+            ...
+            sign-key-sha3-384: <key>
+
+            <signature>
+  responses:
+    200:
+      description: The assertion was successfully added.
+    400:
+      $ref: '../components/responses/BadRequest.yaml'
