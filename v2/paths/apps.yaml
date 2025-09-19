@@ -61,7 +61,7 @@ post:
     Perform actions like start, stop, or restart on snap applications, typically services.
   operationId: modifyApps
   security:
-    - macaroonAuth: []
+    - PeerAuth: []
   requestBody:
     description: The action to perform on one or more applications.
     required: true
