@@ -72,7 +72,8 @@ components:
       $ref: './v2/components/errors/MalformedRequestError.yaml'
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
-
+    App:
+      $ref: './v2/components/schemas/App.yaml'
     Change:
       $ref: './v2/components/schemas/Change.yaml'
     Connection:
@@ -117,6 +118,8 @@ components:
 paths:
   /v2/aliases:
     $ref: './v2/paths/aliases.yaml'
+  /v2/apps:
+    $ref: './v2/paths/apps.yaml'
   /v2/changes:
     $ref: './v2/paths/changes.yaml'
   /v2/changes/{id}:
