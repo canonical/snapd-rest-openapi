@@ -36,7 +36,7 @@ get:
           example: 74
     - name: after
       in: query
-      description: If specified, only return notices with a last-repeated field greater than the specified time, which should be in RFC3339 UTC format.
+      description: If specified, only return notices with a 'last-repeated' field greater than the specified time, which should be in RFC3339 UTC format.
       schema:
         type: string
         format: date-time
