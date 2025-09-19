@@ -35,6 +35,8 @@ tags:
     description: Display and manage interactions between snaps.
   - name: OpenAccess
     description: Do not require the user to authenticate.
+  - name: Snaps
+    description: Interact with snaps.
   - name: Store
     description: Interact with the store.
   - name: Synchronous
