@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0
 # SPDX-FileCopyrightText: Canonical Ltd
 
-
 get:
   tags:
     - AuthenticationRequired
@@ -31,7 +30,9 @@ get:
         type: string
   responses:
     200:
-      description: A synchronous response containing all the changes that have occurred.
+      description: |-
+        A synchronous response containing all the changes that have occurred,
+        and have not been garbage-collected yet.
       content:
         application/json:
           schema:

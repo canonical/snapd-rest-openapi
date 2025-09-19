@@ -34,12 +34,20 @@ properties:
     example: Download snap 'core22' (2133) from channel 'latest/stable'
   status:
     type: string
-    description: The current status of the task.
+    description: |-
+      The current status of the task. The usual state
+      procedure is Do, Doing, Done.
     enum:
+      - Abort
+      - Default
+      - Do
       - Doing
       - Done
       - Error
       - Hold
+      - Undo
+      - Undoing
+      - Undone
       - Wait
   progress:
     $ref: './Progress.yaml'
