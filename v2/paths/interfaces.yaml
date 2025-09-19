@@ -1,0 +1,114 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+get:
+  tags:
+    - Interfaces
+    - OpenAccess
+    - Synchronous
+  summary: Get available interfaces
+  description: |-
+    Retrieves the available interfaces and their associated metadata.
+  operationId: getInterfaces
+  security: []
+  parameters:
+    - name: select
+      in: query
+      description: |-
+        Set to all to retrieve all interfaces, or connected to only return connected interfaces
+        (if this parameter is omitted then the call returns the legacy format that should be no longer used).
+      schema:
+        type: string
+        enum:
+          - all
+          - connected
+    - name: slots
+      in: query
+      description: If set to true, slot information will be returned.
+      schema:
+        type: boolean
+    - name: plugs
+      in: query
+      description: If set to true, plug information will be returned.
+      schema:
+        type: boolean
+    - name: doc
+      in: query
+      description: If set to true, interface documentation will be returned.
+      schema:
+        type: boolean
+    - name: names
+      in: query
+      description: If given, then only interfaces that match the comma separated names are returned.
+      schema:
+        type: string
+  responses:
+    200:
+      description: A synchronous response containing a list of snapshot sets.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status-code:
+                type: integer
+                example: 200
+              status:
+                type: string
+                example: OK
+              type:
+                type: string
+                example: sync
+              result:
+                type: object
+                properties:
+                  plugs:
+                    type: array
+                    description: A list of plugs on the system matching the search criteria.
+                    items:
+                      $ref: '../components/schemas/Plug.yaml'
+
+                  slots:
+                    type: array
+                    description: A list of slots on the system matching the search criteria.
+                    items:
+                      $ref: '../components/schemas/Slot.yaml'
+    4XX:
+      $ref: '../components/responses/InternalError.yaml'
+
+post:
+  tags:
+    - Asynchronous
+    - AuthenticationRequired
+    - Interfaces
+  summary: Issue an action to the interface system
+  description: |-
+    Retrieves the available interfaces and their associated metadata.
+  operationId: postInterfaces
+  security:
+    - PeerAuth: []
+  parameters:
+    - name: action
+      in: query
+      description: Action to perform.
+      schema:
+        type: string
+        enum:
+          - connect
+          - disconnect
+    - name: slots
+      in: query
+      description: Array of slots to connect to. Each slot is referred to by the snap it is part of and the name of the slot
+      schema:
+        type: string
+    - name: plugs
+      in: query
+      description: Array of plugs to connect. Each plug is referred to by the snap it is part of and the name of the plug
+      schema:
+        type: string
+  responses:
+    202:
+      $ref: '../components/responses/Accepted.yaml'
+    400:
+      $ref: '../components/responses/BadRequest.yaml'
+
