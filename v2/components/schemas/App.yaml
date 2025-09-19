@@ -1,0 +1,55 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: Represents a single application provided by a snap.
+properties:
+  snap:
+    type: string
+    description: The snap providing the app (optional).
+  name:
+    type: string
+    description: The name of the app.
+  desktop-file:
+    type: string
+    description: The desktop file for the app (optional).
+  daemon:
+    type: string
+    description: The daemon type, if the app is a service (optional).
+    example: simple
+  enabled:
+    type: boolean
+    description: True if the app is an enabled service (optional).
+  active:
+    type: boolean
+    description: True if the app is an active service (optional).
+  common-id:
+    type: string
+    description: Common ID associated with this app (optional).
+  activators:
+    type: array
+    description: Details about service activators, such as sockets (optional).
+    items:
+      type: object
+      properties:
+        Name:
+          type: string
+        Type:
+          type: string
+        Active:
+          type: boolean
+        Enabled:
+          type: boolean
+example:
+  - snap: spotify
+    name: spotify
+    desktop-file": /path/to/file.desktop
+  - snap: lxd
+    name: daemon
+    daemon: simple
+    enabled: true
+    activators:
+      - Name: unix
+        Type: socket
+        Active: true
+        Enabled: true

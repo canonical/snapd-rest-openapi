@@ -71,6 +71,8 @@ components:
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
+    App:
+      $ref: './v2/components/schemas/App.yaml'
     Connection:
       $ref: './v2/components/schemas/Connection.yaml'
     ConnectionStatus:
@@ -97,6 +99,8 @@ components:
 paths:
   /v2/aliases:
     $ref: './v2/paths/aliases.yaml'
+  /v2/apps:
+    $ref: './v2/paths/apps.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'
   /v2/logs:
