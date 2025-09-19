@@ -33,6 +33,8 @@ tags:
     description: Display and manage interactions between snaps.
   - name: OpenAccess
     description: Do not require the user to authenticate.
+  - name: Snaps
+    description: Interact with snaps.
   - name: Store
     description: Interact with the store.
   - name: Synchronous
@@ -99,6 +101,8 @@ paths:
     $ref: './v2/paths/aliases.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'
+  /v2/icons/{name}/icon:
+    $ref: './v2/paths/icons-name.yaml'
   /v2/logs:
     $ref: './v2/paths/logs.yaml'
   /v2/sections:
