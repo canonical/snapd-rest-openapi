@@ -25,8 +25,9 @@ properties:
   confinement:
     type: string
     enum: 
-      - strict
       - classic
+      - devmode
+      - strict
   contact:
     type: string
     description: The primary contact URL or email for the developer.
@@ -38,7 +39,9 @@ properties:
     description: The username of the snap developer.
   devmode:
     type: boolean
-    description: Whether the snap can be installed in devmode.
+    description: |-
+      If set to true, the snap needs to be installed with devmode confinement and doesn't,
+      yet, work with strict confinement due to sandbox limitations or developer unfamiliarity.
   download-size:
     type: integer
     format: int64
@@ -69,6 +72,7 @@ properties:
     type: string
   type:
     type: string
+    description: The type of the snap. 'os' is deprecated, and is left for compatibility with the 'core' and 'ubuntu-core' snaps.
     enum: 
       - app
       - kernel
@@ -85,7 +89,7 @@ properties:
   categories:
     type: array
     items:
-      $ref: './Category.yaml'
+      $ref: './StoreCategory.yaml'
   links:
     $ref: './Links.yaml'
   media:

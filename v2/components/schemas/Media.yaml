@@ -17,7 +17,7 @@ properties:
     type: string
     format: uri
     description: |-
-      The URL for the asset.
+      The URL of the asset.
   width:
     type: integer
     description: |-

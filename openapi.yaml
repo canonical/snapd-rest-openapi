@@ -71,8 +71,8 @@ components:
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
-    Category:
-      $ref: './v2/components/schemas/Category.yaml'
+    StoreCategory:
+      $ref: './v2/components/schemas/StoreCategory.yaml'
     Connection:
       $ref: './v2/components/schemas/Connection.yaml'
     ConnectionStatus:

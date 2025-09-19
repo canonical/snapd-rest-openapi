@@ -18,4 +18,5 @@ properties:
     type: string
     enum:
       - verified
+      - starred
       - unproven
