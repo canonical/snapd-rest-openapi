@@ -25,6 +25,8 @@ properties:
       - warning
       - refresh-inhibit
       - snap-run-inhibit
+      - interfaces-requests-prompt
+      - interfaces-requests-rule-update
   key:
     type: string
     description: |-
