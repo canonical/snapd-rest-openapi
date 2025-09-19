@@ -137,7 +137,7 @@ paths:
     $ref: './v2/paths/apps.yaml'
   /v2/assertions:
     $ref: './v2/paths/assertions.yaml'
-  /v2/assertions/{type}:
+  /v2/assertions/{assertionType}:
     $ref: './v2/paths/assertions-type.yaml'
   /v2/changes:
     $ref: './v2/paths/changes.yaml'
