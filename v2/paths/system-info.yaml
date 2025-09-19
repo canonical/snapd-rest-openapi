@@ -12,7 +12,7 @@ get:
   operationId: getSystemInfo
   security: []
   responses:
-    '200':
+    200:
       description: A synchronous response containing detailed system information.
       content:
         application/json:
@@ -26,12 +26,12 @@ get:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum: 
-                  - "sync"
+                  - sync
               result:
                 $ref: '../components/schemas/SystemInfo.yaml'
-    '4XX':
+    4XX:
       $ref: '../components/responses/InternalError.yaml'
