@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: GPL-3.0
-# SPDX-FileCopyrightText: Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
+# SPDX-FileCopyrightText: © 2025 Canonical Ltd (https://https://github.com/canonical/snapd)
 
 description: |-
   An internal error occurred on the server. This is a generic response for server-side issues.
