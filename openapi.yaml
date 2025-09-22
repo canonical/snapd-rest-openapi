@@ -199,6 +199,12 @@ paths:
     $ref: './v2/paths/sections.yaml'
   /v2/snapctl:
     $ref: './v2/paths/snapctl.yaml'
+  /v2/snaps:
+    $ref: './v2/paths/snaps.yaml'
+  /v2/snaps/{name}:
+    $ref: './v2/paths/snaps-name.yaml'
+  /v2/snaps/{name}/{conf}:
+    $ref: './v2/paths/snaps-name-conf.yaml'
   /v2/snapshots:
     $ref: './v2/paths/snapshots.yaml'
   /v2/snapshots/{set-id}/export:
