@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+post:
+  tags:
+    - AuthenticationRequired
+    - Synchronous
+  summary: Log user out of the store
+  description: |-
+    Logs the currently authenticated user out of the store.
+  operationId: logoutUser
+  security:
+    - PeerAuth: []              # TODO security and responses need to be re-evaluated in another PR
+  parameters:
+    - in: header
+      name: Macaroon
+      schema:
+        type: string
+        format: macaroon
+        description: The macaroon issued by the store.
+  responses:
+    200:
+      description: Successfully logged out.
+    400:
+      $ref: '../components/responses/BadRequest.yaml'
+    401:
+      $ref: '../components/responses/AccessDenied.yaml'
