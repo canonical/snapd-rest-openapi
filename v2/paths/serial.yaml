@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+get:
+  tags:
+    - OpenAccess
+    - Synchronous
+  summary: Get the current serial assertion
+  description: |-
+    Retrieves the current serial assertion for the system.
+  operationId: getSerialAssertion
+  security: []
+  responses:
+    200:
+      description: The raw serial assertion text.
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: |
+              type: serial
+              authority-id: generic
+              brand-id: generic
+              model: generic-classic
+              serial: 46923e6d-5d45-420d-905a-99a9e92493b4
+              device-key:
+                AcbBTQRWhcGAARAA...
+                ...AEQEAAQ==
+              device-key-sha3-384: PznqOqWAx4_f8tFafGI2...
+              timestamp: 2025-07-17T03:11:33.518427Z
+              sign-key-sha3-384: wrfougkz3Huq2T_Kklfnu...
+              ...bX5JkJG5cunW0h/
+    4XX:
+      $ref: '../components/responses/InternalError.yaml'
+
+post:
+  tags:
+    - Asynchronous
+    - AuthenticationRequired
+  summary: Replace the serial assertion
+  description: |-
+    Replaces the active serial assertion for the system.
+  operationId: setSerialAssertion
+  security:     # TODO document POST request properly
+    - PeerAuth: []
+  responses:
+    202:
+      $ref: '../components/responses/Accepted.yaml'
+    400:
+      $ref: '../components/responses/BadRequest.yaml'

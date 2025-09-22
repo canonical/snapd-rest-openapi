@@ -145,6 +145,10 @@ paths:
     $ref: './v2/paths/icons-name.yaml'
   /v2/logs:
     $ref: './v2/paths/logs.yaml'
+  /v2/model:
+    $ref: './v2/paths/model.yaml'
+  /v2/model/serial:
+    $ref: './v2/paths/serial.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
   /v2/snapshots:
