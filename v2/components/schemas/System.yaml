@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+properties:
+  actions:
+    type: array
+    items:
+      type: object
+      properties:
+        mode:
+          type: string
+        title:
+          type: string
+  brand:
+    type: object
+    properties:
+      display-name:
+        type: string
+      id:
+        type: string
+      username:
+        type: string
+      validation:
+        type: string
+  current:
+    type: boolean
+  label:
+    type: string
+  model:
+    type: object
+    properties:
+      brand-id:
+        type: string
+      display-name:
+        type: string
+      model:
+        type: string
