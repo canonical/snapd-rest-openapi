@@ -16,11 +16,11 @@ content:
         status:
           type: string
           enum:
-            - 'Bad Request'
+            - Bad Request
         type:
           type: string
           enum:
-            - 'error'
+            - error
         result:
           oneOf:
             - $ref: '../errors/SnapNotInstalledError.yaml'

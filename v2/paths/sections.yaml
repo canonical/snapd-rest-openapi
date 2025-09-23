@@ -12,7 +12,7 @@ get:
   operationId: getStoreSections
   security: []
   responses:
-    '200':
+    200:
       description: A synchronous response containing the names of the store sections.
       content:
         application/json:
@@ -26,11 +26,11 @@ get:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum:
-                  - "sync"
+                  - sync
               result:
                 type: array
                 description: An array containing the names of the store sections.
@@ -41,5 +41,5 @@ get:
                   - development
                   - social
                   - utilities
-    '4XX':
+    4XX:
       $ref: '../components/responses/InternalError.yaml'
