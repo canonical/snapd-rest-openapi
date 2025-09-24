@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: Details about a single service activator.
+required:
+  - name
+  - type
+  - active
+  - enabled
+properties:
+  name:
+    type: string
+  type:
+    type: string
+    enum:
+      - dbus
+      - socket
+      - timer
+  active:
+    type: boolean
+  enabled:
+    type: boolean
