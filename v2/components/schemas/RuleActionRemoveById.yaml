@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+required: [action]
+properties:
+  action:
+    type: string
+    enum: [remove]
