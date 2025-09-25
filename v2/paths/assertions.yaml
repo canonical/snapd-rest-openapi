@@ -1,4 +1,5 @@
-# paths/assertions.yaml
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
 
 get:
   tags:
@@ -37,13 +38,30 @@ get:
                     type: array
                     items:
                       type: string
-                    enum:
-                      - [account, account-key, account-key-request,
-                        base-declaration, confdb-control, confdb-schema,
-                        device-session-request, model, pressed, repair,
-                        serial, serial-request, snap-build, snap-declaration
-                        snap-developer, snap-resource-pair, snap-resource-revision
-                        snap-revision, store, system-user, validation, validation-set]
+                      enum:
+                        - account
+                        - account-key
+                        - account-key-request
+                        - base-declaration
+                        - confdb-control
+                        - confdb-schema
+                        - cluster
+                        - device-session-request
+                        - model
+                        - pressed
+                        - repair
+                        - serial
+                        - serial-request
+                        - snap-build
+                        - snap-declaration
+                        - snap-developer
+                        - snap-resource-pair
+                        - snap-resource-revision
+                        - snap-revision
+                        - store
+                        - system-user-validation
+                        - validation-set
+                    
     4XX:
       $ref: '../components/responses/InternalError.yaml'
 
@@ -52,14 +70,11 @@ post:
     - Assertions
     - AuthenticationRequired
     - Synchronous
-  summary: Attempt to add an assertion to the database
+  summary: Attempt to add or replace an assertion
   description: |-
-    Tries to add an assertion to the system assertion database. The assertion must be valid and its signature verifiable.
-    The body of the request provides the assertion to add. The assertion may also
-    be a newer revision of a pre-existing assertion that it will replace.
-    To succeed the assertion must be valid, its signature verified with a
-    known public key and the assertion consistent with and its prerequisite
-    in the database.
+    Requires a valid assertion with a signature signed by a verifiable public
+    key. The body of the request provides the assertion to add. If replacing an
+    existing assertion the new must be consistent with and its prerequisite.
   operationId: addAssertion
   security:
     - PeerAuth: []
