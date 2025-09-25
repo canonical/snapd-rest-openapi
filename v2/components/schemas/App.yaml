@@ -47,5 +47,5 @@ example:
     activators:
       - name: unix
         type: socket
-        a: true
+        active: true
         enabled: true

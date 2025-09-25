@@ -75,15 +75,15 @@ post:
       application/json:
         schema:
           oneOf:
-            - $ref: './AppActionStart.yaml'
-            - $ref: './AppActionStop.yaml'
-            - $ref: './AppActionRestart.yaml'
+            - $ref: '../components/schemas/AppActionStart.yaml'
+            - $ref: '../components/schemas/AppActionStop.yaml'
+            - $ref: '../components/schemas/AppActionRestart.yaml'
           discriminator:
             propertyName: action
             mapping:
-              start: './AppActionStart.yaml'
-              stop: './AppActionStop.yaml'
-              restart: './AppActionRestart.yaml'
+              start: '../components/schemas/AppActionStart.yaml'
+              stop: '../components/schemas/AppActionStop.yaml'
+              restart: '../components/schemas/AppActionRestart.yaml'
   responses:
     202:
       $ref: '../components/responses/Accepted.yaml'
