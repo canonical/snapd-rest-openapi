@@ -2,22 +2,45 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
-description: Details about a single service activator.
+description: |-
+  Details about a single service activator. The uppercase
+  field names exist to maintain backward compatibility with
+  the non-conformant previous implementation.
 required:
   - name
   - type
   - active
   - enabled
 properties:
+  active:
+    type: boolean
+    description: Whether the activator is active or not.
+  Active:
+    type: boolean
+    description: Whether the activator is active or not (Deprecated).
+  enabled:
+    type: boolean
+    description: Whether the activator is enabled or not.
+  Enabled:
+    type: boolean
+    description: Whether the activator is enabled or not (Deprecated).
   name:
     type: string
+    description: The name of the activator.
+  Name:
+    type: string
+    description: The name of the activator (Deprecated).
   type:
     type: string
+    description: The type of the activator.
     enum:
       - dbus
       - socket
       - timer
-  active:
-    type: boolean
-  enabled:
-    type: boolean
+  Type:
+    type: string
+    description: The type of the activator (Deprecated).
+    enum:
+      - dbus
+      - socket
+      - timer
