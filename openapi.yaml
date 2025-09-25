@@ -237,6 +237,10 @@ paths:
     $ref: './v2/paths/prompts.yaml'
   /v2/interfaces/requests/prompts/{id}:
     $ref: './v2/paths/prompts-id.yaml'
+  /v2/interfaces/requests/rules:
+    $ref: './v2/paths/rules.yaml'
+  /v2/interfaces/requests/rules/{id}:
+    $ref: './v2/paths/rules-id.yaml'
   /v2/login:
     $ref: './v2/paths/login.yaml'
   /v2/logout:

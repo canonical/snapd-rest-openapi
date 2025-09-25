@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+properties:
+  id:
+    type: string
+    description: Unique rule identifier.
+  timestamp:
+    type: string
+    format: date-time
+    description: Timestamp of rule creation/modification.
+  user:
+    type: integer
+    description: The UID for which the rule applies.
+  snap:
+    type: string
+    description: The name of the snap for which the rule applies.
+  interface:
+    type: string
+    description: The interface for which the rule applies.
+  constraints:
+    type: object
+    description: Details about the applicability of the rule to requests.
+    properties:
+      path-pattern:
+        type: string
+        description: Path glob matching filepaths for which the rule applies.
+      permissions:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            outcome:
+              type: string
+              enum: [allow, deny]
+            lifespan:
+              type: string
+              enum: [timespan, session, forever]
+            expiration:
+              type: string
+              format: date-time
