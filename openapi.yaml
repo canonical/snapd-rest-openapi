@@ -79,22 +79,34 @@ components:
       $ref: './v2/components/schemas/Connection.yaml'
     ConnectionStatus:
       $ref: './v2/components/schemas/ConnectionStatus.yaml'
+    FindResult:
+      $ref: './v2/components/schemas/FindResult.yaml'
+    Links:
+      $ref: './v2/components/schemas/Links.yaml'
     Log:
       $ref: './v2/components/schemas/Log.yaml'
+    Media:
+      $ref: './v2/components/schemas/Media.yaml'
     Plug:
       $ref: './v2/components/schemas/Plug.yaml'
     PlugRef:
       $ref: './v2/components/schemas/PlugRef.yaml'
     Progress:
       $ref: './v2/components/schemas/Progress.yaml'
+    Publisher:
+      $ref: './v2/components/schemas/Publisher.yaml'
     Slot:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:
       $ref: './v2/components/schemas/SlotRef.yaml'
+    Snap:
+      $ref: './v2/components/schemas/Snap.yaml'
     Snapshot:
       $ref: './v2/components/schemas/Snapshot.yaml'
     SnapshotSet:
       $ref: './v2/components/schemas/SnapshotSet.yaml'
+    StoreCategory:
+      $ref: './v2/components/schemas/StoreCategory.yaml'
     SystemInfo:
       $ref: './v2/components/schemas/SystemInfo.yaml'
     Task:
@@ -111,10 +123,18 @@ paths:
     $ref: './v2/paths/changes-id.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'
+  /v2/find:
+    $ref: './v2/paths/find.yaml'
   /v2/logs:
     $ref: './v2/paths/logs.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
+  /v2/snaps:
+    $ref: './v2/paths/snaps.yaml'
+  /v2/snaps/{name}:
+    $ref: './v2/paths/snaps-name.yaml'
+  /v2/snaps/{name}/conf:
+    $ref: './v2/paths/snaps-name-conf.yaml'
   /v2/snapshots:
     $ref: './v2/paths/snapshots.yaml'
   /v2/snapshots/{set-id}/export:
