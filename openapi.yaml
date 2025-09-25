@@ -73,6 +73,8 @@ components:
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
+    AssertionResult:
+      $ref: './v2/components/schemas/AssertionResult.yaml'
     Connection:
       $ref: './v2/components/schemas/Connection.yaml'
     ConnectionStatus:
