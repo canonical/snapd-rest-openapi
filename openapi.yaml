@@ -87,6 +87,8 @@ components:
       $ref: './v2/components/schemas/PlugRef.yaml'
     Progress:
       $ref: './v2/components/schemas/Progress.yaml'
+    QuotaGroup:
+      $ref: './v2/components/schemas/QuotaGroup.yaml'
     Slot:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:
@@ -113,6 +115,10 @@ paths:
     $ref: './v2/paths/connections.yaml'
   /v2/logs:
     $ref: './v2/paths/logs.yaml'
+  /v2/quotas:
+    $ref: './v2/paths/quotas.yaml'
+  /v2/quotas/{group-name}:
+    $ref: './v2/paths/quotas-name.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
   /v2/snapshots:
