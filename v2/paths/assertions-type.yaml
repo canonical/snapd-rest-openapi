@@ -105,6 +105,6 @@ get:
               <signature>
         application/json:
           schema:
-            $ref: './AssertionResult.yaml'
+            $ref: '../components/schemas/AssertionResult.yaml'
     400:
       $ref: '../components/responses/BadRequest.yaml'
