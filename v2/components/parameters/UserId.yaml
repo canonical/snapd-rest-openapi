@@ -5,7 +5,13 @@ name: user-id
 in: query
 required: false
 description: |-
+<<<<<<< HEAD
   Admin only: Specify a particular UID with which to identify when acting on the
   API, rather than the default, which is the UID of the client.
+=======
+  Admin only: Specify a particular UID with which to identify when replying to the prompt
+  (as the UID must match that of the prompt), rather than the default, 
+  which is the UID of the client.
+>>>>>>> 26e081d (snapd-rest-openapi: added initial structures for /v2/interfaces/requests/prompts)
 schema:
   type: integer
