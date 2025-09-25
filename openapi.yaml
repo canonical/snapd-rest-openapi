@@ -203,7 +203,7 @@ paths:
     $ref: './v2/paths/snaps.yaml'
   /v2/snaps/{name}:
     $ref: './v2/paths/snaps-name.yaml'
-  /v2/snaps/{name}/{conf}:
+  /v2/snaps/{name}/conf:
     $ref: './v2/paths/snaps-name-conf.yaml'
   /v2/snapshots:
     $ref: './v2/paths/snapshots.yaml'
