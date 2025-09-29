@@ -15,7 +15,8 @@ content:
         status:
           type: string
           description: The textual representation of the status code.
-          example: Conflict
+          enum:
+            - Conflict
         type:
           type: string
           description: The type of response.

@@ -17,7 +17,8 @@ content:
             - Forbidden
         type:
           type: string
-          example: error
+          enum:
+            - error
         result:
           type: object
           properties:

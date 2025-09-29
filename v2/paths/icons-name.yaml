@@ -25,8 +25,9 @@ get:
       description: The raw icon file. The Content-Type will be set appropriately.
       headers:
         Accept-Ranges:
-          type: string
-          example: bytes
+          schema:
+            type: string
+            example: bytes
         Content-Type:
           description: The media type of the icon file, for example 'image/svg+xml' or 'image/png'.
           schema:
@@ -59,6 +60,4 @@ get:
             type: string
             format: binary
     404:
-      oneOf:
-        - $ref: '../components/responses/NotFound.yaml'
-        - $ref: '../components/responses/SnapNotFound.yaml'
+      $ref: '../components/responses/NotFound.yaml'

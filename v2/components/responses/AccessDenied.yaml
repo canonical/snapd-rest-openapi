@@ -30,7 +30,8 @@ content:
             kind:
               type: string
               description: A machine-readable string identifying the error type.
-              example: login-required
+              enum:
+                - login-required
             message:
               type: string
               description: A human-readable error message.

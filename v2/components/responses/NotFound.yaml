@@ -11,18 +11,17 @@ content:
       properties:
         status-code:
           type: integer
-          example: 404
+          enum:
+            - 404
         status:
           type: string
-          example: Not Found
+          enum:
+            - Not Found
         type:
           type: string
-          example: error
+          enum:
+            - error
         result:
-          type: object
-          properties:
-            message:
-              type: string
-              example:
-                - no snapshot set with the given ID
-                - local snap has no icon
+          oneOf:
+            - $ref: '../errors/NotFoundError.yaml'
+            - $ref: '../errors/SnapNotInstalledError.yaml'

@@ -20,7 +20,7 @@ content:
         type:
           type: string
           enum:
-            - 'error'
+            - error
         result:
           oneOf:
             - $ref: '../errors/SnapNotInstalledError.yaml'
