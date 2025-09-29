@@ -24,11 +24,17 @@ get:
     200:
       description: The raw icon file. The Content-Type will be set appropriately.
       headers:
+        Accept-Ranges:
+          type: string
+          example: bytes
         Content-Type:
           description: The media type of the icon file, for example 'image/svg+xml' or 'image/png'.
           schema:
             type: string
-            example: image/svg+xml
+            enum:
+              - image/jpeg
+              - image/png
+              - image/svg+xml
         Content-Disposition:
           description: "Indicates that the content is expected to be downloaded as a file; specifies the filename."
           schema:

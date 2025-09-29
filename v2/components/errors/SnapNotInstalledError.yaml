@@ -15,10 +15,10 @@ properties:
     description: Human-readable string describing the error.
     example:
       - no state entry for key
-      - snap 'moon-buggy' is not installed
+      - snap 'ubuntu-frame' is not installed
   value:
     type: string
     description: Value passed that triggered the error.
     example:
-      - foooo
-      - moon-buggy
+      - snapd
+      - core24
