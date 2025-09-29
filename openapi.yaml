@@ -73,6 +73,18 @@ components:
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
+    Activator:
+      $ref: './v2/components/schemas/Activator.yaml'
+    App:
+      $ref: './v2/components/schemas/App.yaml'
+    AppActionBase:
+      $ref: './v2/components/schemas/AppActionBase.yaml'
+    AppActionRestart:
+      $ref: './v2/components/schemas/AppActionRestart.yaml'
+    AppActionStart:
+      $ref: './v2/components/schemas/AppActionStart.yaml'
+    AppActionStop:
+      $ref: './v2/components/schemas/AppActionStop.yaml'
     Change:
       $ref: './v2/components/schemas/Change.yaml'
     Connection:
@@ -117,6 +129,8 @@ components:
 paths:
   /v2/aliases:
     $ref: './v2/paths/aliases.yaml'
+  /v2/apps:
+    $ref: './v2/paths/apps.yaml'
   /v2/changes:
     $ref: './v2/paths/changes.yaml'
   /v2/changes/{id}:
