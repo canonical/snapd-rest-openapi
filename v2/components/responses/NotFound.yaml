@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0
 # SPDX-FileCopyrightText: Canonical Ltd
 
-description: Not Found. The requested resource could not be found on the server.
+description: |-
+  Not Found. The requested resource could not be found.
+  Can refer to either a local or remote resource
 content:
   application/json:
     schema:
@@ -12,13 +14,15 @@ content:
           example: 404
         status:
           type: string
-          example: "Not Found"
+          example: Not Found
         type:
           type: string
-          example: "error"
+          example: error
         result:
           type: object
           properties:
             message:
               type: string
-              example: "no snapshot set with the given ID"
+              example:
+                - no snapshot set with the given ID
+                - local snap has no icon

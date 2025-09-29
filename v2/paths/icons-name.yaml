@@ -53,4 +53,6 @@ get:
             type: string
             format: binary
     404:
-      $ref: '../components/responses/NotFound.yaml'
+      oneOf:
+        - $ref: '../components/responses/NotFound.yaml'
+        - $ref: '../components/responses/SnapNotFound.yaml'

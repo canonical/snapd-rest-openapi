@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0
 # SPDX-FileCopyrightText: Canonical Ltd
 
-description: Conflict. The request conflicts with the current state of the server.
+description: Not Found. The requested resource could not be found on the server.
 content:
   application/json:
     schema:
@@ -9,17 +9,16 @@ content:
       properties:
         status-code:
           type: integer
-          description: The HTTP status code.
           enum:
-            - 409
+            - 404
         status:
           type: string
-          description: The textual representation of the status code.
-          example: Conflict
+          enum: 
+            - Not Found
         type:
           type: string
-          description: The type of response.
           enum:
             - error
         result:
-          $ref: '../errors/ConflictError.yaml'
+          $ref: '../errors/SnapNotInstalledError.yaml'
+

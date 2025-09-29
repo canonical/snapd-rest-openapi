@@ -10,12 +10,12 @@ content:
       properties:
         status-code:
           type: integer
-          example: 500
+          enum: 500
         status:
           type: string
-          example: "Internal Server Error"
+          example: Internal Server Error
         type:
           type: string
-          example: "error"
+          example: error
         result:
           $ref: '../errors/InternalServerError.yaml'

@@ -9,19 +9,21 @@ content:
       properties:
         status-code:
           type: integer
-          example: 403
+          enum:
+            - 403
         status:
           type: string
-          example: "Forbidden"
+          enum:
+            - Forbidden
         type:
           type: string
-          example: "error"
+          example: error
         result:
           type: object
           properties:
             kind:
               type: string
-              example: "auth-cancelled"
+              example: auth-cancelled
             message:
               type: string
-              example: "cancelled"
+              example: cancelled
