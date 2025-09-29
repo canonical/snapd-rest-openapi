@@ -22,9 +22,33 @@ get:
   security: []
   responses:
     200:
-      description: The raw icon file. The Content-Type will be set appropriately (e.g., image/png).
+      description: The raw icon file. The Content-Type will be set appropriately.
+      headers:
+        Content-Type:
+          description: The media type of the icon file, for example 'image/svg+xml' or 'image/png'.
+          schema:
+            type: string
+            example: image/svg+xml
+        Content-Disposition:
+          description: "Indicates that the content is expected to be downloaded as a file; specifies the filename."
+          schema:
+            type: string
+            example: 'attachment; filename="icon.svg"'
+        Content-Length:
+          description: The size of the icon file in bytes.
+          schema:
+            type: integer
+            example: 1623
       content:
-        image/*:
+        image/svg+xml:
+          schema:
+            type: string
+            format: binary
+        image/png:
+          schema:
+            type: string
+            format: binary
+        image/jpeg:
           schema:
             type: string
             format: binary
