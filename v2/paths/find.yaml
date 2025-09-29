@@ -9,10 +9,11 @@ get:
     - Synchronous
   summary: Find snaps in the store
   description: |-
-    Finds snaps or components in the store that match the search criteria and are compatible with the host system.
-    In order for the user to be authorized to use this route, they must be logged in via 'snap-login', hence being
-    tagged as both OpenAccess and AuthenticationRequired. PeerAuth is not listed here as sudo is not required to
-    interact with the route.
+    Finds snaps or components in the store that match the search criteria and
+    are compatible with the host system. In order for the user to be authorized
+    to use this route, they must be logged in via 'snap-login', hence being
+    tagged as both OpenAccess and AuthenticationRequired. PeerAuth is not listed
+    here as sudo is not required to interact with the route.
   operationId: findSnaps
   security: []
   parameters:
@@ -21,19 +22,22 @@ get:
       description: |-
         Search for packages that match the given string.
         Spaces between words are treated as logical AND operators.
-        This is a weighted broad search, meant as the main interface to searching for packages.
+        This is a weighted broad search, meant as the main interface to
+        searching for packages.
       schema:
         type: string
     - name: name
       in: query
       description: |-
         An exact name to search for. Supports '*' as a wildcard at the end.
-        Can’t be used together with q . This is meant for things like autocompletion. 
+        Cannot be used together with q.
+        This is meant for things like auto-completion. 
       schema:
         type: string
     - name: scope
       in: query
-      description: If set to 'wide', broadens the search to include non-stable packages.
+      description: |-
+        If set to 'wide', broadens the search to include non-stable packages.
       schema:
         type: string
         enum:
@@ -49,9 +53,9 @@ get:
       in: query
       description: |-
         Alter the collection searched.
-        refresh - search refreshable snaps. Can’t be used with q, nor name
+        refresh - search refreshable snaps. Cannot be used with q, nor name.
         private - search private snaps (by default, find only searches public snaps).
-        Can’t be used with name, only q (for now at least).
+        Cannot be used with name, only q (for now at least).
       schema:
         type: string
         enum:
@@ -60,12 +64,13 @@ get:
     - name: common-id
       in: query
       description: |-
-        Search for packages using the common-id snap app attribute.
-        This is often the application name used by other packaging formats, such as org.videolan.vlc for the VLC media player.
+        Search for packages using the common-id attribute.
+        This is often the application name used by other packaging formats.
       schema:
         type: string
+        example: org.videolan.vlc
   responses:
-    '200':
+    200:
       description: A list of snaps from the store that match the search criteria.
       content:
         application/json:
@@ -73,5 +78,5 @@ get:
             type: array
             items:
               $ref: '../components/schemas/Snap.yaml'
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'

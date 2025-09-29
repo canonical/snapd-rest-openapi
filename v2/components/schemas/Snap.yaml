@@ -40,8 +40,9 @@ properties:
   devmode:
     type: boolean
     description: |-
-      If set to true, the snap needs to be installed with devmode confinement and doesn't,
-      yet, work with strict confinement due to sandbox limitations or developer unfamiliarity.
+      If set to true, the snap needs to be installed with devmode confinement
+      and doesn't, yet, work with strict confinement due to sandbox limitations
+      or developer unfamiliarity.
   download-size:
     type: integer
     format: int64
@@ -72,7 +73,9 @@ properties:
     type: string
   type:
     type: string
-    description: The type of the snap. 'os' is deprecated, and is left for compatibility with the 'core' and 'ubuntu-core' snaps.
+    description: |-
+      The type of the snap. 'os' is deprecated, and is left for compatibility
+      with the 'core' and 'ubuntu-core' snaps.
     enum: 
       - app
       - kernel
