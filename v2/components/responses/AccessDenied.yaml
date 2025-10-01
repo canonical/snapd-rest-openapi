@@ -18,20 +18,21 @@ content:
           type: string
           description: The textual representation of the status code.
           enum:
-            - 'Unauthorized'
+            - Unauthorized
         type:
           type: string
           description: The type of response.
           enum:
-            - 'error'
+            - error
         result:
           type: object
           properties:
             kind:
               type: string
               description: A machine-readable string identifying the error type.
-              example: 'login-required'
+              enum:
+                - login-required
             message:
               type: string
               description: A human-readable error message.
-              example: 'access denied'
+              example: access denied

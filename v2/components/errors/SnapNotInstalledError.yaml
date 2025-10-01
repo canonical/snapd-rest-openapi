@@ -2,14 +2,24 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
+description: The snap does not exist on the system.
 properties:
   kind:
     type: string
+    description: machine-readable definition of the error.
     enum:
-      - 'snap-not-installed'  # TODO Need follow up PR focusing only on errors
+      - snap-not-found
+      - snap-not-installed  # TODO Need follow up PR focusing only on errors
   message:
     type: string
-    example: 'snap \"moon-buggy\" is not installed'
+    description: Human-readable string describing the error.
+    example:
+      - no state entry for key
+      - snap 'ubuntu-frame' is not installed
   value:
     type: string
-    example: 'moon-buggy'
+    description: Value passed that triggered the error.
+    example:
+      - firefox
+      - core24
+      - multipass

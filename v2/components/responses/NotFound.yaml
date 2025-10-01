@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0
 # SPDX-FileCopyrightText: Canonical Ltd
 
-description: Not Found. The requested resource could not be found on the server.
+description: |-
+  Not Found. The requested resource could not be found.
+  Can refer to either a local or remote resource
 content:
   application/json:
     schema:
@@ -9,16 +11,17 @@ content:
       properties:
         status-code:
           type: integer
-          example: 404
+          enum:
+            - 404
         status:
           type: string
-          example: "Not Found"
+          enum:
+            - Not Found
         type:
           type: string
-          example: "error"
+          enum:
+            - error
         result:
-          type: object
-          properties:
-            message:
-              type: string
-              example: "no snapshot set with the given ID"
+          oneOf:
+            - $ref: '../errors/NotFoundError.yaml'
+            - $ref: '../errors/SnapNotInstalledError.yaml'
