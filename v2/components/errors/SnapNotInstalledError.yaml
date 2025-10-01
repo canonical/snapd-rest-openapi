@@ -20,5 +20,6 @@ properties:
     type: string
     description: Value passed that triggered the error.
     example:
-      - snapd
+      - firefox
       - core24
+      - multipass
