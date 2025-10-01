@@ -13,40 +13,41 @@ properties:
     nullable: true
     description: |-
       The UID of the user who may view the notice, or null if public.
-      Represented by Snapd internally as a *uint32.
     example: 
       - null
       - 0xFFEE1122
   type:
-    type: string
-    description: The type of the notice.
-    enum:
-      - change-update
-      - warning
-      - refresh-inhibit
-      - snap-run-inhibit
-      - interfaces-requests-prompt
-      - interfaces-requests-rule-update
+    $ref: './NoticeType.yaml'
   key:
     type: string
     description: |-
-      An identifier which differentiates notices of this type.
-      Notices recorded with the type and key of an existing notice count as an occurrence of that notice.
-    example: 63
+      An identifier which differentiates notices of this type. Notices recorded
+      with the type and key of an existing notice count as an occurrence of that
+      notice.
+    example:
+      - 63
+      - 'the snapd apparmor service is disabled; snap applications will likely not start.'
+      - ABCDABCDABCDABCD
+      - '-'
+      - libreoffice
   first-occurred:
     type: string
     format: date-time
-    description: The timestamp of the first time this notice occurred (RFC3339 UTC format).
+    description: |-
+      The timestamp of the first time this notice occurred (RFC3339 UTC format).
     example: 2025-09-08T17:29:40.829324752Z
   last-occurred:
     type: string
     format: date-time
-    description: The timestamp of the last time this notice occurred (RFC3339 UTC format).
+    description: |-
+      The timestamp of the last time this notice occurred (RFC3339 UTC format).
     example: 2025-09-10T14:30:23.055109521Z
   last-repeated:
     type: string
     format: date-time
-    description: The timestamp of the last time this notice was repeated (RFC3339 UTC format).
+    description: |-
+      The timestamp of the last time this notice was repeated (RFC3339 UTC
+      format).
     example: 2025-09-10T14:30:23.055109521Z
   occurrences:
     type: integer
@@ -60,7 +61,8 @@ properties:
       kind: alias
   repeat-after:
     type: string
-    description: A duration string after which the notice may be repeated (optional).
+    description: |-
+      A duration string after which the notice may be repeated (optional).
     example: 1h30m
   expire-after:
     type: string

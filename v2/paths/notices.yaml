@@ -8,24 +8,19 @@ get:
     - Synchronous
   summary: Retrieve system notices
   description: |-
-    Retrieves notices for the current user and any public notices, with optional filtering.
+    Retrieves notices for the current user and any public notices, with optional
+    filtering.
   operationId: getNotices
-  security: []
+  security: []    # TODO Not fully described in machine-readable format, normally OpenAccess unless certain parameters are used
   parameters:
     - name: types
       in: query
       description: |-
-        If types is specified, only return notices with types matching the given types.
-        The types parameter can include multiple types, notices matching any of the types are returned.
+        If types is specified, only return notices with types matching the given
+        types. The types parameter can include multiple types, notices matching
+        any of the types are returned.
       schema:
-        type: string
-        enum:
-          - change-update
-          - warning
-          - refresh-inhibit
-          - snap-run-inhibit
-          - interfaces-requests-prompt
-          - interfaces-requests-rule-update
+        $ref: '../components/schemas/NoticeType.yaml'
     - name: keys
       in: query
       description: If specified, only return notices with one of the given keys.
@@ -36,7 +31,9 @@ get:
           example: 74
     - name: after
       in: query
-      description: If specified, only return notices with a 'last-repeated' field greater than the specified time, which should be in RFC3339 UTC format.
+      description: |-
+        If specified, only return notices with a 'last-repeated' field greater
+        than the specified time, which should be in RFC3339 UTC format.
       schema:
         type: string
         format: date-time
@@ -44,9 +41,11 @@ get:
     - name: timeout
       in: query
       description: |-
-        If there are notices matching the filter which have already been recorded, these notices are returned immediately.
-        Otherwise, if timeout is specified, wait up to the given duration for any new notices matching the filter to be recorded.
-        This allows the user to use long-polling to be notified immediately when a new notice is recorded.
+        If there are notices matching the filter which have already been
+        recorded, these notices are returned immediately. Otherwise, if timeout
+        is specified, wait up to the given duration for any new notices matching
+        the filter to be recorded. This allows the user to use long-polling to
+        be notified immediately when a new notice is recorded.
       schema:
         type: string
         example: 7m30s
@@ -54,8 +53,10 @@ get:
       in: query
       description: |-
         Admin only.
-        Instead of returning notices associated with the user who initiated the API request, return notices associated with the given UID.
-        Public notices are still returned, as before. Cannot be used with the 'users' parameter.
+        Instead of returning notices associated with the user who initiated the
+        API request, return notices associated with the given UID. Public
+        notices are still returned, as before. Cannot be used with the 'users'
+        parameter.
       schema:
         type: integer
         example: 1000
@@ -63,17 +64,18 @@ get:
       in: query
       description: |-
         Admin only.
-        Value must be 'all'. Return notices associated with all users, instead of just the user which initiated the API request.
-        Cannot be used with the 'user-id' parameter.
+        Value must be 'all'. Return notices associated with all users, instead
+        of just the user which initiated the API request. Cannot be used with
+        the 'user-id' parameter.
       schema:
         type: string
-        nullable: true
         example:
-          - null
           - all
   responses:
     200:
-      description: A synchronous response containing a list of notices matching the filter criteria.
+      description: |-
+        A synchronous response containing a list of notices matching the filter
+        criteria.
       content:
         application/json:
           schema:
@@ -105,7 +107,9 @@ post:
     - Synchronous
   summary: Create a notice
   description: |-
-    Create a notice.
+    Create a notice. Currently, this is only used to create notices of
+    'snap-run-inhibit'. Only the 'snap' command is allowed to create notices of
+    that type.
   operationId: postNotices
   security: []
   requestBody:
@@ -154,13 +158,16 @@ post:
                   - sync
               result:
                 type: object
-                description: |
-                  The result object contains information about the response to the request.
-                additionalProperties:
-                  type: string
-                  description: |
-                    The ID of the operation.
-                  example: 74
+                description: |-
+                  The result object contains information about the response to
+                  the request.
+                properties:
+                  id:
+                    type: string
+                    description: |-
+                      The ID of the operation.
+                    example:
+                      - 74
 
     400:
       $ref: '../components/responses/BadRequest.yaml'
