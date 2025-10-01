@@ -25,6 +25,7 @@ get:
       schema:
         type: string
         enum:
+          - ''
           - all
     - name: interface
       in: query

@@ -14,13 +14,16 @@ get:
   parameters:
     - name: select
       in: query
-      required: false
-      description: Retrieve all warnings, or just pending ones.
+      description: |-
+        Retrieve specific warnings. The default only shows pending warnings.
+        All shows warnings that haven't expired or been cleaned.
       schema:
         type: string
         enum:
+          - ''
           - all
           - pending
+        default: pending
   responses:
     200:
       description: A synchronous response containing a list of warnings.

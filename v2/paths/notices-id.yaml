@@ -21,7 +21,8 @@ get:
         example: 74
   responses:
     200:
-      description: A synchronous response containing the details of the requested notice.
+      description: |-
+        A synchronous response containing the details of the requested notice.
       content:
         application/json:
           schema:
@@ -33,11 +34,11 @@ get:
                   - 200
               status:
                 type: string
-                example:
+                enum:
                   - OK
               type:
                 type: string
-                example:
+                enum:
                    - sync
               result:
                 $ref: '../components/schemas/Notice.yaml'
