@@ -15,8 +15,9 @@ get:
     - name: select
       in: query
       description: |-
-        Set to all to retrieve all interfaces, or connected to only return connected interfaces
-        (if this parameter is omitted then the call returns the legacy format that should be no longer used).
+        Set to all to retrieve all interfaces, or connected to only return
+        connected interfaces (if this parameter is omitted then the call returns
+        the legacy format that should be no longer used).
       schema:
         type: string
         enum:
@@ -39,12 +40,18 @@ get:
         type: boolean
     - name: names
       in: query
-      description: If given, then only interfaces that match the comma separated names are returned.
+      description: |-
+        Interfaces that match the listy of comma-seperated names will be returned.
+        The parameter matches against the name of the interface, not the name of
+        snaps, plugs, or slots.
       schema:
         type: string
+        example:
+          - content
   responses:
     200:
-      description: A synchronous response containing a list of snapshot sets.
+      description: |-   # TODO Investigate whether discriminator can be used to map input parameter to oneOf result
+        A synchronous response containing an array of plugs and slots.
       content:
         application/json:
           schema:
@@ -60,19 +67,9 @@ get:
                 type: string
                 example: sync
               result:
-                type: object
-                properties:
-                  plugs:
-                    type: array
-                    description: A list of plugs on the system matching the search criteria.
-                    items:
-                      $ref: '../components/schemas/Plug.yaml'
-
-                  slots:
-                    type: array
-                    description: A list of slots on the system matching the search criteria.
-                    items:
-                      $ref: '../components/schemas/Slot.yaml'
+                oneOf:
+                  - ref$: '../components/schemas/InterfaceArray.yaml'
+                  - ref$: '../components/schemas/InterfaceObject.yaml'
     4XX:
       $ref: '../components/responses/InternalError.yaml'
 
@@ -89,23 +86,44 @@ post:
     - PeerAuth: []
   parameters:
     - name: action
-      in: query
+      in: body
       description: Action to perform.
       schema:
         type: string
         enum:
           - connect
           - disconnect
+    - name: forget
+      in: body
+      description: |-
+        Used with the 'disconnect' action. Ensures the system does not
+        reestablish the connection going forward.
+      schema:
+        type: boolean
     - name: slots
-      in: query
-      description: Array of slots to connect to. Each slot is referred to by the snap it is part of and the name of the slot
+      in: body
+      description: |-
+        Array of slots to connect to. Each slot is referred to by the snap it is
+        part of and the name of the slot.
       schema:
-        type: string
+        type: array
+        minItems: 1
+        maxItems: 1
+        items:
+          format: snap-name:slot-name
+          type: string
     - name: plugs
-      in: query
-      description: Array of plugs to connect. Each plug is referred to by the snap it is part of and the name of the plug
+      in: body
+      description: |-
+        Array of plugs to connect. Each plug is referred to by the snap it is
+        part of and the name of the plug.
       schema:
-        type: string
+        type: array
+        minItems: 1
+        maxItems: 1
+        items:
+          format: snap-name:plug-name
+          type: string
   responses:
     202:
       $ref: '../components/responses/Accepted.yaml'

@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: array
+description: Modernized interface response
+items:
+  type: object
+  properties:
+    doc-url:
+      type: string
+      format: url
+    name:
+      type: string
+    summary:
+      type: string

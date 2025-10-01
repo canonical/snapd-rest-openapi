@@ -109,6 +109,10 @@ components:
       $ref: './v2/components/schemas/ConnectionStatus.yaml'
     FindResult:
       $ref: './v2/components/schemas/FindResult.yaml'
+    InterfaceArray:
+      $ref: './v2/components/schemas/InterfaceArray.yaml'
+    InterfaceObject:
+      $ref: './v2/components/schemas/InterfaceObject.yaml'
     Links:
       $ref: './v2/components/schemas/Links.yaml'
     Log:
