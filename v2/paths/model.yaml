@@ -8,6 +8,10 @@ get:
   summary: Get the active model assertion
   description: |-
     Retrieves the active model assertion for the system.
+    The model assertion describes a snap-based device.
+  externalDocs:
+    description: Read more about model assertions on the Ubuntu Core documentation.
+    url: https://documentation.ubuntu.com/core/reference/assertions/model/
   operationId: getModelAssertion
   security: []
   responses:
@@ -37,11 +41,14 @@ post:
   summary: Replace the model assertion
   description: |-
     Replaces the current model assertion, potentially triggering a remodel of the system.
+  externalDocs:
+    description: Read more about offline remodelling on the Ubuntu Core documentation.
+    url: https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline
   operationId: setModelAssertion
   security:
     - PeerAuth: []    # TODO document POST request properly
   requestBody:
-    description: The new model assertion, provided as either JSON or multipart/form-data for [Offline Remodelling](https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline).
+    description: The new model assertion, provided as either JSON or multipart/form-data for Offline Remodelling.
     required: true
     content:
       application/json:

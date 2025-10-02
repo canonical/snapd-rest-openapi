@@ -7,7 +7,11 @@ get:
     - Synchronous
   summary: Get the current serial assertion
   description: |-
-    Retrieves the current serial assertion for the system.
+    Retrieves the current serial assertion for the system. The serial assertion
+    is a statement used to bind a device identity to it's public key.
+  externalDocs:
+    description: Read more about serial assertions on the Ubuntu Core documentation.
+    url: https://documentation.ubuntu.com/core/reference/assertions/serial/
   operationId: getSerialAssertion
   security: []
   responses:
@@ -30,19 +34,30 @@ get:
               timestamp: 2025-07-17T03:11:33.518427Z
               sign-key-sha3-384: wrfougkz3Huq2T_Kklfnu...
               ...bX5JkJG5cunW0h/
-    4XX:
-      $ref: '../components/responses/InternalError.yaml'
+    404:
+      $ref: '../components/responses/NotFound.yaml'
 
 post:
   tags:
     - Asynchronous
     - AuthenticationRequired
-  summary: Replace the serial assertion
+  summary: Perform an action on the serial assertion
   description: |-
-    Replaces the active serial assertion for the system.
+    Performs an action on the active serial assertion for the system.
+  externalDocs:
+    description: Read more about offline remodelling on the Ubuntu Core documentation.
+    url: https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline
   operationId: setSerialAssertion
   security:     # TODO document POST request properly
     - PeerAuth: []
+  parameters:
+    - name: action
+      in: query # is this query or body?
+      description: The action to perform on the serial assertion.
+      schema:
+        type: string
+        enum:
+          - forget
   responses:
     202:
       $ref: '../components/responses/Accepted.yaml'
