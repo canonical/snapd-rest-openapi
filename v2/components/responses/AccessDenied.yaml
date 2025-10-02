@@ -35,4 +35,5 @@ content:
             message:
               type: string
               description: A human-readable error message.
-              example: access denied
+              enum:
+                - access denied

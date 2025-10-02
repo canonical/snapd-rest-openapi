@@ -20,20 +20,25 @@ get:
         types. The types parameter can include multiple types, notices matching
         any of the types are returned.
       schema:
-        $ref: '../components/schemas/NoticeType.yaml'
+        type: array
+        items:
+          $ref: '../components/schemas/NoticeType.yaml'
     - name: keys
       in: query
       description: If specified, only return notices with one of the given keys.
       schema:
         type: array
         items:
-          type: integer
-          example: 74
+          type: string
+          example:
+            - 74
+            - '-'
+            - libreoffice
     - name: after
       in: query
       description: |-
         If specified, only return notices with a 'last-repeated' field greater
-        than the specified time, which should be in RFC3339 UTC format.
+        than the specified time, in RFC3339 UTC format.
       schema:
         type: string
         format: date-time
@@ -107,7 +112,7 @@ post:
     - Synchronous
   summary: Create a notice
   description: |-
-    Create a notice. Currently, this is only used to create notices of
+    Create a notice. Currently, this can only be used to create notices of type
     'snap-run-inhibit'. Only the 'snap' command is allowed to create notices of
     that type.
   operationId: postNotices
@@ -130,7 +135,7 @@ post:
                 - add
             key:
               type: string
-              description: The name of the snap to inhibit.
+              description: The key of the notice to add.
             type:
               type: string
               description: The type of the notice to add.
@@ -165,7 +170,7 @@ post:
                   id:
                     type: string
                     description: |-
-                      The ID of the operation.
+                      The ID of the newly-created notice.
                     example:
                       - 74
 

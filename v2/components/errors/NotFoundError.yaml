@@ -5,6 +5,6 @@ type: object
 properties:
   message:
     type: string
-    example:
+    enum:
       - no snapshot set with the given ID
       - local snap has no icon
