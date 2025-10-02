@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+# TODO Link to routes that do not define endpoints for certain request types
+
+description: |-
+  An internal error occurred on the server. This can happen, for example,
+  when attempting a GET request on a route designed only to accept POST requests.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status-code:
+          type: integer
+          example: 405
+        status:
+          type: string
+          example: Method Not Allowed
+        type:
+          type: string
+          example: error
+        result:
+          $ref: '../errors/NotAllowedError.yaml'
