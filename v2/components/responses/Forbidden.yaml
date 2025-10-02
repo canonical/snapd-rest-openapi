@@ -31,4 +31,5 @@ content:
                 - auth-cancelled    # TODO follow up PR looking into kind enum
             message:
               type: string
-              example: cancelled
+              enum:
+                - cancelled

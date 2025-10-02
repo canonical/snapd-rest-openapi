@@ -13,7 +13,7 @@ properties:
   message:
     type: string
     description: Human-readable string describing the error.
-    example:
+    enum:
       - no state entry for key
       - snap 'ubuntu-frame' is not installed
   value:

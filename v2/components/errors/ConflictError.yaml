@@ -6,7 +6,8 @@ properties:
   message:
     type: string
     description: A human-readable error message explaining the conflict.
-    example: snap "alias-snap" has "manip" change in progress
+    enum:
+      - snap 'alias-snap' has 'manip' change in progress
   kind:
     type: string
     description: A machine-readable string identifying the error type.
