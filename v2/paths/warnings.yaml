@@ -11,8 +11,21 @@ get:
     Retrieves the current warnings in snapd.
   operationId: getWarnings
   security: []
+  parameters:
+    - name: select
+      in: query
+      description: |-
+        Retrieve specific warnings. The default only shows pending warnings.
+        All shows warnings that haven't expired or been cleaned.
+      schema:
+        type: string
+        enum:
+          - ''
+          - all
+          - pending
+        default: pending
   responses:
-    '200':
+    200:
       description: A synchronous response containing a list of warnings.
       content:
         application/json:
@@ -26,18 +39,18 @@ get:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum:
-                  - "sync"
+                  - sync
               result:
                 type: array
                 items:
                   $ref: '../components/schemas/Warning.yaml'
 
-    '4XX':
-      $ref: '../components/responses/InternalError.yaml'
+    400:
+      $ref: '../components/responses/BadRequest.yaml'
 
 post:
   tags:
@@ -64,13 +77,14 @@ post:
             action:
               type: string
               enum: 
-                - "okay"
+                - okay
             timestamp:
               type: string
               format: date-time
               description: Time to clear warnings before (RFC3339 UTC format).
+              example: 2025-09-08T17:29:40.829324752Z
   responses:
-    '200':
+    200:
       description: A synchronous response indicating success.
       content:
         application/json:
@@ -84,14 +98,14 @@ post:
               status:
                 type: string
                 enum:
-                  - "OK"
+                  - OK
               type:
                 type: string
                 enum:
-                  - "sync"
+                  - sync
               result:
                 type: integer
                 description: The number of warnings cleared.
                 example: 0
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'

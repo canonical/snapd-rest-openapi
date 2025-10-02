@@ -29,15 +29,18 @@ get:
       description: Comma-seperated list of snap names to filter by.
       schema:
         type: string
-        example: "multipass,lxd"
+        example:
+          - multipass
+          - lxd
+          - multipass,lxd
   responses:
-    '200':
+    200:
       description: A stream of log messages. Each line is a self-contained JSON object.
       content:
         application/x-ndjson:
           schema:
             $ref: '../components/schemas/Log.yaml'
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'
-    '403':
+    403:
       $ref: '../components/responses/Forbidden.yaml'

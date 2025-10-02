@@ -15,24 +15,24 @@ properties:
   time:
     type: string
     format: date-time
-    description: The creation timestamp of the snapshot (RFC3339 format).
-    example: "2025-08-18T14:30:38.226662804-02:30"
+    description: The creation timestamp of the snapshot (RFC3339 UTC format).
+    example: 2025-08-18T14:30:38.226662804-02:30
   snap:
     type: string
     description: The name of the snap that was snapshotted.
-    example: "libreoffice"
+    example: libreoffice
   snap-id:
     type: string
     description: The unique store ID of the snap.
-    example: "CpUkI0qPIIBVRsjy49adNq4D6Ra72y4v"
+    example: CpUkI0qPIIBVRsjy49adNq4D6Ra72y4v
   revision:
     type: string
     description: The revision of the snap at the time of the snapshot.
-    example: "355"
+    example: 355
   version:
     type: string
     description: The version of the snap at the time of the a snapshot.
-    example: "25.2.5.2"
+    example: 25.2.5.2
   size:
     type: integer
     format: int64
