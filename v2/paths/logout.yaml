@@ -5,9 +5,9 @@ post:
   tags:
     - AuthenticationRequired
     - Synchronous
-  summary: Log user out of the store
+  summary: Log user out of snapd and the store
   description: |-
-    Logs the currently authenticated user out of the store.
+    Logs the currently authenticated user out of snapd and the store.
   operationId: logoutUser
   security:
     - PeerAuth: []              # TODO security and responses need to be re-evaluated in another PR

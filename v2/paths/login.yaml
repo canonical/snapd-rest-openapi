@@ -5,9 +5,11 @@ post:
   tags:
     - AuthenticationRequired
     - Synchronous
-  summary: Log user into the store
+  summary: Authenticate user with snapd and store
   description: |-
-    Logs a user into the store using their credentials.
+    Authenticates a user with Snapd and the store using their credentials.
+    Credentials are saved to the ~/.snap/auth.json file and further
+    communication is made with these credentials.
   operationId: loginUser
   security:
     - PeerAuth: []
@@ -25,7 +27,8 @@ post:
               type: string
               format: email
               description: The email associated with the desired account.
-              example: robert.fudge@canonical.com
+              pattern: .@.*\..
+              example: random.user@emailaddr.com
             password:
               type: string
               format: password
