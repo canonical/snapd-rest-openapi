@@ -13,11 +13,11 @@ post:
     - PeerAuth: []              # TODO security and responses need to be re-evaluated in another PR
   parameters:
     - in: header
-      name: Macaroon
+      name: Authorization
       schema:
         type: string
-        format: macaroon
-        description: The macaroon issued by the store.
+        format: 'Authorization: Macaroon <the-macaroon>'
+        description: The authorization to remove from the system.
   responses:
     200:
       description: Successfully logged out.
