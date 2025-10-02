@@ -177,6 +177,8 @@ paths:
     $ref: './v2/paths/notices-id.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
+  /v2/snapctl:
+    $ref: './v2/paths/snapctl.yaml'
   /v2/snapshots:
     $ref: './v2/paths/snapshots.yaml'
   /v2/snapshots/{set-id}/export:
