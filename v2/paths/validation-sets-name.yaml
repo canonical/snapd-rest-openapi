@@ -7,26 +7,27 @@ parameters:
     description: The developer account ID for the validation set.
     schema:
       type: string
+    example: K8qItbjFNesHR9sphvxE9SexTM6Q2aQX
   - name: name
     in: path
     required: true
     description: The name of the validation set.
     schema:
       type: string
+    example: myset1
 
 get:
   tags:
-    - Macaroon
-    - Sync
-    - Validation Sets
+    - AuthenticationRequired
+    - Synchronous
   summary: Get a specific validation set
   description: |-
     Retrieves a single validation set by its account ID and name.
   operationId: getValidationSetByName
   security:
-    - macaroonAuth: []
+    - PeerAuth: []
   responses:
-    '200':
+    200:
       description: A single validation set object.
       content:
         application/json:
@@ -48,20 +49,19 @@ get:
                 type: integer
               valid:
                 type: boolean
-    '404':
+    404:
       $ref: '../components/responses/NotFound.yaml'
 
 post:
   tags:
-    - Macaroon
-    - Sync
-    - Validation Sets
+    - AuthenticationRequired
+    - Synchronous
   summary: Manage a specific validation set
   description: |-
     Apply or forget a specific validation set.
   operationId: manageValidationSet
   security:
-    - macaroonAuth: []
+    - PeerAuth: []
   requestBody:
     required: true
     content:
@@ -73,22 +73,64 @@ post:
           properties:
             action:
               type: string
+              description: The operation to perform on the validation set.
               enum:
                 - apply
                 - forget
             mode:
               type: string
-              description: The mode to enable for the validation set (only for 'apply').
+              description: |-
+                The mode to enable for the validation set. Required when action is 'apply'.
               enum:
                 - monitor
                 - enforce
             sequence:
               type: integer
-              description: An optional sequence number to pin at with 'apply' or match with 'forget'.
+              description: |-
+                When using 'apply': an optional sequence number to pin. When
+                using 'forget': an optional sequence number to match before
+                forgetting.
+        example:
+          action: "apply"
+          mode: "monitor"
+          sequence: 1
   responses:
-    '200':
-      description: OK
-    '400':
+    200:
+      description: The validation set was successfully updated. The updated resource is returned.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              account-id:
+                type: string
+                description: The ID of the account that owns the validation set.
+              mode:
+                type: string
+                description: The current mode of the validation set.
+                enum:
+                  - enforce
+                  - monitor
+              name:
+                type: string
+                description: The name of the validation set.
+              pinned-at:
+                type: integer
+                description: The sequence number at which the validation set is pinned.
+              sequence:
+                type: integer
+                description: The current sequence number of the validation set.
+              valid:
+                type: boolean
+                description: Indicates whether the validation set is currently considered valid.
+          example:
+            account-id: "K8qItbjFNesHR9sphvxE9SexTM6Q2aQX"
+            mode: "monitor"
+            name: "myset1"
+            pinned-at: 1
+            sequence: 1
+            valid: true
+    400:
       $ref: '../components/responses/BadRequest.yaml'
-    '404':
+    404:
       $ref: '../components/responses/NotFound.yaml'

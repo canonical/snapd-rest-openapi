@@ -2,17 +2,20 @@
 
 get:
   tags:
-    - Macaroon
-    - Sync
-    - Validation Sets
+    - AuthenticationRequired
+    - Synchronous
   summary: Get all enabled validation sets
   description: |-
     Retrieves a list of all enabled validation sets on the system.
+  externalDocs:
+    description: |-
+      Read more about validation sets on the Canonical Snapcraft documentation.
+    url: https://snapcraft.io/docs/validation-sets
   operationId: getValidationSets
   security:
-    - macaroonAuth: []
+    - PeerAuth: []
   responses:
-    '200':
+    200:
       description: A list of validation sets.
       content:
         application/json:
@@ -29,10 +32,10 @@ get:
                   description: Name of the validation set.
                 mode:
                   type: string
+                  description: Mode of validation the system will use.
                   enum:
                     - monitor
                     - enforce
-                  description: Mode of validation the system will use.
                 pinned-at:
                   type: integer
                   description: The sequence number the set is pinned at (0 if not pinned).
@@ -42,5 +45,5 @@ get:
                 valid:
                   type: boolean
                   description: Reports whether the set is valid for currently installed snaps.
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'
