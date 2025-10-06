@@ -13,12 +13,16 @@ content:
       properties:
         status-code:
           type: integer
-          example: 405
+          enum: 
+            - 405
         status:
           type: string
-          example: Method Not Allowed
+          enum:
+            - Method Not Allowed
         type:
           type: string
-          example: error
+          enum:
+            - error
         result:
-          $ref: '../errors/NotAllowedError.yaml'
+          oneOf:
+            - $ref: '../errors/NotAllowedError.yaml'

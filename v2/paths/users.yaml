@@ -24,6 +24,9 @@ get:
     400:
       $ref: '../components/responses/BadRequest.yaml'
 
+    403:
+      $ref: '../components/responses/Forbidden.yaml'
+
 post:
   tags:
     - Root
@@ -46,7 +49,9 @@ post:
           properties:
             action:
               type: string
-              enum: [create, remove]
+              enum:
+                - create
+                - remove
             email:
               type: string
               format: email
@@ -76,3 +81,5 @@ post:
                     type: string
     400:
       $ref: '../components/responses/BadRequest.yaml'
+    405:
+      $ref: '../components/responses/NotAllowed.yaml'

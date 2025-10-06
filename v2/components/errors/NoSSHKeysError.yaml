@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+properties:
+  message:
+    type: string
+    example:
+      - 'cannot create user user@canonical.com: no ssh keys found'
