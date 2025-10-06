@@ -43,91 +43,37 @@ post:
     - AuthenticationRequired
   summary: Perform an action on the serial assertion
   description: |-
-    Forgets the existing serial assertion, causing the system to pick up a new
-    one. This endpoint uses a custom payload format and can optionally include a
-    JSON body with specific actions.
+    Performs an asynchronous action on the current serial assertion by sending a
+    JSON command. The only supported action is `forget`, which causes the
+    system to unregister its current serial and prepare for a new one.
   externalDocs:
     description: Read more about offline remodelling on the Ubuntu Core documentation.
     url: https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline
   operationId: setSerialAssertion
-  security:     # TODO document POST request properly
+  security:
     - PeerAuth: []
   requestBody:
-    description: |-
-      A custom-formatted plain text payload containing the new serial assertion,
-      an optional JSON body for actions, and a detached signature.
-
-      The structure is as follows, with each part separated by two newlines
-      (`\n\n`):
-      ```
-      HEADER
-
-      BODY
-
-      SIGNATURE
-      ```
-      - **HEADER**: (Required) The full, new serial assertion text.
-      - **BODY**: (Optional) A JSON object with control options. If omitted, the
-      `HEADER` is followed directly by the `SIGNATURE`. The available fields
-      are:
-        - `action` (string): The only supported action is `forget`.
-        - `no-registration-until-reboot` (boolean): If true, delays the device
-        registration process.
-      - **SIGNATURE**: (Required) The detached signature of the `HEADER` and
-      optional `BODY`.
+    description: A JSON object specifying the action to perform on the serial.
     required: true
     content:
-      text/plain:
+      application/json:
         schema:
-          type: string
-          # The format is custom and best described through examples.
-        examples:
-          simpleReplace:
-            summary: Replace serial with no extra options
-            description: |-
-              The payload contains only the new serial assertion (HEADER) and
-              the SIGNATURE, separated by `\n\n`.
-            value: |
-              type: serial
-              authority-id: generic
-              brand-id: generic
-              model: generic-classic
-              serial: 46923e6d-5d45-420d-905a-99a9e92493b4
-              device-key:
-                AcbBTQRWhcGAARAA...
-                ...AEQEAAQ==
-              device-key-sha3-384: PznqOqWAx4_f8tFafGI2...
-              timestamp: 2025-10-03T11:00:00.0Z
-              sign-key-sha3-384: wrfougkz3Huq2T_Kklfnu...
-              ...bX5JkJG5cunW0h/
-
-              -----BEGIN PGP SIGNATURE-----
-              ...
-              -----END PGP SIGNATURE-----
-          replaceWithForgetAction:
-            summary: Replace serial and perform the 'forget' action
-            description: |-
-              The payload includes all three parts: HEADER, BODY (JSON), and
-              SIGNATURE.
-            value: |
-              type: serial
-              authority-id: generic
-              brand-id: generic
-              model: generic-classic
-              serial: 46923e6d-5d45-420d-905a-99a9e92493b4
-              device-key:
-                AcbBTQRWhcGAARAA...
-                ...AEQEAAQ==
-              device-key-sha3-384: PznqOqWAx4_f8tFafGI2...
-              timestamp: 2025-10-03T11:00:00.0Z
-              sign-key-sha3-34: wrfougkz3Huq2T_Kklfnu...
-              ...bX5JkJG5cunW0h/
-
-              {"action":"forget", "no-registration-until-reboot": true}
-
-              -----BEGIN PGP SIGNATURE-----
-              ...
-              -----END PGP SIGNATURE-----
+          type: object
+          properties:
+            action:
+              type: string
+              description: The action to perform on the serial assertion.
+              enum:
+                - forget
+            no-registration-until-reboot:
+              type: boolean
+              description: If true, delays device registration until the next reboot.
+              default: false
+          required:
+            - action
+          example:
+            action: "forget"
+            no-registration-until-reboot": true
   responses:
     202:
       $ref: '../components/responses/Accepted.yaml'
