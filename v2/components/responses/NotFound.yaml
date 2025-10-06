@@ -23,5 +23,7 @@ content:
             - error
         result:
           oneOf:
+            - $ref: '../errors/NoModelAssertionError.yaml'
+            - $ref: '../errors/NoSerialAssertionError.yaml'
             - $ref: '../errors/NotFoundError.yaml'
             - $ref: '../errors/SnapNotInstalledError.yaml'
