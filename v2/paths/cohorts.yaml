@@ -27,7 +27,7 @@ post:
                 - create
             snaps:
               type: array
-              description: An array of snap names to be included in the cohort.
+              description: An array of snap names to create cohorts for.
               items:
                 type: string
                 example:
@@ -36,11 +36,24 @@ post:
                   - multipass
   responses:
     200:
-      description: The cohort keys were created successfully.
+      description: A map of snap names to their newly created cohort keys.
       content:
         application/json:
           schema:
-            type: object # The actual response is not documented, assuming a generic object
-            additionalProperties: true
+            type: object
+            required:
+              - cohorts
+            properties:
+              cohorts:
+                type: object
+                description: An object mapping each snap name to its corresponding cohort key string.
+                additionalProperties:
+                  type: string
+                  description: The generated cohort key for the snap.
+            example:
+              cohorts:
+                core24: MSBkd1RBaDdNWlowMXp5cmlPWkVycWQxSnluUUxpT0d2TSAxNzU5NDIxNjg0IDc3Yzk1ODllNDYxNzEwNDUwZWZiNjE5YjMwNmJiMzJlMmJiZTlkMzNmOGRlMmIwYmQzNmQ4ZWEyYjcwNGNmZmI=
+                snapd: MSBQTXJyVjRtbDh1V3VFVURCVDhkU0duS1VZYmV2VmhjNCAxNzU5NDIxNjg0IDU1YzdjZWRkZWJhNjFkNjIxMjU3ZTAwMDYxMjllZWJkYjE4N2Y3YTE0MTc0NmM2NjAyM2IyYWY4ZDY2MzRlZDU=
+
     400:
       $ref: '../components/responses/BadRequest.yaml'
