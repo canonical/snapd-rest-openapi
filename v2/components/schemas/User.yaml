@@ -9,7 +9,9 @@ required:
 properties:
   id:
     type: integer
-    description: The unique numeric ID for this user account.
+    description: |-
+      The unique numeric ID for this user account. This is specific to SnapD
+      only.
     example: 1
   username:
     type: string

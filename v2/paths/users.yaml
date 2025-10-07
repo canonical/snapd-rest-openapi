@@ -4,7 +4,7 @@
 get:
   tags:
     - Root
-    - Sync
+    - Synchronous
     - Users
   summary: Get user accounts
   description: |-
@@ -30,7 +30,7 @@ get:
 post:
   tags:
     - Root
-    - Sync
+    - Synchronous
     - Users
   summary: Manage users
   description: |-
