@@ -43,12 +43,16 @@ tags:
     description: Interact with notices.
   - name: OpenAccess
     description: Do not require the user to authenticate.
+  - name: Root
+    description: Requires the user to authenticate with root access.    # TODO Properly describe the difference between AuthenticationRequired and Root
   - name: Snaps
     description: Interact with snaps.
   - name: Store
     description: Interact with the store.
   - name: Synchronous
     description: Return the complete response synchronously.
+  - name: Users
+    description: Manage user accounts and authentication.
   - name: Warnings
     description: Retrieve recorded warnings.
 
