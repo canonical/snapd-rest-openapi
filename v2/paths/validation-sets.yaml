@@ -11,7 +11,7 @@ get:
     description: |-
       Read more about validation sets on the Canonical Snapcraft documentation.
     url: https://snapcraft.io/docs/validation-sets
-  operationId: getValidationSets
+  operationId: listValidationSets
   security:
     - PeerAuth: []
   responses:
@@ -22,28 +22,6 @@ get:
           schema:
             type: array
             items:
-              type: object
-              properties:
-                account-id:
-                  type: string
-                  description: Identifier for the developer account.
-                name:
-                  type: string
-                  description: Name of the validation set.
-                mode:
-                  type: string
-                  description: Mode of validation the system will use.
-                  enum:
-                    - monitor
-                    - enforce
-                pinned-at:
-                  type: integer
-                  description: The sequence number the set is pinned at (0 if not pinned).
-                sequence:
-                  type: integer
-                  description: The current sequence of the validation set assertion.
-                valid:
-                  type: boolean
-                  description: Reports whether the set is valid for currently installed snaps.
+              $ref: '../components/schemas/ValidationSet.yaml'
     400:
       $ref: '../components/responses/BadRequest.yaml'

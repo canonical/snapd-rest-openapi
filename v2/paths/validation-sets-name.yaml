@@ -7,7 +7,7 @@ parameters:
     description: The developer account ID for the validation set.
     schema:
       type: string
-    example: K8qItbjFNesHR9sphvxE9SexTM6Q2aQX
+    example: ABCDEF12345678900987654321FEDCBA
   - name: name
     in: path
     required: true
@@ -23,7 +23,7 @@ get:
   summary: Get a specific validation set
   description: |-
     Retrieves a single validation set by its account ID and name.
-  operationId: getValidationSetByName
+  operationId: getValidationSet
   security:
     - PeerAuth: []
   responses:
@@ -32,23 +32,7 @@ get:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              account-id:
-                type: string
-              name:
-                type: string
-              mode:
-                type: string
-                enum:
-                  - monitor
-                  - enforce
-              pinned-at:
-                type: integer
-              sequence:
-                type: integer
-              valid:
-                type: boolean
+            $ref: '../components/schemas/ValidationSet.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'
 
@@ -59,7 +43,7 @@ post:
   summary: Manage a specific validation set
   description: |-
     Apply or forget a specific validation set.
-  operationId: manageValidationSet
+  operationId: applyValidationSet               # TODO, ensure operationId matches SnapD Daemon codebase
   security:
     - PeerAuth: []
   requestBody:
@@ -100,33 +84,11 @@ post:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              account-id:
-                type: string
-                description: The ID of the account that owns the validation set.
-              mode:
-                type: string
-                description: The current mode of the validation set.
-                enum:
-                  - enforce
-                  - monitor
-              name:
-                type: string
-                description: The name of the validation set.
-              pinned-at:
-                type: integer
-                description: The sequence number at which the validation set is pinned.
-              sequence:
-                type: integer
-                description: The current sequence number of the validation set.
-              valid:
-                type: boolean
-                description: Indicates whether the validation set is currently considered valid.
+            $ref: '../components/schemas/ValidationSet.yaml'
           example:
-            account-id: "K8qItbjFNesHR9sphvxE9SexTM6Q2aQX"
-            mode: "monitor"
-            name: "myset1"
+            account-id: ABCDEF12345678900987654321FEDCBA
+            mode: monitor
+            name: myset1
             pinned-at: 1
             sequence: 1
             valid: true
