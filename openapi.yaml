@@ -149,6 +149,8 @@ paths:
     $ref: './v2/paths/changes.yaml'
   /v2/changes/{id}:
     $ref: './v2/paths/changes-id.yaml'
+  /v2/cohorts:
+    $ref: './v2/paths/cohorts.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'
   /v2/find:
