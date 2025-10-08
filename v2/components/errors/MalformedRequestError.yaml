@@ -5,4 +5,5 @@ type: object
 properties:
   message:
     type: string
-    example: cannot decode request body into an alias action
+    example:
+      - cannot decode request body into an alias action

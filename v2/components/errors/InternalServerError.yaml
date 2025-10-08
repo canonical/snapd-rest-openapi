@@ -6,4 +6,5 @@ properties:
   message:
     type: string
     description: A human-readable error message.
-    example: internal server error
+    enum:
+      - internal server error

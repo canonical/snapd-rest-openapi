@@ -12,7 +12,7 @@ get:
   operationId: listSnapshots
   security: []
   responses:
-    '200':
+    200:
       description: A synchronous response containing a list of snapshot sets.
       content:
         application/json:
@@ -21,18 +21,21 @@ get:
             properties:
               status-code:
                 type: integer
-                example: 200
+                enum:
+                  - 200
               status:
                 type: string
-                example: "OK"
+                enum:
+                  - OK
               type:
                 type: string
-                example: "sync"
+                enum:
+                  - sync
               result:
                 type: array
                 items:
                   $ref: '../components/schemas/SnapshotSet.yaml'
-    '4XX':
+    4XX:
       $ref: '../components/responses/InternalError.yaml'
 
 post:
@@ -83,11 +86,11 @@ post:
           format: binary
           description: A tar archive of an exported snapshot, used only to import a snapshot with the 'import' action.
   responses:
-    '202':
+    202:
       $ref: '../components/responses/Accepted.yaml'
-    '400':
+    400:
       $ref: '../components/responses/BadRequest.yaml'
-    '401':
+    401:
       $ref: '../components/responses/AccessDenied.yaml'
-    '404':
+    404:
       $ref: '../components/responses/NotFound.yaml'
