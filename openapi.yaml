@@ -17,7 +17,11 @@ info:
         REST API](https://snapcraft.io/docs/using-the-api).
 servers:
   - url: unix:///run/snapd.socket
-    description: Local snapd socket access
+    description: |-
+      Local snapd socket access. Unless otherwise specified, routes appear on
+      this socket.
+  - url: unix:///run/snapd-snap.socket
+    description: Snapd socket access for snaps
 externalDocs:
   url: https://snapcraft.io/docs
   description: Snap and Snapcraft documentation
