@@ -15,7 +15,7 @@ get:
     - name: select
       in: query
       description: |-
-        Set to all to retrieve all interfaces, or connected to only return
+        Set to 'all' to retrieve all interfaces, or 'connected' to only return
         connected interfaces (if this parameter is omitted then the call returns
         the legacy format that should be no longer used).
       schema:
@@ -41,7 +41,7 @@ get:
     - name: names
       in: query
       description: |-
-        Interfaces that match the listy of comma-seperated names will be returned.
+        Interfaces that match the list of comma-separated names will be returned.
         The parameter matches against the name of the interface, not the name of
         snaps, plugs, or slots.
       schema:
@@ -51,7 +51,8 @@ get:
   responses:
     200:
       description: |-   # TODO Investigate whether discriminator can be used to map input parameter to oneOf result
-        A synchronous response containing an array of plugs and slots.
+        For non-legacy calls, returns an array of interface information.
+        For legacy calls, returns an array of interface objects.
       content:
         application/json:
           schema:
@@ -67,10 +68,11 @@ get:
                 type: string
                 example: sync
               result:
-                oneOf:
-                  - ref$: '../components/schemas/InterfaceArray.yaml'
-                  - ref$: '../components/schemas/InterfaceObject.yaml'
-    4XX:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: './v2/components/schemas/LegacyInterfaceObject.yaml'
+                    - $ref: './v2/components/schemas/ModernInterfaceObject.yaml'
       $ref: '../components/responses/InternalError.yaml'
 
 post:
@@ -80,7 +82,8 @@ post:
     - Interfaces
   summary: Issue an action to the interface system
   description: |-
-    Retrieves the available interfaces and their associated metadata.
+    Used to connect and disconnect interfaces. Issues a command to the interface
+    system to operate on the specified plug and slot.
   operationId: postInterfaces
   security:
     - PeerAuth: []
