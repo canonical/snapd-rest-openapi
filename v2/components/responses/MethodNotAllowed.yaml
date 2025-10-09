@@ -4,7 +4,7 @@
 # TODO Link to routes that do not define endpoints for certain request types
 
 description: |-
-  An internal error occurred on the server. This can happen, for example,
+  The requested method is not allowed. This can happen, for example,
   when attempting a GET request on a route designed only to accept POST requests.
 content:
   application/json:

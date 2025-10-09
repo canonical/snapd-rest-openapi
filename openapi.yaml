@@ -74,8 +74,8 @@ components:
       $ref: './v2/components/responses/Forbidden.yaml'
     InternalError:
       $ref: './v2/components/responses/InternalError.yaml'
-    NotAllowed:
-      $ref: './v2/components/responses/NotAllowed.yaml'
+    MethodNotAllowed:
+      $ref: './v2/components/responses/MethodNotAllowed.yaml'
     NotFound:
       $ref: './v2/components/responses/NotFound.yaml'
 
