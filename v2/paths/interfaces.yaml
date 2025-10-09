@@ -87,46 +87,45 @@ post:
   operationId: postInterfaces
   security:
     - PeerAuth: []
-  parameters:
-    - name: action
-      in: body
-      description: Action to perform.
-      schema:
-        type: string
-        enum:
-          - connect
-          - disconnect
-    - name: forget
-      in: body
-      description: |-
-        Used with the 'disconnect' action. Ensures the system does not
-        reestablish the connection going forward.
-      schema:
-        type: boolean
-    - name: slots
-      in: body
-      description: |-
-        Array of slots to connect to. Each slot is referred to by the snap it is
-        part of and the name of the slot.
-      schema:
-        type: array
-        minItems: 1
-        maxItems: 1
-        items:
-          format: snap-name:slot-name
-          type: string
-    - name: plugs
-      in: body
-      description: |-
-        Array of plugs to connect. Each plug is referred to by the snap it is
-        part of and the name of the plug.
-      schema:
-        type: array
-        minItems: 1
-        maxItems: 1
-        items:
-          format: snap-name:plug-name
-          type: string
+  requestBody:
+    description: Parameters for the interface action.
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            action:
+              type: string
+              description: Action to perform.
+              enum:
+                - connect
+                - disconnect
+            forget:
+              type: boolean
+              description: |
+                Used with the 'disconnect' action. Ensures the system does not
+                reestablish the connection going forward.
+            slots:
+              type: array
+              minItems: 1
+              maxItems: 1
+              items:
+                type: string
+                format: snap-name:slot-name
+              description: |
+                Array of slots to connect to. Each slot is referred to by the snap it is
+                part of and the name of the slot.
+            plugs:
+              type: array
+              minItems: 1
+              maxItems: 1
+              items:
+                type: string
+                format: snap-name:plug-name
+              description: |
+                Array of plugs to connect. Each plug is referred to by the snap it is
+                part of and the name of the plug.
   responses:
     202:
       $ref: '../components/responses/Accepted.yaml'
