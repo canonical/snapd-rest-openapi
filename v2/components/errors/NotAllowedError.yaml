@@ -5,9 +5,6 @@ type: object
 properties:
   message:
     type: string
-<<<<<<< HEAD
-    example: method 'GET' not allowed 
-=======
-    example:
+    example: 
+      - method 'GET' not allowed 
       - system user administration via snapd is not allowed on this system
->>>>>>> 2298da3 (snapd-rest-openapi: improve errors for /v2/users endpoint)
