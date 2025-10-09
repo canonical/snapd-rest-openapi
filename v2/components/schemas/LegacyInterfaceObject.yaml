@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
+description: The legacy interface object.
 properties:
   plugs:
     type: array
