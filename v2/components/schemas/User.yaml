@@ -11,7 +11,7 @@ properties:
     type: integer
     description: |-
       The unique numeric ID for this user account. This is not related to the
-      users linux UID.
+      user's linux UID.
     example: 1
   username:
     type: string
@@ -19,7 +19,6 @@ properties:
     example: 
       - user2
       - local-username
-      - lp-username2
   email:
     type: string
     format: email
