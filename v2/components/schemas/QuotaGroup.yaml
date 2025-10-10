@@ -3,6 +3,8 @@
 
 type: object
 description: Defines a quota group for one or more snaps.
+required:
+  - group-name
 properties:
   group-name:
     type: string
