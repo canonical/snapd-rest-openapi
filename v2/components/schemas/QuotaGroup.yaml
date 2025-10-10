@@ -2,12 +2,12 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
-description: Defines a resource quota group for one or more snaps.
+description: Defines a quota group for one or more snaps.
 properties:
   group-name:
     type: string
     description: The name of the quota group.
-    example: 'logmem'
+    example: logmem
   subgroups:
     type: array
     items:
@@ -32,17 +32,17 @@ properties:
         type: integer
         format: int64
         description: Memory usage limit in bytes.
+        example: 32768
       cpu:
         type: string
         description: Includes percentage as a limit.
-        example: 'logmem'
       cpu-set:
         type: string
         description: Per-cpu limits, with cpus listing included cores.
-        example: 'logmem'
       threads:
         type: integer
         description: Maximum number of threads for this quota group.
+        example: 2
       journal:
         type: object
         description: Number of messages logged per time period.

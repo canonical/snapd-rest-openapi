@@ -8,7 +8,7 @@ get:
     - Synchronous
   summary: Get all quota groups
   description: |-
-    Retrieves a list of all resource quota groups and their constraints.
+    Retrieves a list of all quota groups and their constraints.
   operationId: getQuotaGroups
   security: []
   responses:
@@ -30,7 +30,7 @@ post:
     - Quotas
   summary: Manage quota groups
   description: |-
-    Create, modify, or remove a resource quota group.
+    Create, modify, or remove a quota group.
   operationId: manageQuotaGroups
   security:
     - PeerAuth: []
@@ -56,3 +56,5 @@ post:
       $ref: '../components/responses/Accepted.yaml'
     400:
       $ref: '../components/responses/BadRequest.yaml'
+    403:
+      $ref: '../components/responses/Forbidden.yaml'
