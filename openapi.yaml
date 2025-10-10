@@ -147,6 +147,8 @@ paths:
     $ref: './v2/paths/find.yaml'
   /v2/icons/{name}/icon:
     $ref: './v2/paths/icons-name.yaml'
+  /v2/interfaces:
+    $ref: './v2/paths/interfaces.yaml'
   /v2/logs:
     $ref: './v2/paths/logs.yaml'
   /v2/sections:
