@@ -5,6 +5,5 @@ type: object
 properties:
   message:
     type: string
-    example: 
-      - method 'GET' not allowed 
-      - system user administration via snapd is not allowed on this system
+    example:
+      - 'cannot create user user@canonical.com: cannot find user user@canonical.com'
