@@ -68,12 +68,11 @@ get:
                 type: string
                 example: sync
               result:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: './v2/components/schemas/LegacyInterfaceObject.yaml'
-                    - $ref: './v2/components/schemas/ModernInterfaceObject.yaml'
-      $ref: '../components/responses/InternalError.yaml'
+                oneOf:
+                  - $ref: '../components/schemas/LegacyInterfaceObject.yaml'
+                  - $ref: '../components/schemas/ModernInterfaceObject.yaml'
+    400:
+      $ref: '../components/responses/BadRequest.yaml'
 
 post:
   tags:
@@ -111,21 +110,13 @@ post:
               minItems: 1
               maxItems: 1
               items:
-                type: string
-                format: snap-name:slot-name
-              description: |
-                Array of slots to connect to. Each slot is referred to by the snap it is
-                part of and the name of the slot.
+                $ref: '../components/schemas/Slot.yaml'
             plugs:
               type: array
               minItems: 1
               maxItems: 1
               items:
-                type: string
-                format: snap-name:plug-name
-              description: |
-                Array of plugs to connect. Each plug is referred to by the snap it is
-                part of and the name of the plug.
+                $ref: '../components/schemas/Plug.yaml'
   responses:
     202:
       $ref: '../components/responses/Accepted.yaml'

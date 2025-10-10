@@ -169,6 +169,8 @@ paths:
     $ref: './v2/paths/find.yaml'
   /v2/icons/{name}/icon:
     $ref: './v2/paths/icons-name.yaml'
+  /v2/interfaces:
+    $ref: './v2/paths/interfaces.yaml'
   /v2/login:
     $ref: './v2/paths/login.yaml'
   /v2/logout:
