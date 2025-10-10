@@ -137,7 +137,7 @@ paths:
     $ref: './v2/paths/changes.yaml'
   /v2/changes/{id}:
     $ref: './v2/paths/changes-id.yaml'
-  /v2/confdb:
+  /v2/confdb/{account}/{confdb-schema}/{view}:
     $ref: './v2/paths/confdb.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'

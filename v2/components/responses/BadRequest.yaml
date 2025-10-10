@@ -23,5 +23,6 @@ content:
             - error
         result:
           oneOf:
-            - $ref: '../errors/SnapNotInstalledError.yaml'
+            - $ref: '../errors/ConfDBError.yaml'
             - $ref: '../errors/MalformedRequestError.yaml'
+            - $ref: '../errors/SnapNotInstalledError.yaml'
