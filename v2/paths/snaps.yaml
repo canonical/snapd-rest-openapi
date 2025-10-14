@@ -82,7 +82,10 @@ post:
               type: string
               description: The quota group the snap belongs to.
             unaliased:
+              type: boolean
             prefer:
+              type: boolean
+              description: Cannot be used with 'unaliased'
             classic:
               type: boolean
               description: Whether the snap uses classic confinement or not.
