@@ -16,20 +16,10 @@ properties:
   interface:
     type: string
     description: The interface associated with the prompt.
+    enum:
+      - home
+      - camera
   constraints:
-    type: object
-    description: Details about the request.
-    properties:
-      path:
-        type: string
-        description: The path for which access is requested.
-      requested-permissions:
-        type: array
-        description: The permissions for which access is requested.
-        items:
-          type: string
-      available-permissions:
-        type: array
-        description: The complete list of permissions for the given interface.
-        items:
-          type: string
+    oneOf:    # TODO look into mapping interface name to oneOf instances
+      - $ref: ./CameraConstraints.yaml
+      - $ref: ./HomeConstraints.yaml

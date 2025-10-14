@@ -32,25 +32,13 @@ properties:
       The duration for which the decision applies. Required if lifespan is
       timespan, otherwise must be omitted.
     format: Go duration
+    externalDocs:
+      description: |-
+        Read more about how Go handles time and durations in the official Go
+        Time package documentation.
+      url: https://pkg.go.dev/time
+    example: 7h30m
   constraints:
-    type: object
-    description: |-
-      Details about the applicability of the decision to current and future
-      requests (interface-specific).
-    properties:
-      path-pattern:
-        type: string
-        description: |-
-          Path glob matching filepaths for which the reply applies, which must
-          match (in the globstar sense) the originally-requested path, must
-          begin with /, and may include bash-like constructions such as *, /**/,
-          and {a,b}, but must not include character classes of the form [abc] or
-          [^abc].
-      permissions:
-        type: array
-        description: |-
-          Array of permissions for which the decision applies, which must
-          include all originally-requested permissions, and must be a subset of
-          the available permissions from the prompt.
-        items:
-          type: string
+    oneOf:    # TODO look into mapping interface name to oneOf instances
+      - $ref: ./CameraConstraints.yaml
+      - $ref: ./HomeConstraints.yaml

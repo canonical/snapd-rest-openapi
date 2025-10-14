@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: Represents the constraints associated with the Home interface.
+properties:
+  path:
+    type: integer
+    description: The number of units completed.
+    example: 1
+  requested-permissions:
+    type: string
+    description: A descriptive label for the progress bar.
+    example: core22 (delta)
+  available-permissions:
+    type: integer
+    description: The total number of units for the task.
+    example: 3

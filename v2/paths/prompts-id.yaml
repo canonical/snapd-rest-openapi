@@ -55,7 +55,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../components/schemas/PromptRequest.yaml'
+          $ref: '../components/schemas/PromptReply.yaml'
   responses:
     200:
       description: An array of prompt IDs that were also satisfied by this reply.

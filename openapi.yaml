@@ -139,6 +139,10 @@ components:
       $ref: './v2/components/schemas/PlugRef.yaml'
     Progress:
       $ref: './v2/components/schemas/Progress.yaml'
+    Prompt:
+      $ref: './v2/components/schemas/Prompt.yaml'
+    PromptReply:
+      $ref: './v2/components/schemas/Prompt.yaml'
     Publisher:
       $ref: './v2/components/schemas/Publisher.yaml'
     QuotaGroup:
