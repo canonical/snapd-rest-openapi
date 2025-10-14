@@ -20,18 +20,17 @@ get:
     - name: q
       in: query
       description: |-
-        Search for packages that match the given string.
-        Spaces between words are treated as logical AND operators.
-        This is a weighted broad search, meant as the main interface to
-        searching for packages.
+        Search for packages that match the given string. Spaces between words
+        are treated as logical AND operators. This is a weighted broad search,
+        meant as the main interface to searching for packages.
       schema:
         type: string
     - name: name
       in: query
       description: |-
         An exact name to search for. Supports '*' as a wildcard at the end.
-        Cannot be used together with q.
-        This is meant for things like auto-completion. 
+        Cannot be used together with q. This is meant for things like
+        auto-completion. 
       schema:
         type: string
     - name: scope

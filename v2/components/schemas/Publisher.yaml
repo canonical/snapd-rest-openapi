@@ -4,7 +4,7 @@
 type: object
 description: Information about the publisher of the snap.
 properties:
-  display-name: 
+  display-name:
     type: string
     description: |-
       The user name associated with the account.

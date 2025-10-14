@@ -60,6 +60,8 @@ post:
                 - enable
                 - disable
                 - switch
+                - hold
+                - unhold
             channel:
               type: string
               description: The channel to use for the action.

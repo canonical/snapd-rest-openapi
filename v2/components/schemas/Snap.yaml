@@ -24,7 +24,7 @@ properties:
     example: code.desktop
   confinement:
     type: string
-    enum: 
+    enum:
       - classic
       - devmode
       - strict
@@ -76,7 +76,7 @@ properties:
     description: |-
       The type of the snap. 'os' is deprecated, and is left for compatibility
       with the 'core' and 'ubuntu-core' snaps.
-    enum: 
+    enum:
       - app
       - kernel
       - os
