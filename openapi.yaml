@@ -86,8 +86,6 @@ components:
       $ref: './v2/components/errors/InternalServerError.yaml'
     MalformedRequestError:
       $ref: './v2/components/errors/MalformedRequestError.yaml'
-    NotAllowedError:
-      $ref: './v2/components/errors/NotAllowedError.yaml'
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 

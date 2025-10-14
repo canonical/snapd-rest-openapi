@@ -4,8 +4,7 @@
 # TODO Link to routes that do not define endpoints for certain request types
 
 description: |-
-  The requested method is not allowed. This can happen, for example,
-  when attempting a GET request on a route designed only to accept POST requests.
+  The requested method is not allowed.
 content:
   application/json:
     schema:
@@ -24,5 +23,10 @@ content:
           enum:
             - error
         result:
-          oneOf:
-            - $ref: '../errors/NotAllowedError.yaml'
+          type: object
+          properties:
+            message:
+              type: string
+              example: 
+                - method 'GET' not allowed 
+                - system user administration via snapd is not allowed on this system

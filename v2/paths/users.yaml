@@ -60,6 +60,8 @@ post:
             sudoer:
               type: boolean
               default: false
+              description: |-
+                Whether the user can escalate to root privileges or not.
             known:
               type: boolean
               default: false
