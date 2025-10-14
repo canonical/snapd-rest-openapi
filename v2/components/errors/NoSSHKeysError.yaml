@@ -5,4 +5,5 @@ type: object
 properties:
   message:
     type: string
-    example: method 'GET' not allowed 
+    example:
+      - 'cannot create user user@canonical.com: no ssh keys found'
