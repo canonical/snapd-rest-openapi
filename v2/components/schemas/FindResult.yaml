@@ -26,8 +26,10 @@ properties:
     description: Indicates the source of the find results.
     items:
       type: string
-    example: store
+    example:
+      - store
   suggested-currency:
     type: string
     description: The suggested currency for any pricing information.
-    example: USD
+    example:
+      - USD
