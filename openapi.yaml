@@ -80,12 +80,22 @@ components:
       $ref: './v2/components/responses/NotFound.yaml'
 
   schemas:
+    ConfdbError:
+      $ref: './v2/components/errors/ConfdbError.yaml'
     ConflictError:
       $ref: './v2/components/errors/ConflictError.yaml'
     InternalServerError:
       $ref: './v2/components/errors/InternalServerError.yaml'
     MalformedRequestError:
       $ref: './v2/components/errors/MalformedRequestError.yaml'
+    NoModelAssertionError:
+      $ref: './v2/components/errors/NoModelAssertionError.yaml'
+    NoSerialAssertionError:
+      $ref: './v2/components/errors/NoSerialAssertionError.yaml'
+    NoSSHKeysError:
+      $ref: './v2/components/errors/NoSSHKeysError.yaml'
+    UserNotFoundError:
+      $ref: './v2/components/errors/UserNotFoundError.yaml'
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 
@@ -169,6 +179,8 @@ paths:
     $ref: './v2/paths/changes-id.yaml'
   /v2/cohorts:
     $ref: './v2/paths/cohorts.yaml'
+  /v2/confdb/{account}/{confdb-schema}/{view}:
+    $ref: './v2/paths/confdb.yaml'
   /v2/connections:
     $ref: './v2/paths/connections.yaml'
   /v2/find:
