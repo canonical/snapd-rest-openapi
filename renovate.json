@@ -1,6 +1,4 @@
 {
-  "SPDX-License-Identifier": "GPL-3.0",
-  "SPDX-FileCopyrightText": "Canonical Ltd",
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
