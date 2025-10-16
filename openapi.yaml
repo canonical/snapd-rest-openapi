@@ -167,6 +167,22 @@ components:
       $ref: './v2/components/schemas/SnapshotSet.yaml'
     StoreCategory:
       $ref: './v2/components/schemas/StoreCategory.yaml'
+    SystemActionCheckPassphrase:
+      $ref: './v2/components/schemas/SystemActionCheckPassphrase.yaml'
+    SystemActionCheckPin:
+      $ref: './v2/components/schemas/SystemActionCheckPin.yaml'
+    SystemActionCreate:
+      $ref: './v2/components/schemas/SystemActionCreate.yaml'
+    SystemActionDo:
+      $ref: './v2/components/schemas/SystemActionDo.yaml'
+    SystemActionFixEncryptionSupport:
+      $ref: './v2/components/schemas/SystemActionFixEncryptionSupport.yaml'
+    SystemActionInstall:
+      $ref: './v2/components/schemas/SystemActionInstall.yaml'
+    SystemActionReboot:
+      $ref: './v2/components/schemas/SystemActionReboot.yaml'
+    SystemActionRemove:
+      $ref: './v2/components/schemas/SystemActionRemove.yaml'
     System:
       $ref: './v2/components/schemas/System.yaml'
     SystemInfo:
