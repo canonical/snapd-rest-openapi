@@ -80,12 +80,16 @@ components:
       $ref: './v2/components/responses/NotFound.yaml'
 
   schemas:
+    ConfdbError:
+      $ref: './v2/components/errors/ConfdbError.yaml'
     ConflictError:
       $ref: './v2/components/errors/ConflictError.yaml'
     InternalServerError:
       $ref: './v2/components/errors/InternalServerError.yaml'
     MalformedRequestError:
       $ref: './v2/components/errors/MalformedRequestError.yaml'
+    NotFoundError:
+      $ref: './v2/components/errors/NotFoundError.yaml'
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 

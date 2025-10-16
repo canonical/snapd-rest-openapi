@@ -23,7 +23,7 @@ content:
             - error
         result:
           oneOf:
-            - $ref: '../errors/ConfDBError.yaml'
+            - $ref: '../errors/ConfdbError.yaml'
             - $ref: '../errors/MalformedRequestError.yaml'
             - $ref: '../errors/NoSSHKeysError.yaml'
             - $ref: '../errors/UserNotFoundError.yaml'

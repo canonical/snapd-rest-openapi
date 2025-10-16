@@ -8,7 +8,8 @@ properties:
     type: string
     description: machine-readable definition of the error.
     enum:
-      - option not available
+      - option-not-available
+      - option-not-found
       - assertion-not-found  # TODO Need follow up PR focusing only on errors
   message:
     type: string
