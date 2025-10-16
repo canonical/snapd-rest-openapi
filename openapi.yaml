@@ -88,8 +88,14 @@ components:
       $ref: './v2/components/errors/InternalServerError.yaml'
     MalformedRequestError:
       $ref: './v2/components/errors/MalformedRequestError.yaml'
-    NotFoundError:
-      $ref: './v2/components/errors/NotFoundError.yaml'
+    NoModelAssertionError:
+      $ref: './v2/components/errors/NoModelAssertionError.yaml'
+    NoSerialAssertionError:
+      $ref: './v2/components/errors/NoSerialAssertionError.yaml'
+    NoSSHKeysError:
+      $ref: './v2/components/errors/NoSSHKeysError.yaml'
+    UserNotFoundError:
+      $ref: './v2/components/errors/UserNotFoundError.yaml'
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
 

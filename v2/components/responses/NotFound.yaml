@@ -26,4 +26,5 @@ content:
             - $ref: '../errors/NoModelAssertionError.yaml'
             - $ref: '../errors/NoSerialAssertionError.yaml'
             - $ref: '../errors/NotFoundError.yaml'
+            - $ref: '../errors/UserNotFoundError.yaml'
             - $ref: '../errors/SnapNotInstalledError.yaml'
