@@ -11,7 +11,7 @@ get:
   operationId: getSystems
   security: []
   responses:
-    200:
+    '200':
       description: A list of recovery systems.
       content:
         application/json:
@@ -22,86 +22,70 @@ get:
                 type: array
                 items:
                   $ref: '../components/schemas/System.yaml'
-    404:
+    '404':
       $ref: '../components/responses/NotFound.yaml'
 post:
   tags:
     - AuthenticationRequired
     - Systems
-    - Synchronous
-  summary: Perform an action on a recovery system
-  description: Perform an action such as 'reboot', 'create', or 'do' on the current active recovery system.
+    - Asynchronous # Actions like 'create' and 'install' are async
+  summary: Perform an action on the current recovery system or create a new one
+  description: Perform an action such as 'reboot', 'install' on the current active recovery system, or 'create' a new recovery system.
   operationId: performSystemAction
   security:
-    - PeerAuth: []    # TODO This was orginally designated as root auth, investigate
+    - PeerAuth: [] # TODO This was originally designated as root auth, investigate
   requestBody:
     required: true
     content:
       application/json:
         schema:
           oneOf:
-            - type: object
-              required:
-                - action
-                - mode
-              properties:
-                action:
-                  type: string
-                  enum:
-                    - create
-                    - do
-                    - reboot
-                mode:
-                  type: string
-                  enum:
-                    - run
-                    - recover
-            - type: object
-              required:
-                - action
-              properties:
-                action:
-                  type: string
-                  enum:
-                  - create
-                label:
-                  type: string
-                test-system:
-                  type: boolean
-                mark-default:
-                  type: boolean
-                validation-sets:
-                  type: array
-                  items:
-                    type: string
-                offline:
-                  type: boolean
-            - type: object
-              required:
-                - action
-                - mode
-              properties:
-                action:
-                  type: string
-                  enum:
-                    - do
-                mode:
-                  type: string
-                  enum:
-                    - recover
-                    - install
-                    - factory-reset
+            - $ref: '../components/schemas/SystemActionCreate.yaml'
+            - $ref: '../components/schemas/SystemActionInstall.yaml'
+            - $ref: '../components/schemas/SystemActionReboot.yaml'
+      multipart/form-data:
+        schema:
+          type: object
+          required:
+            - action
+            - label
+          properties:
+            action:
+              description: The action to perform. Only 'create' is supported for multipart/form-data.
+              type: string
+              enum: [create]
+            label:
+              description: A label for the new recovery system.
+              type: string
+            test-system:
+              description: Whether to create the system as a test system.
+              type: boolean
+              default: false
+            mark-default:
+              description: Whether to mark the new system as the default.
+              type: boolean
+              default: false
+            validation-sets:
+              description: A comma-separated list of validation set strings.
+              type: string
+            assertion:
+              description: An assertion file content. Can be provided multiple times.
+              type: array
+              items:
+                type: string
+            snap:
+              description: A snap file. Can be provided multiple times for sideloading.
+              type: array
+              items:
+                type: string
+                format: binary
   responses:
-    200:
-      description: The action was successfully initiated.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              action:
-                type: string
-              mode:
-                type: string
-    404:
+    '200':
+      description: The action was successfully initiated (for synchronous actions like reboot).
+    '202':
+      description: The asynchronous action (e.g., create, install) was accepted and is in progress.
+      $ref: '../components/responses/Accepted.yaml'
+    '400':
+      $ref: '../components/responses/BadRequest.yaml'
+    '404':
       $ref: '../components/responses/NotFound.yaml'
