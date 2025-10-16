@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: Represents the constraints associated with the Home interface (Reply).
+properties:
+  path-pattern:
+    type: string
+    description: |-
+      Path glob matching filepaths for which the reply applies, which must
+      match (in the globstar sense) the originally-requested path, must
+      begin with /, and may include bash-like constructions such as *, /**/,
+      and {a,b}, but must not include character classes of the form [abc] or
+      [^abc].
+    example: /home/user0/Pictures/**/*.{png,jpg,jpeg,svg}
+  permissions:
+    type: array
+    description: |-
+      The permission applied to files matching the regular expression in
+      'path-pattern'.
+    items:
+      type: string
+      enum:
+        - read
+        - write

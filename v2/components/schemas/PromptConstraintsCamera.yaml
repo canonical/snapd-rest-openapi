@@ -9,8 +9,12 @@ properties:
     description: The permissions for which access is requested.
     items:
       type: string
+      enum:
+        - access
   available-permissions:
     type: array
     description: The complete list of permissions for the given interface.
     items:
       type: string
+      enum:
+        - access

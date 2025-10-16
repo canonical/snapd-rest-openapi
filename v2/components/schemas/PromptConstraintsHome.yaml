@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: Represents the constraints associated with the Home interface.
+required:
+  - path
+properties:
+  path:
+    type: string
+    description: |-
+      A regex string matching files to be accessed through the home interface.
+    example: 1
+  requested-permissions:
+    type: array
+    description: |-
+      An array of permissions requested for the files matched by 'path'.
+    items:
+      type: string
+      enum:
+        - read
+        - write
+  available-permissions:
+    type: array
+    description: |-
+      The complete list of permissions for the given interface.
+    items:
+      type: string
+      enum:
+        - read
+        - write
