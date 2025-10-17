@@ -10,7 +10,8 @@ required:
 properties:
   action:
     type: string
-    enum: [fix-encryption-support]
+    enum:
+      - fix-encryption-support
   fix-action:
     type: string
     description: The specific fix to apply.

@@ -10,7 +10,8 @@ required:
 properties:
   action:
     type: string
-    enum: [do]
+    enum:
+      - do
   mode:
     type: string
     description: The mode of the action to perform (e.g., 'recover', 'run').

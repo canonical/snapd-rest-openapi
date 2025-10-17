@@ -9,4 +9,5 @@ required:
 properties:
   action:
     type: string
-    enum: [remove]
+    enum:
+      - remove

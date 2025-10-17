@@ -10,7 +10,8 @@ required:
 properties:
   action:
     type: string
-    enum: [check-passphrase]
+    enum:
+      - check-passphrase
   passphrase:
     type: string
     format: password

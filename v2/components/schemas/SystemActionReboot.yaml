@@ -10,7 +10,8 @@ required:
 properties:
   action:
     type: string
-    enum: [reboot]
+    enum:
+      - reboot
   mode:
     type: string
     description: The mode to reboot into.

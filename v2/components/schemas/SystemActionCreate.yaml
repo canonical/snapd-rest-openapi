@@ -9,7 +9,8 @@ required:
 properties:
   action:
     type: string
-    enum: [create]
+    enum:
+      - create
   label:
     type: string
     description: A unique label for the new recovery system.

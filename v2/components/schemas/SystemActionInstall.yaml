@@ -10,7 +10,8 @@ required:
 properties:
   action:
     type: string
-    enum: [install]
+    enum:
+      - install
   step:
     type: string
     description: The specific step of the installation process to execute.
@@ -20,11 +21,13 @@ properties:
       - finish
 oneOf:
   - type: object
-    required: [step]
+    required:
+      - step
     properties:
       step:
         type: string
-        enum: [setup-storage-encryption]
+        enum:
+          - setup-storage-encryption
       onVolumes:
         type: array
         items:
@@ -36,17 +39,21 @@ oneOf:
           type: string
         description: A map of volume labels to their authentication credentials (e.g., passphrase or PIN).
   - type: object
-    required: [step]
+    required:
+      - step
     properties:
       step:
         type: string
-        enum: [generate-recovery-key]
+        enum:
+          - generate-recovery-key
   - type: object
-    required: [step]
+    required:
+      - step
     properties:
       step:
         type: string
-        enum: [finish]
+        enum:
+          - finish
       onVolumes:
         type: array
         items:
