@@ -21,7 +21,7 @@ properties:
         - execute
   available-permissions:
     type: array
-    description: The complete list of permissions for the given interface.
+    description: The complete list of permissions for the home interface.
     items:
       type: string
       enum:

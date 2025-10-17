@@ -13,7 +13,7 @@ properties:
         - access
   available-permissions:
     type: array
-    description: The complete list of permissions for the given interface.
+    description: The complete list of permissions for the camera interface.
     items:
       type: string
       enum:
