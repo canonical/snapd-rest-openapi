@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: Represents the constraints associated with a prompt for the camera interface.
+properties:
+  requested-permissions:
+    type: array
+    description: The permissions for which access is requested.
+    items:
+      type: string
+      enum:
+        - access
+  available-permissions:
+    type: array
+    description: The complete list of permissions for the camera interface.
+    items:
+      type: string
+      enum:
+        - access

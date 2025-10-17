@@ -139,10 +139,22 @@ components:
       $ref: './v2/components/schemas/PlugRef.yaml'
     Progress:
       $ref: './v2/components/schemas/Progress.yaml'
+    Prompt:
+      $ref: './v2/components/schemas/Prompt.yaml'
+    PromptConstraintsCamera:
+      $ref: './v2/components/schemas/PromptConstraintsCamera.yaml'
+    PromptConstraintsHome:
+      $ref: './v2/components/schemas/PromptConstraintsHome.yaml'
+    PromptReply:
+      $ref: './v2/components/schemas/PromptReply.yaml'
     Publisher:
       $ref: './v2/components/schemas/Publisher.yaml'
     QuotaGroup:
       $ref: './v2/components/schemas/QuotaGroup.yaml'
+    ReplyConstraintsCamera:
+      $ref: './v2/components/schemas/ReplyConstraintsCamera.yaml'
+    ReplyConstraintsHome:
+      $ref: './v2/components/schemas/ReplyConstraintsHome.yaml'
     Slot:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:
@@ -189,6 +201,10 @@ paths:
     $ref: './v2/paths/icons-name.yaml'
   /v2/interfaces:
     $ref: './v2/paths/interfaces.yaml'
+  /v2/interfaces/requests/prompts:
+    $ref: './v2/paths/prompts.yaml'
+  /v2/interfaces/requests/prompts/{id}:
+    $ref: './v2/paths/prompts-id.yaml'
   /v2/login:
     $ref: './v2/paths/login.yaml'
   /v2/logout:
