@@ -2,30 +2,29 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
-description: Represents the constraints associated with the Home interface.
+description: Represents the constraints associated with a prompt for the home interface.
 required:
   - path
 properties:
   path:
     type: string
-    description: |-
-      A regex string matching files to be accessed through the home interface.
-    example: 1
+    description: The path for which access is requested.
+    example: /home/ubuntu/Downloads/image.png
   requested-permissions:
     type: array
-    description: |-
-      An array of permissions requested for the files matched by 'path'.
+    description: The permissions for which access is requested.
     items:
       type: string
       enum:
         - read
         - write
+        - execute
   available-permissions:
     type: array
-    description: |-
-      The complete list of permissions for the given interface.
+    description: The complete list of permissions for the given interface.
     items:
       type: string
       enum:
         - read
         - write
+        - execute

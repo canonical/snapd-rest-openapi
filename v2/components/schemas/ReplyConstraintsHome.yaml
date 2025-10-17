@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
-description: Represents the constraints associated with the Home interface (Reply).
+description: Represents the constraints associated with a reply to a prompt for the home interface.
 properties:
   path-pattern:
     type: string
@@ -16,10 +16,11 @@ properties:
   permissions:
     type: array
     description: |-
-      The permission applied to files matching the regular expression in
+      The permission applied to files matching the path glob in
       'path-pattern'.
     items:
       type: string
       enum:
         - read
         - write
+        - execute

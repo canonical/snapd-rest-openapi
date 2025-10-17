@@ -5,6 +5,7 @@ type: object
 required:
   - action
   - lifespan
+  - constraints
 properties:
   action:
     type: string

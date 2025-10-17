@@ -152,9 +152,9 @@ components:
     QuotaGroup:
       $ref: './v2/components/schemas/QuotaGroup.yaml'
     ReplyConstraintsCamera:
-      $ref: './v2/components/schemas/PromptConstraintsCamera.yaml'
+      $ref: './v2/components/schemas/ReplyConstraintsCamera.yaml'
     ReplyConstraintsHome:
-      $ref: './v2/components/schemas/PromptConstraintsHome.yaml'
+      $ref: './v2/components/schemas/ReplyConstraintsHome.yaml'
     Slot:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:

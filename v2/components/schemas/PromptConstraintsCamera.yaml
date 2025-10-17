@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
-description: Represents the constraints associated with the Camera interface.
+description: Represents the constraints associated with a prompt for the camera interface.
 properties:
   requested-permissions:
     type: array
