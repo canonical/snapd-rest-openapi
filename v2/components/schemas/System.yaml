@@ -37,6 +37,8 @@ properties:
       validation:
         type: string
         enum:
+          - starred
+          - unproven
           - verified
   current:
     type: boolean
