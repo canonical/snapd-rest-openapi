@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: The schema the API uses for the 'add' action of /v2/interfaces/rules.
+required:
+  - action
+  - rule
+properties:
+  action:
+    type: string
+    description: The action to perform on the rules endpoint.
+    enum:
+      - add
+  rule:
+    type: object
+    properties:
+      snap:
+        type: string
+      interface:
+        type: string
+      constraints:
+        oneOf:
+          - $ref: './RuleConstraintsCamera.yaml'
+          - $ref: './RuleConstraintsHome.yaml'

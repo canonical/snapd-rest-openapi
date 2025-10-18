@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+description: The schema the API uses for the 'remove' action of /v2/interfaces/rules.
+required:
+  - action
+  - selector
+properties:
+  action:
+    type: string
+    enum:
+      - remove
+  selector:
+    type: object
+    properties:
+      snap:
+        type: string
+      interface:
+        type: string
