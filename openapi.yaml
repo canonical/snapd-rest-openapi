@@ -43,8 +43,12 @@ tags:
     description: Interact with notices.
   - name: OpenAccess
     description: Do not require the user to authenticate.
+  - name: Prompts
+    description:  Interact with interface prompts.
   - name: Root
     description: Requires the user to authenticate with root access.    # TODO Properly describe the difference between AuthenticationRequired and Root
+  - name: Rules
+    description: Interact with interface rules.
   - name: Snaps
     description: Interact with snaps.
   - name: Store
@@ -165,6 +169,20 @@ components:
       $ref: './v2/components/schemas/ReplyConstraintsCamera.yaml'
     ReplyConstraintsHome:
       $ref: './v2/components/schemas/ReplyConstraintsHome.yaml'
+    Rule:
+      $ref: './v2/components/schemas/Rule.yaml'
+    RuleActionAdd:
+      $ref: './v2/components/schemas/RuleActionAdd.yaml'
+    RuleActionPatch:
+      $ref: './v2/components/schemas/RuleActionPatch.yaml'
+    RuleActionRemove:
+      $ref: './v2/components/schemas/RuleActionRemove.yaml'
+    RuleActionRemoveByID:
+      $ref: './v2/components/schemas/RuleActionRemoveById.yaml'
+    RuleConstraintsCamera:
+      $ref: './v2/components/schemas/RuleConstraintsCamera.yaml'
+    RuleConstraintsHome:
+      $ref: './v2/components/schemas/RuleConstraintsHome.yaml'
     Slot:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:

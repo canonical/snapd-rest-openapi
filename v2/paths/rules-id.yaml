@@ -1,14 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0
 # SPDX-FileCopyrightText: Canonical Ltd
 
-# paths/rules-id.yaml
-
 get:
   tags:
     - Interfaces
-    - Open
+    - OpenAccess
     - Rules
-    - Sync
+    - Synchronous
   summary: Retrieve a rule by ID
   description: Retrieves the details of a single rule specified by its unique ID.
   operationId: getRuleById
@@ -34,11 +32,11 @@ get:
 post:
   tags:
     - Interfaces
-    - Macaroon
+    - AuthenticationRequired
     - Rules
-    - Sync
+    - Synchronous
   summary: Patch or remove a rule by ID
-  description: Update (patch) or remove an existing rule specified by its unique ID.
+  description: Update or remove an existing rule specified by its unique ID.
   operationId: updateRuleById
   security:
     - PeerAuth: []

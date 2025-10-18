@@ -2,13 +2,19 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
-required: [action, selector]
+description: The schema the API uses for the 'remove' action of /v2/interfaces/rules.
+required:
+  - action
+  - selector
 properties:
   action:
     type: string
-    enum: [remove]
+    enum:
+      - remove
   selector:
     type: object
     properties:
-      snap: { type: string }
-      interface: { type: string }
+      snap:
+        type: string
+      interface:
+        type: string

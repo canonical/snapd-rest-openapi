@@ -4,9 +4,9 @@
 get:
   tags:
     - Interfaces
-    - Open
+    - OpenAccess
     - Rules
-    - Sync
+    - Synchronous
   summary: Retrieve all rules
   description: Retrieves a list of all interface access rules, with optional filtering.
   operationId: getRules
@@ -40,9 +40,9 @@ get:
 post:
   tags:
     - Interfaces
-    - Macaroon
+    - AuthenticationRequired
     - Rules
-    - Sync
+    - Synchronous
   summary: Create or remove rules
   description: Create a new access rule or remove a set of existing rules based on a selector.
   operationId: manageRules

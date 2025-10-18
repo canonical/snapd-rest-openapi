@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+required:
+- outcome
+- lifespan
+properties:
+  outcome:
+    type: string
+    enum:
+      - allow
+      - deny
+  lifespan:
+    type: string
+    enum:
+      - timespan
+      - session
+      - forever
+  expiration:
+    type: string
+    description: Only occurs if lifespan is set to 'timespan'.
+    format: date-time
+  session-id:
+    type: string
+    description: Only used with a lifespan of 'timespan'.
