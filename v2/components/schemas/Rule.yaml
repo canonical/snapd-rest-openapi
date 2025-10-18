@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: Canonical Ltd
 
 type: object
+description: An object describing the structure of a rule.
 properties:
   id:
     type: string
@@ -19,24 +20,10 @@ properties:
   interface:
     type: string
     description: The interface for which the rule applies.
+    enum:
+      - camera
+      - home
   constraints:
-    type: object
-    description: Details about the applicability of the rule to requests.
-    properties:
-      path-pattern:
-        type: string
-        description: Path glob matching filepaths for which the rule applies.
-      permissions:
-        type: object
-        additionalProperties:
-          type: object
-          properties:
-            outcome:
-              type: string
-              enum: [allow, deny]
-            lifespan:
-              type: string
-              enum: [timespan, session, forever]
-            expiration:
-              type: string
-              format: date-time
+    oneOf:
+      - $ref: './RuleConstraintsCamera.yaml'
+      - $ref: './RuleConstraintsHome.yaml'
