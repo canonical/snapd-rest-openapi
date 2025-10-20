@@ -1,21 +1,18 @@
-# SPDX-License-Identifier: GPL-3.0
-# SPDX-FileCopyrightText: Canonical Ltd
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
 
-# Makefile to replicate the Redocly GitHub CI workflow locally using Docker.
-#
-# This requires Docker to be installed and the daemon running.
-
-# Define the Redocly CLI Docker image and the command prefix.
-# Mount the current directory to /spec inside the container, just like the CI.
+# --- Docker Command Definitions ---
+# Redocly CLI: Mounts current directory to /spec for API linting/building.
 REDOCLY_CMD = docker run --rm -v "$(CURDIR):/spec" redocly/cli
+# REUSE tool: Mounts to /spec and sets it as the working directory for compliance checks.
+REUSE_CMD = docker run --rm -v "$(CURDIR):/spec" -w /spec fsfe/reuse
 
-# Default target: runs both linting and building, mimicking the full CI job.
+# --- Main Targets ---
+# Default target: runs all linting and the documentation build.
 all: lint build
 
-# Lint the OpenAPI specification.
-lint:
-	@echo "--- Linting OpenAPI specification... ---"
-	$(REDOCLY_CMD) lint ./openapi.yaml
+# Run all linting checks. This target calls the specific linters.
+lint: lint-api lint-reuse
 
 # Build the static HTML documentation.
 build:
@@ -28,5 +25,18 @@ clean:
 	@echo "--- Removing generated documentation... ---"
 	@rm -f redoc-static.html
 
+
+# --- Specific Linting Targets ---
+# Lint the OpenAPI specification with Redocly.
+lint-api:
+	@echo "--- Linting OpenAPI specification (Redocly)... ---"
+	$(REDOCLY_CMD) lint ./openapi.yaml
+
+# Check for REUSE licensing and copyright compliance.
+lint-reuse:
+	@echo "--- Checking for REUSE compliance... ---"
+	$(REUSE_CMD) lint
+
+
 # Phony targets are not actual files.
-.PHONY: all lint build clean
+.PHONY: all lint lint-api lint-reuse build clean
