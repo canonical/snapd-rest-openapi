@@ -22,6 +22,7 @@ get:
   tags:
     - Asynchronous
     - AuthenticationRequired
+    - Experimental
   summary: Get configurations from confdb
   description: |-
     Retrieves configuration values from confdb.
@@ -50,6 +51,7 @@ put:
   tags:
     - Asynchronous
     - AuthenticationRequired
+    - Experimental
   summary: Set configurations in confdb
   description: |-
     Sets configuration values in confdb.

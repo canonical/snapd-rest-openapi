@@ -4,6 +4,7 @@
 post:
   tags:
     - AuthenticationRequired
+    - Snaps
     - Synchronous
   summary: Run snapctl command
   description: |-

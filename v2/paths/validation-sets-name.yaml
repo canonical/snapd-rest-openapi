@@ -21,6 +21,7 @@ get:
   tags:
     - AuthenticationRequired
     - Synchronous
+    - Validation Sets
   summary: Get a specific validation set
   description: |-
     Retrieves a single validation set by its account ID and name.
@@ -41,6 +42,7 @@ post:
   tags:
     - AuthenticationRequired
     - Synchronous
+    - Validation Sets
   summary: Manage a specific validation set
   description: |-
     Apply or forget a specific validation set.

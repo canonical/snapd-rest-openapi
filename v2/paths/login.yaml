@@ -4,6 +4,7 @@
 post:
   tags:
     - AuthenticationRequired
+    - Store
     - Synchronous
   summary: Authenticate user with snapd and store
   description: |-

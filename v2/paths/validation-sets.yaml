@@ -5,6 +5,7 @@ get:
   tags:
     - AuthenticationRequired
     - Synchronous
+    - Validation Sets
   summary: Get all enabled validation sets
   description: |-
     Retrieves a list of all enabled validation sets on the system.

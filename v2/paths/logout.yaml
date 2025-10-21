@@ -4,6 +4,7 @@
 post:
   tags:
     - AuthenticationRequired
+    - Store
     - Synchronous
   summary: Log user out of snapd and the store
   description: |-

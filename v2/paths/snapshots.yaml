@@ -40,9 +40,9 @@ get:
 
 post:
   tags:
+    - Asynchronous
     - AuthenticationRequired
     - Snapshots
-    - Asynchronous
   summary: Manipulate or import a snapshot
   description: |-
     Performs an action on a snapshot set, such as restoring, checking, forgetting, or importing from a data stream.
