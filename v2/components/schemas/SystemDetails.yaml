@@ -11,7 +11,7 @@ properties:
     description: The unique label identifying the recovery system.
   brand:
     type: object
-    title: StoreAccount
+    title: StoreAccount         # TODO: Adding 'title' fields to inline defined objects provide greater clarity to the user.
     properties:
       id:
         type: string
@@ -72,7 +72,11 @@ properties:
     properties:
       support:
         type: string
-        enum: [disabled, available, defective, unavailable]
+        enum: 
+          - disabled
+          - available
+          - defective
+          - unavailable
         description: The current support status for storage encryption.
       storage-safety:
         type: string
@@ -92,5 +96,6 @@ properties:
         type: array
         items:
           type: string
-          enum: [passphrase-auth]
+          enum:
+            - passphrase-auth
         description: A list of supported encryption features.

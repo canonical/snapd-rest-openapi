@@ -28,12 +28,12 @@ oneOf:
         type: string
         enum:
           - setup-storage-encryption
-      onVolumes:
+      on-volumes:
         type: array
         items:
           type: string
         description: A list of volume labels to operate on.
-      volumesAuth:
+      volumes-auth:
         type: object
         additionalProperties:
           type: string
@@ -54,12 +54,12 @@ oneOf:
         type: string
         enum:
           - finish
-      onVolumes:
+      on-volumes:
         type: array
         items:
           type: string
         description: A list of volume labels to operate on.
-      optionalInstall:
+      optional-install:
         type: object
         properties:
           all:
