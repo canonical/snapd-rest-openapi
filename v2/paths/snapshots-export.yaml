@@ -3,8 +3,9 @@
 
 get:
   tags:
-    - Snapshots
     - AuthenticationRequired
+    - Snapshots
+    - Synchronous
   summary: Export a snapshot set
   description: |-
     Retrieves a snapshot set as a downloadable tar archive (`.tgz`).

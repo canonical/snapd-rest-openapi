@@ -27,8 +27,6 @@ externalDocs:
   description: Snap and Snapcraft documentation
 
 tags:
-  - name: Aliases
-    description: Manage application command aliases.
   - name: Assertions
     description: List and add assertion types.
   - name: Asynchronous
@@ -37,6 +35,8 @@ tags:
     description: Access is restricted to the root user.
   - name: Changes
     description: Interact with changes.
+  - name: Experimental
+    description: Interact with experimental features.
   - name: Interfaces
     description: Display and manage interactions between snaps.
   - name: Notices
@@ -51,8 +51,12 @@ tags:
     description: Interact with the store.
   - name: Synchronous
     description: Return the complete response synchronously.
+  - name: Systems
+    description: Interact with system configuration.
   - name: Users
     description: Manage user accounts and authentication.
+  - name: Validation Sets
+    description: Interact with validation sets.
   - name: Warnings
     description: Retrieve recorded warnings.
 
@@ -94,10 +98,12 @@ components:
       $ref: './v2/components/errors/NoSerialAssertionError.yaml'
     NoSSHKeysError:
       $ref: './v2/components/errors/NoSSHKeysError.yaml'
-    UserNotFoundError:
-      $ref: './v2/components/errors/UserNotFoundError.yaml'
+    NotFound:
+      $ref: './v2/components/errors/NotFoundError.yaml'
     SnapNotInstalledError:
       $ref: './v2/components/errors/SnapNotInstalledError.yaml'
+    UserNotFoundError:
+      $ref: './v2/components/errors/UserNotFoundError.yaml'
 
     Activator:
       $ref: './v2/components/schemas/Activator.yaml'
@@ -121,18 +127,22 @@ components:
       $ref: './v2/components/schemas/ConnectionStatus.yaml'
     FindResult:
       $ref: './v2/components/schemas/FindResult.yaml'
+    InstalledSnap:
+      $ref: './v2/components/schemas/InstalledSnap.yaml'
     LegacyInterfaceObject:
       $ref: './v2/components/schemas/LegacyInterfaceObject.yaml'
-    ModernInterfaceObject:
-      $ref: './v2/components/schemas/ModernInterfaceObject.yaml'
     Links:
       $ref: './v2/components/schemas/Links.yaml'
     Log:
       $ref: './v2/components/schemas/Log.yaml'
     Media:
       $ref: './v2/components/schemas/Media.yaml'
+    ModernInterfaceObject:
+      $ref: './v2/components/schemas/ModernInterfaceObject.yaml'
     Notice:
       $ref: './v2/components/schemas/Notice.yaml'
+    NoticeType:
+      $ref: './v2/components/schemas/NoticeType.yaml'
     Plug:
       $ref: './v2/components/schemas/Plug.yaml'
     PlugRef:
@@ -189,8 +199,12 @@ components:
       $ref: './v2/components/schemas/SystemInfo.yaml'
     Task:
       $ref: './v2/components/schemas/Task.yaml'
+    TimerString:
+      $ref: './v2/components/schemas/TimerString.yaml'
     User:
       $ref: './v2/components/schemas/User.yaml'
+    ValidationSet:
+      $ref: './v2/components/schemas/ValidationSet.yaml'
     Warning:
       $ref: './v2/components/schemas/Warning.yaml'
 

@@ -3,6 +3,7 @@
 
 get:
   tags:
+    - Assertions
     - OpenAccess
     - Synchronous
   summary: Get the active model assertion
@@ -37,6 +38,7 @@ get:
 
 post:
   tags:
+    - Assertions
     - Asynchronous
     - AuthenticationRequired
   summary: Replace the model assertion

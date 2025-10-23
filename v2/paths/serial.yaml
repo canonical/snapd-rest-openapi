@@ -3,6 +3,7 @@
 
 get:
   tags:
+    - Assertions
     - OpenAccess
     - Synchronous
   summary: Get the current serial assertion
@@ -39,6 +40,7 @@ get:
 
 post:
   tags:
+    - Assertions
     - Asynchronous
     - AuthenticationRequired
   summary: Perform an action on the serial assertion

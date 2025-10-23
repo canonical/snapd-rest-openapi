@@ -5,7 +5,7 @@ get:
   operationId: getAliases
   summary: Get the available app aliases
   tags:
-    - Aliases
+    - Apps
     - OpenAccess
     - Synchronous
   security: []
@@ -88,7 +88,7 @@ get:
 
 post:
   tags:
-    - Aliases
+    - Apps
     - Asynchronous
     - AuthenticationRequired
   summary: Modify aliases

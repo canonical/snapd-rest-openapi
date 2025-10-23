@@ -5,7 +5,7 @@ get:
   tags:
     - OpenAccess
     - Synchronous
-    - System
+    - Systems
   summary: Get system information
   description: |-
     Retrieves a dictionary of server configuration and environment information.
