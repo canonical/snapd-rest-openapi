@@ -3,6 +3,7 @@
 
 get:
   tags:
+    - Experimental
     - Interfaces
     - OpenAccess
     - Prompts
@@ -32,6 +33,7 @@ get:
 
 post:
   tags:
+    - Experimental
     - Interfaces
     - OpenAccess
     - Prompts
