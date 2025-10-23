@@ -101,7 +101,7 @@ properties:
       The OS series the system is based on. This is always 16, and has not been used to-date.
       Introduced as a way to declare incompatible changes in the schema.
     enum:
-      - 16
+      - '16'
   system-mode:
     type: string
     description: The current operational mode of the system.
