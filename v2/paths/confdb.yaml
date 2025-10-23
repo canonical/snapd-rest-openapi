@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: GPL-3.0
-# SPDX-FileCopyrightText: Canonical Ltd
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
 
 parameters:
   - name: account

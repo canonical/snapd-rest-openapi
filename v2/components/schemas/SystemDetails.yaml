@@ -1,4 +1,6 @@
-# components/schemas/SystemDetails.yaml
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
+
 type: object
 title: SystemDetails
 description: Detailed information about a specific recovery system.

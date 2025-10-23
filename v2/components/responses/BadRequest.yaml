@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: GPL-3.0
-# SPDX-FileCopyrightText: Canonical Ltd
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
 
 description: |-
   Bad Request. The request could not be processed due to a client-side error.

@@ -1,7 +1,5 @@
-# SPDX-License-Identifier: GPL-3.0
-# SPDX-FileCopyrightText: Canonical Ltd
-#
-# Defines the schema for a successful JSON response from the /v2/assertions endpoint.
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
 
 type: object
 properties:

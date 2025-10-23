@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
+
+name: Reuse
+on:
+    push:
+    pull_request:
+jobs:
+    redocly:
+        runs-on: ubuntu-latest
+        name: Lint and build
+        container:
+            image: fsfe/reuse
+            volumes:
+                - .:/spec
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+            - name: Check Licensing/Copyright Compliance
+              run: reuse lint
