@@ -43,12 +43,10 @@ tags:
     description: Interact with notices.
   - name: OpenAccess
     description: Do not require the user to authenticate.
-  - name: Prompts
-    description:  Interact with the prompt system.
+  - name: Prompting
+    description:  Interact with the prompting system.
   - name: Root
     description: Requires the user to authenticate with root access.    # TODO Properly describe the difference between AuthenticationRequired and Root
-  - name: Rules
-    description: Interact with prompting rules.
   - name: Snaps
     description: Interact with snaps.
   - name: Store

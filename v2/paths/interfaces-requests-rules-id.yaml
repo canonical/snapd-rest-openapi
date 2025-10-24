@@ -3,9 +3,10 @@
 
 get:
   tags:
+    - Experimental
     - Interfaces
     - OpenAccess
-    - Rules
+    - Prompting
     - Synchronous
   summary: Retrieve a rule by ID
   description: Retrieves the details of a single rule specified by its unique ID.
@@ -31,15 +32,15 @@ get:
 
 post:
   tags:
+    - Experimental
     - Interfaces
     - OpenAccess
-    - Rules
+    - Prompting
     - Synchronous
   summary: Patch or remove a rule by ID
   description: Update or remove an existing rule specified by its unique ID.
   operationId: updateRuleById
-  security:
-    - PeerAuth: []
+  security: []
   parameters:
     - name: id
       in: path

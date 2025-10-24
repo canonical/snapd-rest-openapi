@@ -6,7 +6,7 @@ get:
     - Experimental
     - Interfaces
     - OpenAccess
-    - Prompts
+    - Prompting
     - Synchronous
   summary: Retrieve a prompt by ID
   description: |-
@@ -36,7 +36,7 @@ post:
     - Experimental
     - Interfaces
     - OpenAccess
-    - Prompts
+    - Prompting
     - Synchronous
   summary: Reply to a prompt
   description: |-

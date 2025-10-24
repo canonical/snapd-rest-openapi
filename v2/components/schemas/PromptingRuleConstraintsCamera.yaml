@@ -8,6 +8,7 @@ required:
 properties:
   permissions:
     type: object
-    description: A map from permission name to the information about that permission.
+    description: |-
+      A map linking the permission name to it's respective information.
     additionalProperties:
       $ref: './PromptingPermissionRuleEntry.yaml'

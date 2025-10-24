@@ -8,6 +8,6 @@ required:
 properties:
   action:
     type: string
-    description: The action to perform on the rule with the correlated ID.
+    description: The action to perform on the rule with the given ID.
     enum:
       - remove

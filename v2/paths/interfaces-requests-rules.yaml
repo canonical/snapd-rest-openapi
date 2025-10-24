@@ -3,12 +3,13 @@
 
 get:
   tags:
+    - Experimental
     - Interfaces
     - OpenAccess
-    - Rules
+    - Prompting
     - Synchronous
   summary: Retrieve all rules
-  description: Retrieves a list of all interface access rules, with optional filtering.
+  description: Retrieves a list of all prompting rules, with optional filtering.
   operationId: getRules
   security: []
   parameters:
@@ -39,15 +40,15 @@ get:
 
 post:
   tags:
+    - Experimental
     - Interfaces
     - OpenAccess
-    - Rules
+    - Prompting
     - Synchronous
   summary: Create or remove rules
   description: Create a new access rule or remove a set of existing rules based on a selector.
   operationId: manageRules
-  security:
-    - PeerAuth: []
+  security: []
   parameters:
     - $ref: '../components/parameters/UserId.yaml'
   requestBody:
