@@ -33,14 +33,14 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/schemas/Rule.yaml'
+              $ref: '../components/schemas/PromptingRule.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'
 
 post:
   tags:
     - Interfaces
-    - AuthenticationRequired
+    - OpenAccess
     - Rules
     - Synchronous
   summary: Create or remove rules
@@ -56,8 +56,8 @@ post:
       application/json:
         schema:
           oneOf:
-            - $ref: '../components/schemas/RuleActionAdd.yaml'
-            - $ref: '../components/schemas/RuleActionRemove.yaml'
+            - $ref: '../components/schemas/PromptingRuleActionAdd.yaml'
+            - $ref: '../components/schemas/PromptingRuleActionRemove.yaml'
   responses:
     200:
       description: The created rule (for 'add' action) or an array of removed rules (for 'remove' action).
@@ -65,9 +65,9 @@ post:
         application/json:
           schema:
             oneOf:
-              - $ref: '../components/schemas/Rule.yaml'
+              - $ref: '../components/schemas/PromptingRule.yaml'
               - type: array
                 items:
-                  $ref: '../components/schemas/Rule.yaml'
+                  $ref: '../components/schemas/PromptingRule.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'

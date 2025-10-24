@@ -8,4 +8,4 @@ properties:
     type: string
     description: Path glob matching filepaths for which the rule applies.
   permissions:
-    $ref: './Permissions.yaml'
+    $ref: './PromptingPermissionRuleEntry.yaml'

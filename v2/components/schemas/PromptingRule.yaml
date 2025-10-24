@@ -25,5 +25,5 @@ properties:
       - home
   constraints:
     oneOf:
-      - $ref: './RuleConstraintsCamera.yaml'
-      - $ref: './RuleConstraintsHome.yaml'
+      - $ref: './PromptingRuleConstraintsCamera.yaml'
+      - $ref: './PromptingRuleConstraintsHome.yaml'

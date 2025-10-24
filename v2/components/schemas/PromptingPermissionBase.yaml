@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: GPL-3.0
+ # SPDX-FileCopyrightText: Canonical Ltd
+   
+type: object
+required:
+  - outcome
+  - lifespan
+properties:
+  outcome:
+    type: string
+    enum:
+      - allow
+      - deny
+  lifespan:
+    type: string
+    enum:
+      - timespan
+      - session
+      - forever

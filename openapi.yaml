@@ -44,11 +44,11 @@ tags:
   - name: OpenAccess
     description: Do not require the user to authenticate.
   - name: Prompts
-    description:  Interact with interface prompts.
+    description:  Interact with the prompt system.
   - name: Root
     description: Requires the user to authenticate with root access.    # TODO Properly describe the difference between AuthenticationRequired and Root
   - name: Rules
-    description: Interact with interface rules.
+    description: Interact with prompting rules.
   - name: Snaps
     description: Interact with snaps.
   - name: Store
@@ -155,34 +155,40 @@ components:
       $ref: './v2/components/schemas/Progress.yaml'
     Prompt:
       $ref: './v2/components/schemas/Prompt.yaml'
-    PromptConstraintsCamera:
-      $ref: './v2/components/schemas/PromptConstraintsCamera.yaml'
-    PromptConstraintsHome:
-      $ref: './v2/components/schemas/PromptConstraintsHome.yaml'
+    PromptingConstraintsCamera:
+      $ref: './v2/components/schemas/PromptingConstraintsCamera.yaml'
+    PromptingConstraintsHome:
+      $ref: './v2/components/schemas/PromptingConstraintsHome.yaml'
+    PromptingPermissionBase:
+      $ref: './v2/components/schemas/PromptingPermissionBase.yaml'
+    PromptingPermissionEntry:
+      $ref: './v2/components/schemas/PromptingPermissionEntry.yaml'
+    PromptingPermissionRuleEntry:
+      $ref: './v2/components/schemas/PromptingPermissionRuleEntry.yaml'
+    PromptingReplyConstraintsCamera:
+      $ref: './v2/components/schemas/PromptingReplyConstraintsCamera.yaml'
+    PromptingReplyConstraintsHome:
+      $ref: './v2/components/schemas/PromptingReplyConstraintsHome.yaml'
+    PromptingRule:
+      $ref: './v2/components/schemas/PromptingRule.yaml'
+    PromptingRuleActionAdd:
+      $ref: './v2/components/schemas/PromptingRuleActionAdd.yaml'
+    PromptingRuleActionPatch:
+      $ref: './v2/components/schemas/PromptingRuleActionPatch.yaml'
+    PromptingRuleActionRemove:
+      $ref: './v2/components/schemas/PromptingRuleActionRemove.yaml'
+    PromptingRuleActionRemoveByID:
+      $ref: './v2/components/schemas/PromptingRuleActionRemoveById.yaml'
+    PromptingRuleConstraintsCamera:
+      $ref: './v2/components/schemas/PromptingRuleConstraintsCamera.yaml'
+    PromptingRuleConstraintsHome:
+      $ref: './v2/components/schemas/PromptingRuleConstraintsHome.yaml'
     PromptReply:
       $ref: './v2/components/schemas/PromptReply.yaml'
     Publisher:
       $ref: './v2/components/schemas/Publisher.yaml'
     QuotaGroup:
       $ref: './v2/components/schemas/QuotaGroup.yaml'
-    ReplyConstraintsCamera:
-      $ref: './v2/components/schemas/ReplyConstraintsCamera.yaml'
-    ReplyConstraintsHome:
-      $ref: './v2/components/schemas/ReplyConstraintsHome.yaml'
-    Rule:
-      $ref: './v2/components/schemas/Rule.yaml'
-    RuleActionAdd:
-      $ref: './v2/components/schemas/RuleActionAdd.yaml'
-    RuleActionPatch:
-      $ref: './v2/components/schemas/RuleActionPatch.yaml'
-    RuleActionRemove:
-      $ref: './v2/components/schemas/RuleActionRemove.yaml'
-    RuleActionRemoveByID:
-      $ref: './v2/components/schemas/RuleActionRemoveById.yaml'
-    RuleConstraintsCamera:
-      $ref: './v2/components/schemas/RuleConstraintsCamera.yaml'
-    RuleConstraintsHome:
-      $ref: './v2/components/schemas/RuleConstraintsHome.yaml'
     Slot:
       $ref: './v2/components/schemas/Slot.yaml'
     SlotRef:
@@ -233,7 +239,7 @@ paths:
     $ref: './v2/paths/apps.yaml'
   /v2/assertions:
     $ref: './v2/paths/assertions.yaml'
-  /v2/assertions/{assertionType}:
+  /v2/assertions/{assertion-type}:
     $ref: './v2/paths/assertions-type.yaml'
   /v2/changes:
     $ref: './v2/paths/changes.yaml'
@@ -248,17 +254,17 @@ paths:
   /v2/find:
     $ref: './v2/paths/find.yaml'
   /v2/icons/{name}/icon:
-    $ref: './v2/paths/icons-name.yaml'
+    $ref: './v2/paths/icons-name-icon.yaml'
   /v2/interfaces:
     $ref: './v2/paths/interfaces.yaml'
   /v2/interfaces/requests/prompts:
-    $ref: './v2/paths/prompts.yaml'
+    $ref: './v2/paths/interface-requests-prompts.yaml'
   /v2/interfaces/requests/prompts/{id}:
-    $ref: './v2/paths/prompts-id.yaml'
+    $ref: './v2/paths/interface-requests-prompts-id.yaml'
   /v2/interfaces/requests/rules:
-    $ref: './v2/paths/rules.yaml'
+    $ref: './v2/paths/interface-requests-rules.yaml'
   /v2/interfaces/requests/rules/{id}:
-    $ref: './v2/paths/rules-id.yaml'
+    $ref: './v2/paths/interface-requests-rules-id.yaml'
   /v2/login:
     $ref: './v2/paths/login.yaml'
   /v2/logout:
@@ -268,7 +274,7 @@ paths:
   /v2/model:
     $ref: './v2/paths/model.yaml'
   /v2/model/serial:
-    $ref: './v2/paths/serial.yaml'
+    $ref: './v2/paths/model-serial.yaml'
   /v2/notices:
     $ref: './v2/paths/notices.yaml'
   /v2/notices/{id}:
@@ -276,7 +282,7 @@ paths:
   /v2/quotas:
     $ref: './v2/paths/quotas.yaml'
   /v2/quotas/{group-name}:
-    $ref: './v2/paths/quotas-name.yaml'
+    $ref: './v2/paths/quotas-group-name.yaml'
   /v2/sections:
     $ref: './v2/paths/sections.yaml'
   /v2/snapctl:
@@ -290,7 +296,7 @@ paths:
   /v2/snapshots:
     $ref: './v2/paths/snapshots.yaml'
   /v2/snapshots/{set-id}/export:
-    $ref: './v2/paths/snapshots-export.yaml'
+    $ref: './v2/paths/snapshots-set-id-export.yaml'
   /v2/system/system-recovery-keys:
     $ref: './v2/paths/system-recovery-keys.yaml'
   /v2/systems:
@@ -304,6 +310,6 @@ paths:
   /v2/validation-sets:
     $ref: './v2/paths/validation-sets.yaml'
   /v2/validation-sets/{account-id}/{name}:
-    $ref: './v2/paths/validation-sets-name.yaml'
+    $ref: './v2/paths/validation-sets-account-id-name.yaml'
   /v2/warnings:
     $ref: './v2/paths/warnings.yaml'

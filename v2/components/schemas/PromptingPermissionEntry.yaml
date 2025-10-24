@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+   
+type: object
+allOf:
+  - $ref: './PromptingPermissionBase.yaml'
+  - type: object
+    properties:
+      duration:
+        type: string
+        format: duration
+        description: The duration for which the permission is valid.

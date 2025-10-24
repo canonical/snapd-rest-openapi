@@ -25,14 +25,14 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Rule.yaml'
+            $ref: '../components/schemas/PromptingRule.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'
 
 post:
   tags:
     - Interfaces
-    - AuthenticationRequired
+    - OpenAccess
     - Rules
     - Synchronous
   summary: Patch or remove a rule by ID
@@ -54,15 +54,15 @@ post:
       application/json:
         schema:
           oneOf:
-            - $ref: '../components/schemas/RuleActionPatch.yaml'
-            - $ref: '../components/schemas/RuleActionRemoveById.yaml'
+            - $ref: '../components/schemas/PromptingRuleActionPatch.yaml'
+            - $ref: '../components/schemas/PromptingRuleActionRemoveById.yaml'
   responses:
     200:
       description: The updated state of the rule, or its last state before deletion.
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Rule.yaml'
+            $ref: '../components/schemas/PromptingRule.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'
 

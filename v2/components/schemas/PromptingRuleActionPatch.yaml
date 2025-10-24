@@ -9,6 +9,7 @@ required:
 properties:
   action:
     type: string
+    description: The action to perform on the rule with the correlated ID.
     enum:
       - patch
   rule:
@@ -20,7 +21,5 @@ properties:
           path-pattern:
             type: string
           permissions:
-            type: object
-            additionalProperties:
-              nullable: true
-              $ref: './Permissions.yaml'
+            nullable: true
+            $ref: './PromptingPermissionRuleEntry.yaml'

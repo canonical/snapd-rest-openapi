@@ -9,12 +9,16 @@ required:
 properties:
   action:
     type: string
+    description: The action to perform on the rule.
     enum:
       - remove
   selector:
     type: object
+    description: Used to select rules for removal.
     properties:
       snap:
         type: string
+        description: The snap to use in the selector.
       interface:
         type: string
+        description: The interface to use in the selector.

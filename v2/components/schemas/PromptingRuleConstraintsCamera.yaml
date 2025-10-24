@@ -5,4 +5,4 @@ type: object
 description: Details about the applicability of the rule to requests.
 properties:
   permissions:
-    $ref: './Permissions.yaml'
+    $ref: './PromptingPermissionRuleEntry.yaml'

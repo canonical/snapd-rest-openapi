@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: GPL-3.0
+# SPDX-FileCopyrightText: Canonical Ltd
+
+type: object
+allOf:
+  - $ref: './PromptingPermissionBase.yaml'
+  - type: object
+    properties:
+      expiration:
+        type: string
+        format: date-time
+        description: The timestamp at which the permission will expire.
+      session-id:
+        type: string
+        description: The session ID for session-based permissions.
