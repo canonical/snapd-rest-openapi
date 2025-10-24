@@ -1,7 +1,7 @@
 # Updating the OpenAPI Specification
 
 In order to update the OpenAPI Specification, the following procedure should be
-followed to reduce the likelihood of errors occuring.
+followed to reduce the likelihood of errors occurring.
 
 ## 1. Identify Schema Files Requiring Updating
 
@@ -31,7 +31,7 @@ examples of this in the documentation are:
   functionality.
 - PromptConstraintsX, ReplyConstraintsX - The suffix denotes the interface the
 documentation refers to. In this case the prefix (e.g. Prompt/Reply) denotes
-that another divergence occured as a result of functionality.
+that another divergence occurred as a result of functionality.
 
 The copied file, with the modified name, should be updated to the new
 representation, and the required references should be updated to point
@@ -54,7 +54,7 @@ be needed.
 Paths are mostly composed of references to schemas and responses. For certain
 components, if they are not reused elsewhere, it is possible to define them
 inline within the path. For components defined inline, they are completely
-self contained, and as such chnages to these files do not propogate to other
+self contained, and as such changes to these files do not propagate to other
 dependencies.
 
 ## 4. OpenAPI.yaml
@@ -68,7 +68,7 @@ not be linted.
 
 The main OpenAPI.yaml file has tags that can be used to group operations.
 If a new tag is created, it will need to be applied to all relevant
-operations within thier respective path files.
+operations within their respective path files.
 
 ## 5. Security (If needed)
 The security files are a subset of schema that define the security requirements

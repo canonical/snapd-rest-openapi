@@ -44,7 +44,7 @@ The `v2/` directory contains the individual OpenAPI components:
 *   **components**: Reusable components like schemas, responses, and security schemes.
     *   **errors**: Defines the various error responses that the API can return.
     *   **parameters**: Defines reusable parameters for API operations.
-    **responses**: Defines reusable responses for API operations.
+*   **responses**: Defines reusable responses for API operations.
     *   **schemas**: Defines the data models used in the API.
     *   **security**: Defines the security schemes used by the API.
 *   **paths**: The individual API paths, with each file corresponding to an endpoint.
