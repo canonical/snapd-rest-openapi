@@ -3,18 +3,18 @@
     SPDX-License-Identifier: GPL-3.0-only
 -->
 
-# Updating the OpenAPI Specification
+# Updating the OpenAPI specification
 
 In order to update the OpenAPI Specification, the following procedure should be
 followed to reduce the likelihood of errors occurring.
 
-## 1. Identify Schema Files Requiring Updating
+## 1. Identify schema requiring updates
 
 The schema files are referenced from within other schemas, responses, and paths.
 As such, modifying these files will often have larger than intended effects on
 the documentation as a whole, and as such should be handled first.
 
-### 1.a Divergence of Schema
+### 1.1 Divergence of schema
 
 The following example will use 3 files, defined below:
 - File A: A schema that is referenced by File B and C.
@@ -42,13 +42,13 @@ The copied file, with the modified name, should be updated to the new
 representation, and the required references should be updated to point
 to the modified file.
 
-## 2. Update Responses and Errors
+## 2. Update responses and errors
 After the required schemas have been updated, the next files to target should be
 responses. These rely on schemas, and errors (see below), and are relied upon by
 paths. If the code changes made modify the output a user sees (e.g. with 'snap
 debug api') then a response file likely needs updating.
 
-### 2.a Error Updating
+### 2.1 Updating error schema
 Errors are a subset of Schemas used solely by responses, and are thus tied
 to a path indirectly through the use of response references. If new errors have
 been added, or existing errors require modification, these generally do not
@@ -64,7 +64,7 @@ dependencies.
 
 ## 4. OpenAPI.yaml
 The master record of every file in the project. Every schema, response, error,
-and path are defined here with a tag. Technically, for the project to pass
+and path is defined here with an assigned name. Technically, for the project to pass
 linting, all that is needed are certain metadata blocks, and a path, that
 individually passes linting. If a path is added, it will not be linted unless
 it is defined in the main OpenAPI.yaml file. If a schema is not referenced
@@ -75,11 +75,11 @@ The main OpenAPI.yaml file has tags that can be used to group operations.
 If a new tag is created, it will need to be applied to all relevant
 operations within their respective path files.
 
-## 5. Security (If needed)
+## 5. Security (if needed)
 The security files are a subset of schema that define the security requirements
 required to interact with an operation. They are defined per operation in a path
 file. The currently documented schema are:
 - OpenAccess ([]) - denoted by empty brackets, means there are no authentication
 requirements for the operation.
 - PeerAuth - Describes how the daemon uses unix peer socket authentication to
-ensure user has proper permission for using an operation.
+ensure the user has proper permission for using an operation.
