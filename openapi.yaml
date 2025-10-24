@@ -264,13 +264,13 @@ paths:
   /v2/interfaces:
     $ref: './v2/paths/interfaces.yaml'
   /v2/interfaces/requests/prompts:
-    $ref: './v2/paths/interface-requests-prompts.yaml'
+    $ref: './v2/paths/interfaces-requests-prompts.yaml'
   /v2/interfaces/requests/prompts/{id}:
-    $ref: './v2/paths/interface-requests-prompts-id.yaml'
+    $ref: './v2/paths/interfaces-requests-prompts-id.yaml'
   /v2/interfaces/requests/rules:
-    $ref: './v2/paths/interface-requests-rules.yaml'
+    $ref: './v2/paths/interfaces-requests-rules.yaml'
   /v2/interfaces/requests/rules/{id}:
-    $ref: './v2/paths/interface-requests-rules-id.yaml'
+    $ref: './v2/paths/interfaces-requests-rules-id.yaml'
   /v2/login:
     $ref: './v2/paths/login.yaml'
   /v2/logout:
