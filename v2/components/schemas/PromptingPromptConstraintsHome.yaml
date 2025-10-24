@@ -5,6 +5,8 @@ type: object
 description: Represents the constraints associated with a prompt for the home interface.
 required:
   - path
+  - requested-permissions
+  - available-permissions
 properties:
   path:
     type: string

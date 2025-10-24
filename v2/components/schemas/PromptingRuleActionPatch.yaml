@@ -16,10 +16,6 @@ properties:
     type: object
     properties:
       constraints:
-        type: object
-        properties:
-          path-pattern:
-            type: string
-          permissions:
-            nullable: true
-            $ref: './PromptingPermissionRuleEntry.yaml'
+        oneOf:
+          - $ref: ./PromptingPatchConstraintsCamera.yaml
+          - $ref: ./PromptingPatchConstraintsHome.yaml

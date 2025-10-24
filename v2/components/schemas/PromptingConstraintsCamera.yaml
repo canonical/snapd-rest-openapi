@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 type: object
-description: Details about the applicability of the existing rule to requests.
+description: Details about the applicability of the new rule to requests.
 required:
   - permissions
 properties:
@@ -10,4 +10,4 @@ properties:
     type: object
     description: A map from permission name to the information about that permission.
     additionalProperties:
-      $ref: './PromptingPermissionRuleEntry.yaml'
+      $ref: './PromptingPermissionEntry.yaml'

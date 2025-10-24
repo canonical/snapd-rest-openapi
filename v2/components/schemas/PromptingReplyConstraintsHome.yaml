@@ -3,6 +3,9 @@
 
 type: object
 description: Represents the constraints associated with a reply to a prompt for the home interface.
+required:
+  - path-pattern
+  - permissions
 properties:
   path-pattern:
     type: string
