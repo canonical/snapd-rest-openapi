@@ -17,10 +17,10 @@ properties:
     properties:
       snap:
         type: string
-        description: The snap to add the rule to.
+        description: The snap for which to add the rule.
       interface:
         type: string
-        description: The interface to add the rule to.
+        description: The interface for which to add the rule.
       constraints:
         oneOf:
           - $ref: './PromptingConstraintsCamera.yaml'
