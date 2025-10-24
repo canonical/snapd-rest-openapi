@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 parameters:
-  - name: assertionType
+  - name: assertion-type
     in: path
     required: true
     description: The type of assertion to retrieve.

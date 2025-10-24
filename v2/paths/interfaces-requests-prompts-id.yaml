@@ -6,7 +6,7 @@ get:
     - Experimental
     - Interfaces
     - OpenAccess
-    - Prompts
+    - Prompting
     - Synchronous
   summary: Retrieve a prompt by ID
   description: |-
@@ -27,7 +27,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Prompt.yaml'
+            $ref: '../components/schemas/PromptingPrompt.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'
 
@@ -36,7 +36,7 @@ post:
     - Experimental
     - Interfaces
     - OpenAccess
-    - Prompts
+    - Prompting
     - Synchronous
   summary: Reply to a prompt
   description: |-
@@ -57,7 +57,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../components/schemas/PromptReply.yaml'
+          $ref: '../components/schemas/PromptingReply.yaml'
   responses:
     200:
       description: An array of prompt IDs that were also satisfied by this reply.

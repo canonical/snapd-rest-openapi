@@ -5,7 +5,8 @@ get:
   tags:
     - Experimental
     - Interfaces
-    - Prompts
+    - OpenAccess
+    - Prompting
     - Sync
   summary: Retrieve all outstanding prompts
   description: Retrieves a list of all outstanding access request prompts.
@@ -21,6 +22,6 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/schemas/Prompt.yaml'
+              $ref: '../components/schemas/PromptingPrompt.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'

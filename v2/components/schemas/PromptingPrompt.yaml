@@ -2,6 +2,12 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 type: object
+required:
+  - id
+  - timestamp
+  - snap
+  - interface
+  - constraints
 properties:
   id:
     type: string
@@ -21,5 +27,5 @@ properties:
       - camera
   constraints:
     oneOf:    # TODO look into mapping interface name to oneOf instances
-      - $ref: ./PromptConstraintsCamera.yaml
-      - $ref: ./PromptConstraintsHome.yaml
+      - $ref: ./PromptingPromptConstraintsCamera.yaml
+      - $ref: ./PromptingPromptConstraintsHome.yaml
