@@ -27,7 +27,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../components/schemas/Prompt.yaml'
+            $ref: '../components/schemas/PromptingPrompt.yaml'
     404:
       $ref: '../components/responses/NotFound.yaml'
 

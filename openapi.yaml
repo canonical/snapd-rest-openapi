@@ -153,18 +153,18 @@ components:
       $ref: './v2/components/schemas/PlugRef.yaml'
     Progress:
       $ref: './v2/components/schemas/Progress.yaml'
-    Prompt:
-      $ref: './v2/components/schemas/Prompt.yaml'
-    PromptingConstraintsCamera:
-      $ref: './v2/components/schemas/PromptingConstraintsCamera.yaml'
-    PromptingConstraintsHome:
-      $ref: './v2/components/schemas/PromptingConstraintsHome.yaml'
     PromptingPermissionBase:
       $ref: './v2/components/schemas/PromptingPermissionBase.yaml'
     PromptingPermissionEntry:
       $ref: './v2/components/schemas/PromptingPermissionEntry.yaml'
     PromptingPermissionRuleEntry:
       $ref: './v2/components/schemas/PromptingPermissionRuleEntry.yaml'
+    PromptingPrompt:
+      $ref: './v2/components/schemas/PromptingPrompt.yaml'
+    PromptingPromptConstraintsCamera:
+      $ref: './v2/components/schemas/PromptingPromptConstraintsCamera.yaml'
+    PromptingPromptConstraintsHome:
+      $ref: './v2/components/schemas/PromptingPromptConstraintsHome.yaml'
     PromptingReplyConstraintsCamera:
       $ref: './v2/components/schemas/PromptingReplyConstraintsCamera.yaml'
     PromptingReplyConstraintsHome:
