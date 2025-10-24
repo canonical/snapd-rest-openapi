@@ -171,6 +171,8 @@ components:
       $ref: './v2/components/schemas/PromptingPromptConstraintsCamera.yaml'
     PromptingPromptConstraintsHome:
       $ref: './v2/components/schemas/PromptingPromptConstraintsHome.yaml'
+    PromptingReply:
+      $ref: './v2/components/schemas/PromptingReply.yaml'
     PromptingReplyConstraintsCamera:
       $ref: './v2/components/schemas/PromptingReplyConstraintsCamera.yaml'
     PromptingReplyConstraintsHome:
@@ -189,8 +191,6 @@ components:
       $ref: './v2/components/schemas/PromptingRuleConstraintsCamera.yaml'
     PromptingRuleConstraintsHome:
       $ref: './v2/components/schemas/PromptingRuleConstraintsHome.yaml'
-    PromptReply:
-      $ref: './v2/components/schemas/PromptReply.yaml'
     Publisher:
       $ref: './v2/components/schemas/Publisher.yaml'
     QuotaGroup:
