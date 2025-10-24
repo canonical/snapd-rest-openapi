@@ -21,7 +21,7 @@ jobs:
             - name: Build generated documentation
               run: redocly build-docs ./openapi.yaml
             - name: Store generated artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v5
               with:
                   name: api-docs
                   path: redoc-static.html
