@@ -1,3 +1,8 @@
+<!--
+    SPDX-FileCopyrightText: 2025 Canonical Ltd
+    SPDX-License-Identifier: GPL-3.0-only
+-->
+
 # Updating the OpenAPI Specification
 
 In order to update the OpenAPI Specification, the following procedure should be
