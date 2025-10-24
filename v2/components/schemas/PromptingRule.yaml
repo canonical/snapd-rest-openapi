@@ -3,6 +3,13 @@
 
 type: object
 description: An object describing the structure of a rule.
+required:
+  - id
+  - timestamp
+  - user
+  - snap
+  - interface
+  - constraints
 properties:
   id:
     type: string
