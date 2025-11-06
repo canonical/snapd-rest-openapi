@@ -35,14 +35,17 @@ properties:
   activators:
     type: array
     items:
-      $ref: './Activator.yaml'
+      - $ref: './Activator.yaml'
 example:
-  snap: lxd
-  name: daemon
-  daemon: simple
-  enabled: true
-  activators:
-    - name: unix
-      type: socket
-      active: true
-      enabled: true
+  - snap: spotify
+    name: spotify
+    desktop-file: /path/to/file.desktop
+  - snap: lxd
+    name: daemon
+    daemon: simple
+    enabled: true
+    activators:
+      - name: unix
+        type: socket
+        active: true
+        enabled: true

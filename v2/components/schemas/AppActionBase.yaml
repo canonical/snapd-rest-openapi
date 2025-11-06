@@ -14,7 +14,9 @@ properties:
     description: A list of names of snaps (e.g. "lxd") or specific apps (e.g. "lxd.daemon") to operate on.
     items:
       type: string
-    example: [lxd, spotify]
+    example:
+      - [lxd]
+      - [lxd, spotify]
   scope:
     type: array
     items:
@@ -31,5 +33,8 @@ properties:
         type: string
         description: |-
           Internally converted to an integer by the servers marshalling/unmarshalling process
-        example: user0, user1
+        example:
+          - [user0, user1]
+          - "self"
+          - "all"
 

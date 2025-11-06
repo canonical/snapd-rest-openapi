@@ -18,7 +18,7 @@ get:
       description: The unique ID of the notice to retrieve.
       schema:
         type: string
-        example: '74'
+        example: 74
   responses:
     200:
       description: |-

@@ -23,7 +23,7 @@ content:
         change:
           type: string
           description: The ID of the background change that was initiated. This is a string because JSON only uses floats.
-          example: '61'
+          example: 61
         result:
           type: object
           nullable: true

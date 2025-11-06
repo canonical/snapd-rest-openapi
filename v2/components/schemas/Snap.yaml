@@ -21,7 +21,7 @@ properties:
     type: array
     items:
       type: string
-      example: code.desktop
+    example: code.desktop
   confinement:
     type: string
     enum:

@@ -5,4 +5,5 @@ type: object
 properties:
   message:
     type: string
-    example: 'cannot create user user@canonical.com: cannot find user user@canonical.com'
+    example:
+      - 'cannot create user user@canonical.com: cannot find user user@canonical.com'

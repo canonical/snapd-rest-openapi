@@ -46,7 +46,7 @@ properties:
     type: boolean
   label:
     type: string
-    example: '20240603'
+    example: 20240603
   model:
     type: object
     properties:

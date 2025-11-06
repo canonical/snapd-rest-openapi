@@ -38,7 +38,7 @@ post:
             otp:
               type: string
               description: A one-time password for two-factor authentication.
-              example: '123456'
+              example: 123456
   responses:
     200:
       description: A synchronous response containing the result of the login information.

@@ -44,11 +44,11 @@ get:
                   - 200
               status:
                 type: string
-                enum:
+                example:
                   - OK
               type:
                 type: string
-                enum:
+                example:
                   - sync
               result:
                 type: array

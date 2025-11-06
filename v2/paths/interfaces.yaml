@@ -46,7 +46,8 @@ get:
         snaps, plugs, or slots.
       schema:
         type: string
-        example: content, network
+        example:
+          - content
   responses:
     200:
       description: |-   # TODO Investigate whether discriminator can be used to map input parameter to oneOf result

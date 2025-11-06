@@ -30,10 +30,10 @@ post:
               description: An array of snap names to create cohorts for.
               items:
                 type: string
-              example:
-                - libreoffice
-                - lxd
-                - multipass
+                example:
+                  - libreoffice
+                  - lxd
+                  - multipass
   responses:
     200:
       description: A map of snap names to their newly created cohort keys.

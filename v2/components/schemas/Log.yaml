@@ -19,4 +19,4 @@ properties:
   pid:
     type: string
     description: The process ID associated with the log entry.
-    example: '2062'
+    example: 2062

@@ -40,7 +40,9 @@ post:
               description: A list of arguments to pass to snapctl.
               items:
                 type: string
-              example: [get, username]
+              example: 
+                - [get, username]
+                - [fde-setup-result]
             stdin:
               type: string
               description: |-
