@@ -14,5 +14,4 @@ properties:
   message:
     type: string
     description: Human-readable string describing the error.
-    example:
-      - "cannot get 'ssid' through canonical/network/wifi-setup: no data"
+    example: "cannot get 'ssid' through canonical/network/wifi-setup: no data"

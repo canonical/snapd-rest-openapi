@@ -31,5 +31,4 @@ properties:
   suggested-currency:
     type: string
     description: The suggested currency for any pricing information.
-    example:
-      - USD
+    example: USD

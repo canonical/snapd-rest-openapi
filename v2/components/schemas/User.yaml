@@ -16,9 +16,7 @@ properties:
   username:
     type: string
     description: The local username associated with this account.
-    example: 
-      - user2
-      - local-username
+    example: user2
   email:
     type: string
     format: email

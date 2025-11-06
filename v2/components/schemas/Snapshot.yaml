@@ -28,7 +28,7 @@ properties:
   revision:
     type: string
     description: The revision of the snap at the time of the snapshot.
-    example: 355
+    example: '355'
   version:
     type: string
     description: The version of the snap at the time of the a snapshot.

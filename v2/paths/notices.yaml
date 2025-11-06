@@ -25,15 +25,17 @@ get:
           $ref: '../components/schemas/NoticeType.yaml'
     - name: keys
       in: query
-      description: If specified, only return notices with one of the given keys.
+      description: |-
+        If specified, only return notices with one of the given keys.
+        Keys can be of the following formats:
+        - 74
+        - '-'
+        - libreoffice
       schema:
         type: array
         items:
           type: string
-          example:
-            - 74
-            - '-'
-            - libreoffice
+          example: '74'
     - name: after
       in: query
       description: |-
@@ -171,8 +173,7 @@ post:
                     type: string
                     description: |-
                       The ID of the newly-created notice.
-                    example:
-                      - 74
+                    example: '74'
 
     400:
       $ref: '../components/responses/BadRequest.yaml'
