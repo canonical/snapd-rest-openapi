@@ -5,6 +5,4 @@ type: object
 properties:
   message:
     type: string
-    example:
-      - no snapshot set with the given ID
-      - local snap has no icon
+    example: no snapshot set with the given ID

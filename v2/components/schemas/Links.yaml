@@ -9,21 +9,19 @@ properties:
     items:
       type: string
       format: uri
-      example:
-        - mailto:robert.fudge@canonical.com
-        - https://discourse.example.com/c/support
+    example:
+      - mailto:user@canonical.com
+      - https://discourse.example.com/c/support
   website:
     type: array
     items:
       type: string
       format: uri
-      example:
-        - https://canonical.com
+      example: https://canonical.com
 additionalProperties:
   type: array
+  description: Allows for other link collections like 'issues', 'docs', etc.
   items:
     type: string
     format: uri
-  description: Allows for other link collections like 'issues', 'docs', etc.
-  example:
-    - 'https://github.com/user/repo/issues'
+    example: 'https://github.com/user/repo/issues'

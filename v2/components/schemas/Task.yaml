@@ -8,11 +8,11 @@ properties:
   id:
     type: string
     description: The unique ID for this task.
-    example: 1502
+    example: '1502'
   kind:
     type: string
     description: A code describing what type of task this is.
-    example:
+    enum:
       - check-rerefresh
       - cleanup
       - clear-snap
@@ -73,7 +73,8 @@ properties:
     description: Additional data related to the task, structure depends on the 'kind'.
   log:
     type: array
+    description: A log of events that occurred during the task.
     items:
       type: string
-    description: A log of events that occurred during the task.
-    example: 2025-09-18T08:43:59-02:30 INFO No re-refreshes found.
+      description: A single log entry.
+      example: 2025-09-18T08:43:59-02:30 INFO No re-refreshes found.

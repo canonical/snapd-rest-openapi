@@ -27,6 +27,4 @@ content:
           properties:
             message:
               type: string
-              example: 
-                - method 'GET' not allowed 
-                - system user administration via snapd is not allowed on this system
+              example: system user administration via snapd is not allowed on this system
