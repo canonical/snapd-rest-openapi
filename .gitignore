@@ -2,3 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-only
 
 redoc-static.html
+redoc-static-dark.yaml
+openapi-bundled.yaml
+visuals/
