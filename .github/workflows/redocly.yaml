@@ -9,19 +9,25 @@ jobs:
     redocly:
         runs-on: ubuntu-latest
         name: Lint and build
-        container:
-            image: redocly/cli
-            volumes:
-                - .:/spec
         steps:
             - name: Checkout
               uses: actions/checkout@v5
             - name: Check API specification
-              run: redocly lint ./openapi.yaml
+              uses: docker://redocly/cli
+              with:
+                args: lint ./openapi.yaml
             - name: Build generated documentation
-              run: redocly build-docs ./openapi.yaml
+              uses: docker://redocly/cli
+              with:
+                args: build-docs ./openapi.yaml
+            - name: Create dark mode version
+              run: |
+                cp redoc-static.html redoc-static-dark.html
+                python3 tools/post-process.py redoc-static-dark.html tools/dark-theme.css "</head>"
             - name: Store generated artifact
               uses: actions/upload-artifact@v5
               with:
                   name: api-docs
-                  path: redoc-static.html
+                  path: |
+                    redoc-static.html
+                    redoc-static-dark.html
