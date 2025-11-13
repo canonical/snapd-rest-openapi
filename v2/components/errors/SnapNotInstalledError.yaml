@@ -13,13 +13,8 @@ properties:
   message:
     type: string
     description: Human-readable string describing the error.
-    example:
-      - no state entry for key
-      - snap 'ubuntu-frame' is not installed
+    example: no state entry for key
   value:
     type: string
     description: Value passed that triggered the error.
-    example:
-      - firefox
-      - core24
-      - multipass
+    example: firefox

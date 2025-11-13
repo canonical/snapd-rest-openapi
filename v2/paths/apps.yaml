@@ -30,8 +30,7 @@ get:
       description: Comma-separated list of snap names to get apps for.
       schema:
         type: string
-        example:
-          - [spotify,lxd]
+        example: spotify, lxd
   responses:
     200:
       description: A synchronous response containing the connection status of plugs and slots.

@@ -26,13 +26,10 @@ get:
         default: 10
     - name: names
       in: query
-      description: Comma-seperated list of snap names to filter by.
+      description: Comma-separated list of snap names to filter by.
       schema:
         type: string
-        example:
-          - multipass
-          - lxd
-          - multipass,lxd
+        example: multipass,lxd
   responses:
     200:
       description: A stream of log messages. Each line is a self-contained JSON object.

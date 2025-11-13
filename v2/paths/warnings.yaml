@@ -59,7 +59,7 @@ post:
     - Warnings
   summary: Respond to warnings
   description: |-
-    Warnings can only be acknowleged to clear them, but they may reoccur
+    Warnings can only be acknowledged to clear them, but they may reoccur
     Acknowledging warnings does not fix the underlying cause.
   operationId: respondToWarnings
   security:

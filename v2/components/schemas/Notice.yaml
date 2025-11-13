@@ -7,15 +7,13 @@ properties:
   id:
     type: string
     description: The unique ID of the notice.
-    example: 67
+    example: '67'
   user-id:
     type: integer
     nullable: true
     description: |-
       The UID of the user who may view the notice, or null if public.
-    example: 
-      - null
-      - 0xFFEE1122
+    example: 0xFFEE1122
   type:
     $ref: './NoticeType.yaml'
   key:
@@ -23,13 +21,13 @@ properties:
     description: |-
       An identifier which differentiates notices of this type. Notices recorded
       with the type and key of an existing notice count as an occurrence of that
-      notice.
-    example:
+      notice. Notice keys can take the form of the following:
+
       - 63
-      - 'the snapd apparmor service is disabled; snap applications will likely not start.'
-      - ABCDABCDABCDABCD
       - '-'
-      - libreoffice
+      - 'libreoffice'
+      - 'ABCDABCDABCDABCD'
+    example: ABCDABCDABCDABCD
   first-occurred:
     type: string
     format: date-time

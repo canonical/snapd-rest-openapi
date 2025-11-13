@@ -49,7 +49,7 @@ post:
     JSON command. The only supported action is `forget`, which causes the
     system to unregister its current serial and prepare for a new one.
   externalDocs:
-    description: Read more about offline remodelling on the Ubuntu Core documentation.
+    description: Read more about offline remodeling on the Ubuntu Core documentation.
     url: https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline
   operationId: setSerialAssertion
   security:

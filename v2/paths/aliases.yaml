@@ -66,10 +66,10 @@ get:
                         status:
                           type: string
                           description: |
-                            Status describes the status of the alias. The value 'maniual' indicates that the
+                            Status describes the status of the alias. The value 'manual' indicates that the
                             status was created manually by the user. The status 'disabled' indicates the user
                             manually removed the alias (it will not be re-created automatically by snapd).
-                            The status 'auto' indictates that the alias was created automatically by snapd.
+                            The status 'auto' indicates that the alias was created automatically by snapd.
                           enum:
                             - auto
                             - manual
