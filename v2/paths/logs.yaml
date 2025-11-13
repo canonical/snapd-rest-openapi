@@ -26,7 +26,7 @@ get:
         default: 10
     - name: names
       in: query
-      description: Comma-seperated list of snap names to filter by.
+      description: Comma-separated list of snap names to filter by.
       schema:
         type: string
         example: multipass,lxd

@@ -53,7 +53,7 @@ post:
     assertion and all required snaps and other files are provided directly in
     the request.
   externalDocs:
-    description: Read more about offline remodelling on the Ubuntu Core documentation.
+    description: Read more about offline remodeling on the Ubuntu Core documentation.
     url: https://documentation.ubuntu.com/core/explanation/remodelling/index.html#heading--offline
   operationId: setModelAssertion
   security:
@@ -67,7 +67,7 @@ post:
       application/json:
         schema:
           description: |-
-            Used for online remodelling. The request body is a JSON object
+            Used for online remodeling. The request body is a JSON object
             containing the new model assertion.
           type: object
           required:
@@ -95,7 +95,7 @@ post:
       multipart/form-data:
         schema:
           description: |-
-            Used for offline remodelling to sideload the assertion and all
+            Used for offline remodeling to sideload the assertion and all
             required files (e.g., snaps) in a single request, avoiding the need to
             download them from the store.
           type: object
