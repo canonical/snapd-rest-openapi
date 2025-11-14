@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2025 Canonical Ltd
+# SPDX-License-Identifier: GPL-3.0-only
+
+name: Visualization
+on:
+    push:
+    pull_request:
+jobs:
+    visualization:
+        runs-on: ubuntu-latest
+        name: Generate visuals
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v5
+            - name: Install graphviz
+              run: sudo apt-get update && sudo apt-get install -y graphviz
+            - name: Generate visuals
+              run: make visuals
+            - name: Store light visuals artifact
+              uses: actions/upload-artifact@v5
+              with:
+                  name: visuals-light
+                  path: visuals/light/
+            - name: Store dark visuals artifact
+              uses: actions/upload-artifact@v5
+              with:
+                  name: visuals-dark
+                  path: visuals/dark/
