@@ -9,8 +9,6 @@ A complete reimplementation of the [snapd REST API
 documentation](https://snapcraft.io/docs/snapd-api) using the [OpenAPI 3]
 (https://swagger.io/specification/) specification.
 
-[GitHub Pages preview with Swagger](https://degville.github.io/snapd-rest-openapi/).
-
 ## Existing process
 
 The [snapd](https://github.com/canonical/snapd/) REST API documentation is
@@ -69,7 +67,7 @@ The `v2/` directory contains the individual OpenAPI components:
 
 The `tools` directory contains files used to perform additional functionality:
 *   **visualize.py**: Generates graphs showing the relation between
-    endpoints and their dependency schemas. All endpoints possesing the
+    endpoints and their dependency schemas. All endpoints possessing the
     same tag will be grouped in the same graph.
 *   **post-process.py**: Injects formatting into the generated webpage.
     Currently used to create dark mode documentation webpage.

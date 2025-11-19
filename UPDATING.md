@@ -91,22 +91,20 @@ file. The currently documented schema are:
   from the previous documentation.
 
 ## 6. Theming
-The project currently utilizes [Redocly](https://redocly.com/) for the
-documentation bundling and generation. While the version used supports theming,
-a subscription is required to define more than one theme, and certain features
-such as switching themes based on system preference, custom footers, etc. are
-disabled in the free version. To address the concerns this introduces, the
-following post-processing solution is in place.
+The project utilizes [Redocly](https://redocly.com/) for the documentation
+bundling and generation. We tweak the default bundle with the following
+post-processing steps to allow for theming changes, and for both light
+and dark compatible display modes:
 1. Once the API contents have been updated in the documentation, begin by
   viewing the output and ensuring it generates as intended. If it does not, use
   `redocly.yaml`, located in the root directory of the project, to modify the
   light mode webpage to the desired page formatting.
-2. After ensuring the light mode displays in a desireable layout with the
+2. After ensuring the light mode displays in a desirable layout with the
   appropriate formatting, view the dark mode page. If there are any
   inconsistencies, weird coloring, etc. proceed to the next step.
 3. To modify the expression of dark mode, the build process uses the file
   `tools/post-process.py` to apply the contents of `tools/dark-theme.css`
-  to the project. To chnage the expression of dark mode:
+  to the project. To change the expression of dark mode:
     - Modify `tools/post-process.py` if there is additional formatting changes
     that should be made to the dark mode version of the webpage.
     - Modify `tools/dark-theme.css` to change the colors that are applied to the
