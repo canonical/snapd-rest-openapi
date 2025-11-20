@@ -11,7 +11,7 @@ jobs:
         name: Lint and build
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
             - name: Check API specification
               uses: docker://redocly/cli
               with:
