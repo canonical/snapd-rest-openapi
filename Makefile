@@ -12,17 +12,16 @@ REUSE_CMD = docker run --rm -v "$(CURDIR):/spec" -w /spec fsfe/reuse
 all: lint build visuals
 
 # Run all linting checks. This target calls the specific linters.
-lint: lint-api lint-reuse
+lint: clean lint-api lint-reuse
 
 # Build the static HTML documentation.
 build:
+	touch redoc-static.html
 	@echo "--- Building documentation... ---"
 	$(REDOCLY_CMD) build-docs ./openapi.yaml
 	@echo "--- Documentation built successfully: redoc-static.html ---"
-	@echo "--- Creating dark mode version... ---"
-	cp redoc-static.html redoc-static-dark.html
-	@echo "--- Injecting dark theme CSS into dark mode version... ---"
-	python3 tools/post-process.py redoc-static-dark.html tools/dark-theme.css "</head>"
+	@echo "--- Injecting dark theme CSS... ---"
+	python3 tools/post-process.py redoc-static.html tools/dark-theme.css "</head>"
 
 # Clean up generated files.
 clean: clean-build clean-visuals
@@ -30,7 +29,7 @@ clean: clean-build clean-visuals
 
 clean-build:
 	@echo "--- Removing generated documentation... ---"
-	@rm -f redoc-static.html redoc-static-dark.html
+	@rm -f redoc-static.html
 
 clean-visuals:
 	@echo "--- Removing generated visuals... ---"
