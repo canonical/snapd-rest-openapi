@@ -16,6 +16,9 @@ jobs:
               uses: docker://redocly/cli
               with:
                 args: lint ./openapi.yaml
+            - name: Create blank HTML file
+              run: |
+                touch redoc-static.html
             - name: Build generated documentation
               uses: docker://redocly/cli
               with:
