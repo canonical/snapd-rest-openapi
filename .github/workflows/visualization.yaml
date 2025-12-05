@@ -11,7 +11,7 @@ jobs:
         name: Generate visuals
         steps:
             - name: Checkout
-              uses: actions/checkout@v5
+              uses: actions/checkout@v6
             - name: Install graphviz
               run: sudo apt-get update && sudo apt-get install -y graphviz
             - name: Generate visuals
