@@ -13,7 +13,6 @@ statically generated Redoc documentation.
 import argparse
 import sys
 
-
 def inject_html(file_path: str, html_content: str, html_to_inject: str, target_tag: str) -> str:
     """
     Injects a string of HTML into a file before a specified closing tag.
