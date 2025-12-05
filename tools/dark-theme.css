@@ -21,9 +21,9 @@
   body[data-theme="dark"] input,
   body[data-theme="dark"] select,
   body[data-theme="dark"] textarea {
-    background-color: #333 !important;
-    color: #fff !important;
-    border: 1px solid #555 !important;
+    background-color: #303030 !important;
+    color: #f0f0f0 !important;
+    border: 1px solid #505050 !important;
   }
 
   /* Fix SVG icons (arrows) */
@@ -42,12 +42,12 @@
     --color-foreground-secondary: var(--color-foreground-primary) !important;
     --color-foreground-muted: #CDCDCD !important;
     --color-background-secondary: var(--color-background-primary) !important;
-    --color-background-hover: #666 !important;
+    --color-background-hover: #606060 !important;
     --color-brand-primary: #fff !important;
-    --color-brand-content: #69C !important;
+    --color-brand-content: #6090C0 !important;
     --color-sidebar-link-text: #f7f7f7 !important;
-    --color-sidebar-item-background--current: #666 !important;
-    --color-sidebar-item-background--hover: #333 !important;
+    --color-sidebar-item-background--current: #606060 !important;
+    --color-sidebar-item-background--hover: #303030 !important;
     --color-admonition-background: transparent !important;
     --color-admonition-title-background--note: var(--color-background-primary) !important;
     --color-admonition-title-background--tip: var(--color-background-primary) !important;
@@ -57,7 +57,7 @@
     --color-admonition-title--tip: #24598F !important;
     --color-admonition-title--important: #C7162B !important;
     --color-admonition-title--caution: #F99B11 !important;
-    --color-highlighted-background: #666 !important;
+    --color-highlighted-background: #606060 !important;
     --color-version-popup: #F29879 !important;
   }
 }

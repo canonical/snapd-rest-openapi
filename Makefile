@@ -16,11 +16,11 @@ lint: clean lint-api lint-reuse
 
 # Build the static HTML documentation.
 build:
-	touch redoc-static.html
 	@echo "--- Building documentation... ---"
 	$(REDOCLY_CMD) build-docs ./openapi.yaml
 	@echo "--- Documentation built successfully: redoc-static.html ---"
 	@echo "--- Injecting dark theme CSS... ---"
+	sudo chown ${USER} redoc-static.html
 	python3 tools/post-process.py redoc-static.html tools/dark-theme.css "</head>"
 
 # Clean up generated files.

@@ -16,15 +16,13 @@ jobs:
               uses: docker://redocly/cli
               with:
                 args: lint ./openapi.yaml
-            - name: Create blank HTML file
-              run: |
-                touch redoc-static.html
             - name: Build generated documentation
               uses: docker://redocly/cli
               with:
                 args: build-docs ./openapi.yaml
             - name: Create dark mode version
               run: |
+                sudo chown $USER redoc-static.html
                 python3 tools/post-process.py redoc-static.html tools/dark-theme.css "</head>"
             - name: Store generated artifact
               uses: actions/upload-artifact@v5
