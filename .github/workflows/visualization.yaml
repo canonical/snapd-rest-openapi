@@ -17,12 +17,12 @@ jobs:
             - name: Generate visuals
               run: make visuals
             - name: Store light visuals artifact
-              uses: actions/upload-artifact@v5
+              uses: actions/upload-artifact@v6
               with:
                   name: visuals-light
                   path: visuals/light/
             - name: Store dark visuals artifact
-              uses: actions/upload-artifact@v5
+              uses: actions/upload-artifact@v6
               with:
                   name: visuals-dark
                   path: visuals/dark/
