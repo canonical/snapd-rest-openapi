@@ -123,6 +123,8 @@ components:
       $ref: './v2/components/schemas/AssertionResult.yaml'
     Change:
       $ref: './v2/components/schemas/Change.yaml'
+    ConfdbControlAction:
+      $ref: './v2/components/schemas/ConfdbControlAction.yaml'
     Connection:
       $ref: './v2/components/schemas/Connection.yaml'
     ConnectionStatus:
@@ -251,6 +253,8 @@ paths:
     $ref: './v2/paths/changes-id.yaml'
   /v2/cohorts:
     $ref: './v2/paths/cohorts.yaml'
+  /v2/confdb:
+    $ref: './v2/paths/confdb-control.yaml'
   /v2/confdb/{account}/{confdb-schema}/{view}:
     $ref: './v2/paths/confdb.yaml'
   /v2/connections:
