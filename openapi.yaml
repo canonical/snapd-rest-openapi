@@ -123,6 +123,8 @@ components:
       $ref: './v2/components/schemas/AssertionResult.yaml'
     Change:
       $ref: './v2/components/schemas/Change.yaml'
+    ConfdbControlAction:
+      $ref: './v2/components/schemas/ConfdbControlAction.yaml'
     Connection:
       $ref: './v2/components/schemas/Connection.yaml'
     ConnectionStatus:

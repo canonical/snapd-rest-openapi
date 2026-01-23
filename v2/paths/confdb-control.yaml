@@ -25,14 +25,7 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
-            - $ref: '../components/schemas/ConfdbControlDelegate.yaml'
-            - $ref: '../components/schemas/ConfdbControlUndelegate.yaml'
-          discriminator:
-            propertyName: action
-            mapping:
-              delegate: '../components/schemas/ConfdbControlDelegate.yaml'
-              undelegate: '../components/schemas/ConfdbControlUndelegate.yaml'
+          $ref: '../components/schemas/ConfdbControlAction.yaml'
         examples:
           delegate:
             summary: Delegate access to an operator
