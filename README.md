@@ -5,6 +5,9 @@
 
 # snapd-rest-openapi
 
+This repsoitory has been archived and is no longer being updated.
+To view the latest SnapD OpenAPI specification, [click here](https://github.com/canonical/snapd/tree/master/docs/api)
+
 A complete reimplementation of the [snapd REST API
 documentation](https://snapcraft.io/docs/snapd-api) using the [OpenAPI 3]
 (https://swagger.io/specification/) specification.
